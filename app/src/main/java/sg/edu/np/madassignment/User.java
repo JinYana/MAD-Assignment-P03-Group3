@@ -1,12 +1,21 @@
 package sg.edu.np.madassignment;
 
 public class User {
-    public String getName() {
-        return name;
+
+    public int getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getDescription() {
@@ -17,24 +26,27 @@ public class User {
         this.description = description;
     }
 
-    public int getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public boolean isFollowed() {
-        return followed;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFollowed(boolean followed) {
-        this.followed = followed;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String name;
-    public String description;
+
     public int id;
-    public boolean followed;
+    public String username;
+    public String description;
+    public String password;
+    public String email;
+
 }

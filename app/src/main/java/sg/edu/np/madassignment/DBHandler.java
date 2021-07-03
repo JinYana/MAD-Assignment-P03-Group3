@@ -15,22 +15,18 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final int VERSION = 1;
     private static final String DATABASE = "users.db";
 
-    public DBHandler(@Nullable Context context) {
+
+
+    public DBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE, null, VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create = "CREATE TABLE user (name TEXT, description TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT, followed INTEGER)";
+        String create = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, Username TEXT, Description TEXT, Password TEXT, Email TEXT)";
         db.execSQL(create);
 
-        for(int i=0; i<20; i++)
-        {
-            ContentValues c = new ContentValues();
-            c.put("name", "Name" + new Random().nextInt());
-            c.put("description","Description " + new Random().nextInt());
-            db.insert("user", null, c);
-        }
+
     }
 
     @Override
@@ -48,10 +44,13 @@ public class DBHandler extends SQLiteOpenHelper {
         while(cursor.moveToNext())
         {
             User u = new User();
-            u.name = cursor.getString(0);
-            u.description = cursor.getString(1);
-            u.id = cursor.getInt(2);
-            u.followed = cursor.getInt(3)==0?false:true;
+            u.id = cursor.getInt(0);
+            u.username = cursor.getString(1);
+            u.description = cursor.getString(2);
+            u.password = cursor.getString(3);
+            u.email = cursor.getString(4);
+
+
 
             list.add(u);
         }
@@ -60,11 +59,51 @@ public class DBHandler extends SQLiteOpenHelper {
         return list;
     }
 
+    public void addUser(User user)
+    {
+        ContentValues  values = new ContentValues();
+        values.put("Username", user.getUsername());
+        values.put("Password", user.getPassword());
+        values.put("Email", user.getEmail());
+        values.put("Description", user.getDescription());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert("user", null, values);
+        db.close();
+    }
+
+    public User findUser(String username) {
+        String query = "SELECT * FROM user" + " WHERE Username" +
+                "=\"" + username + "\"";
+
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        User queryData = new User();
+
+        if (cursor.moveToFirst())
+        {
+
+            queryData.setUsername(cursor.getString(0));
+            queryData.setPassword(cursor.getString(1));
+            cursor.close();
+
+        }
+        else
+        {
+            queryData = null;
+        }
+        db.close();
+        return queryData;
+    }
+
     public void updateUser(User u)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("followed", u.followed);
+
         int count = db.update("user", values, "id = ?", new String[]{ "" + u.id });
 
         db.close();
