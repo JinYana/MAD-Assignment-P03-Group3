@@ -86,8 +86,11 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst())
         {
 
-            queryData.setUsername(cursor.getString(0));
-            queryData.setPassword(cursor.getString(1));
+            queryData.setId(cursor.getInt(0));
+            queryData.setUsername(cursor.getString(1));
+            queryData.setDescription(cursor.getString(2));
+            queryData.setPassword(cursor.getString(3));
+            queryData.setEmail(cursor.getString(4));
             cursor.close();
 
         }
