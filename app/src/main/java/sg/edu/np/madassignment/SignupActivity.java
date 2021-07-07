@@ -80,6 +80,7 @@ public class SignupActivity extends AppCompatActivity {
                     dbUser.setPassword(dbPassword);
                     dbUser.setEmail(dbEmail);
                     dbUser.setDescription("-");
+                    dbUser.setLevel(1);
                     dbHandler.addUser(dbUser);
                     Toast.makeText(SignupActivity.this, "New User Created!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignupActivity.this, LoginActivity.class);

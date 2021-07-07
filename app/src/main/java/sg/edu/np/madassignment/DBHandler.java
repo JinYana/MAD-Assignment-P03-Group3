@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.Random;
+
 
 public class DBHandler extends SQLiteOpenHelper {
     private static final int VERSION = 1;
@@ -23,7 +23,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, Username TEXT, Description TEXT, Password TEXT, Email TEXT)";
+        String create = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, Username TEXT, Description TEXT, Password TEXT, Email TEXT, Level INTEGER)";
         db.execSQL(create);
 
 
@@ -49,6 +49,7 @@ public class DBHandler extends SQLiteOpenHelper {
             u.description = cursor.getString(2);
             u.password = cursor.getString(3);
             u.email = cursor.getString(4);
+            u.level = cursor.getInt(5);
 
 
 
@@ -66,6 +67,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put("Password", user.getPassword());
         values.put("Email", user.getEmail());
         values.put("Description", user.getDescription());
+        values.put("Level", user.getLevel());
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("user", null, values);
@@ -91,6 +93,7 @@ public class DBHandler extends SQLiteOpenHelper {
             queryData.setDescription(cursor.getString(2));
             queryData.setPassword(cursor.getString(3));
             queryData.setEmail(cursor.getString(4));
+            queryData.setLevel(cursor.getInt(5));
             cursor.close();
 
         }

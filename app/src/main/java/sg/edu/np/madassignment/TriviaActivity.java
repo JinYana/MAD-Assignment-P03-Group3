@@ -50,6 +50,7 @@ public class TriviaActivity extends AppCompatActivity {
         SharedPreferences prefs = 	getSharedPreferences("Gameinfo", MODE_PRIVATE);
         totalscore = prefs.getInt("Score", 0);
         totalquestionsanswered = prefs.getInt("QuestionsAnswered", 0);
+        String token = prefs.getString("token", "");
 
         LottieAnimationView checkmark = findViewById(R.id.checkmark);
         checkmark.setVisibility(View.GONE);
@@ -74,9 +75,18 @@ public class TriviaActivity extends AppCompatActivity {
         allbuttons.add(answer3);
         allbuttons.add(answer4);
 
+        Intent receive = getIntent();
+
+        String gameid = receive.getStringExtra("gameid");
+
+        if(gameid == null){
+            Log.d("Debug", "wrong");
+
+        }
+
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple";
+        String url ="https://opentdb.com/api.php?amount=1&category=" + gameid + "&difficulty=easy&type=multiple&token=" + token;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
 

@@ -42,11 +42,21 @@ public class User {
         this.email = email;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
 
     public int id;
     public String username;
     public String description;
     public String password;
     public String email;
+    public int level;
+
 
 }
