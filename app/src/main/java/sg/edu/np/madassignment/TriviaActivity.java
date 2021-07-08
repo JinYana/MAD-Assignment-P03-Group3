@@ -16,9 +16,6 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -26,7 +23,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -52,7 +48,7 @@ public class TriviaActivity extends AppCompatActivity {
         totalquestionsanswered = prefs.getInt("QuestionsAnswered", 0);
         String token = prefs.getString("token", "");
 
-        LottieAnimationView checkmark = findViewById(R.id.checkmark);
+        LottieAnimationView checkmark = findViewById(R.id.trophy);
         checkmark.setVisibility(View.GONE);
 
         LottieAnimationView cross = findViewById(R.id.cross);
@@ -86,7 +82,7 @@ public class TriviaActivity extends AppCompatActivity {
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://opentdb.com/api.php?amount=1&category=" + gameid + "&difficulty=easy&type=multiple&token=" + token;
+        String url ="https://opentdb.com/api.php?amount=1&category=" + gameid + "&type=multiple&token=" + token;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
 
@@ -146,11 +142,11 @@ public class TriviaActivity extends AppCompatActivity {
                                 startActivity(getIntent());
                             }
                             else {
-
                                 SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
-                                editor.clear();
-                                editor.apply();
-                                Intent intent = new Intent(TriviaActivity.this, MainPage.class);
+
+                                editor.putInt("Score", totalscore + 1);
+                                editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
+                                Intent intent = new Intent(TriviaActivity.this, TriviaEndActivity.class);
                                 startActivity(intent);
                             };
                         }
@@ -196,10 +192,9 @@ public class TriviaActivity extends AppCompatActivity {
                                 }
                                 else {
                                     SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
-                                    editor.clear();
-                                    editor.apply();
+                                    editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
 
-                                    Intent intent = new Intent(TriviaActivity.this, MainPage.class);
+                                    Intent intent = new Intent(TriviaActivity.this, TriviaEndActivity.class);
                                     startActivity(intent);
                                 }
 
@@ -230,7 +225,7 @@ public class TriviaActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("Debug", "start");
+        Log.d("Debug", "starting");
     }
 
     @Override
