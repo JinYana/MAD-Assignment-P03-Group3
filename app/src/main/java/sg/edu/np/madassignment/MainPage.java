@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -63,6 +64,17 @@ public class MainPage extends AppCompatActivity {
         ImageButton cartoon = findViewById(R.id.cartoon);
         ImageButton sport = findViewById(R.id.sport);
 
+        Button logout = findViewById(R.id.logout);
+
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainPage.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 
@@ -73,6 +85,7 @@ public class MainPage extends AppCompatActivity {
                 SharedPreferences.Editor gameeditor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
                 gameeditor.putInt("QuestionsAnswered", 0);
                 gameeditor.putInt("Score", 0);
+                gameeditor.apply();
 
                 Intent intent = new Intent(MainPage.this, TriviaActivity.class);
                 intent.putExtra("gameid", "15");

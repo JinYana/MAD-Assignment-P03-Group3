@@ -43,5 +43,7 @@ public class TriviaEndActivity extends AppCompatActivity {
         int playerscore = prefs.getInt("Score", 0);
 
         score.setText("Score: " + playerscore + "/10");
+        SharedPreferences.Editor gameeditor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+        gameeditor.putInt("Score", 0);
     }
 }

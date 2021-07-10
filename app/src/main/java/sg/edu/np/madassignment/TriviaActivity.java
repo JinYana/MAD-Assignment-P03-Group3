@@ -10,6 +10,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +71,22 @@ public class TriviaActivity extends AppCompatActivity {
         allbuttons.add(answer2);
         allbuttons.add(answer3);
         allbuttons.add(answer4);
+
+        ImageButton close = findViewById(R.id.closebutton);
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor gameeditor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+                gameeditor.putInt("QuestionsAnswered", 0);
+                gameeditor.putInt("Score", 0);
+                gameeditor.apply();
+                Intent intent = new Intent(TriviaActivity.this, MainPage.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         Intent receive = getIntent();
 
@@ -146,6 +163,7 @@ public class TriviaActivity extends AppCompatActivity {
 
                                 editor.putInt("Score", totalscore + 1);
                                 editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
+                                editor.apply();
                                 Intent intent = new Intent(TriviaActivity.this, TriviaEndActivity.class);
                                 startActivity(intent);
                             };
@@ -193,6 +211,7 @@ public class TriviaActivity extends AppCompatActivity {
                                 else {
                                     SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
                                     editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
+                                    editor.apply();
 
                                     Intent intent = new Intent(TriviaActivity.this, TriviaEndActivity.class);
                                     startActivity(intent);
