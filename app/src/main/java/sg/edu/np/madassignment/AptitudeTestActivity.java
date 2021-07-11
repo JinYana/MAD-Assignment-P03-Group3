@@ -1,5 +1,6 @@
 package sg.edu.np.madassignment;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,7 +11,6 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,29 +27,43 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TriviaActivity extends AppCompatActivity {
+public class AptitudeTestActivity extends AppCompatActivity {
     Random random = new Random();
     int totalscore = 0;
     int totalquestionsanswered = 0;
 
     CountDownTimer cdt;
 
+    int loopCat = 0 ;
 
 
+
+
+
+
+
+
+    // add to list //pass to viewapt
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trivia);
+        setContentView(R.layout.activity_aptitude_test);
 
-        SharedPreferences prefs = 	getSharedPreferences("Gameinfo", MODE_PRIVATE);
-        totalscore = prefs.getInt("Score", 0);
-        totalquestionsanswered = prefs.getInt("QuestionsAnswered", 0);
-        String token = prefs.getString("token", "");
+        SharedPreferences prefs = 	getSharedPreferences("catGameinfo", MODE_PRIVATE);
+        totalscore = prefs.getInt("AptScore", 0);
+        totalquestionsanswered = prefs.getInt("AptQuestionsAnswered", 0);
+        loopCat = prefs.getInt("loopCat",0);
 
-        LottieAnimationView checkmark = findViewById(R.id.trophy);
+
+
+
+
+
+
+        LottieAnimationView checkmark = findViewById(R.id.checkmark);
         checkmark.setVisibility(View.GONE);
 
         LottieAnimationView cross = findViewById(R.id.cross);
@@ -59,7 +73,7 @@ public class TriviaActivity extends AppCompatActivity {
 
         TextView question = findViewById(R.id.Aptquestion);
         TextView score = findViewById(R.id.score);
-        score.setText( totalscore + "/10");
+        score.setText( totalscore + "/4");
 
         Button answer1 = findViewById(R.id.Aptanswer1);
         Button answer2 = findViewById(R.id.Aptanswer2);
@@ -72,34 +86,31 @@ public class TriviaActivity extends AppCompatActivity {
         allbuttons.add(answer3);
         allbuttons.add(answer4);
 
-        ImageButton close = findViewById(R.id.closebutton);
 
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences.Editor gameeditor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
-                gameeditor.putInt("QuestionsAnswered", 0);
-                gameeditor.putInt("Score", 0);
-                gameeditor.apply();
-                Intent intent = new Intent(TriviaActivity.this, CategoryActivity.class);
-                startActivity(intent);
-            }
-        });
+        ArrayList<Integer> categoryCode = new ArrayList<Integer>();
+        categoryCode.add(31);//anime
+        categoryCode.add(18);//computers
+        categoryCode.add(19);//math
+        categoryCode.add(27);//animals
+        categoryCode.add(20);//mythology
+        categoryCode.add(32);//cartoon
+        categoryCode.add(21);//sports
+        categoryCode.add(15);//video games
 
 
 
-        Intent receive = getIntent();
+        ArrayList<Integer> eachCatScoreList =  new ArrayList<Integer>();
 
-        String gameid = receive.getStringExtra("gameid");
 
-        if(gameid == null){
-            Log.d("Debug", "wrong");
 
-        }
+
+
+
 
         // Instantiate the RequestQueue.
+
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://opentdb.com/api.php?amount=1&category=" + gameid + "&type=multiple&token=" + token;
+        String url ="https://opentdb.com/api.php?amount=4&type=multiple" + "&category=" + categoryCode.get(loopCat).toString() ;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
 
@@ -138,7 +149,7 @@ public class TriviaActivity extends AppCompatActivity {
 
             correctbutton.setText(Html.fromHtml(correctans));
 
-        correctbutton.setOnClickListener(new View.OnClickListener() {
+            correctbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     checkmark.setVisibility(View.VISIBLE);
@@ -149,24 +160,43 @@ public class TriviaActivity extends AppCompatActivity {
                         }
 
                         public void onFinish() {
-                            if(totalquestionsanswered < 9){
+                            if(totalquestionsanswered < 1){
 
 
-                                SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
-                                editor.putInt("Score", totalscore + 1);
-                                editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
+                                SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
+                                editor.putInt("AptScore", totalscore + 1);
+                                editor.putInt("AptQuestionsAnswered", totalquestionsanswered + 1);
                                 editor.apply();
                                 startActivity(getIntent());
                             }
                             else {
-                                SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
 
-                                editor.putInt("Score", totalscore + 1);
-                                editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
+                                SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
+                                editor.putInt("loopCat" ,loopCat + 1);
+                                editor.remove("AptScore");
+                                editor.remove("AptQuestionsAnswered");
+                                editor.putInt(String.valueOf(loopCat),totalscore);
                                 editor.apply();
-                                Intent intent = new Intent(TriviaActivity.this, TriviaEndActivity.class);
-                                startActivity(intent);
-                            };
+
+                                loopCat += 1;
+
+
+
+                                if (loopCat>7){
+                                    editor.putInt(String.valueOf(loopCat),totalscore);
+
+                                    editor.apply();
+
+                                    Intent intent  = new Intent(AptitudeTestActivity.this,ViewAptitudeResultActivity.class);
+
+                                    startActivity(intent);
+
+
+                                }
+
+                                startActivity(getIntent());
+
+                            }
                         }
                     }.start();
 
@@ -200,21 +230,38 @@ public class TriviaActivity extends AppCompatActivity {
 
                             @Override
                             public void onFinish() {
-                                if(totalquestionsanswered < 9){
+                                if(totalquestionsanswered < 1){
 
-                                    SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
-                                    editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
+                                    SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
+                                    editor.putInt("AptQuestionsAnswered", totalquestionsanswered + 1);
                                     editor.apply();
+
+
 
                                     startActivity(getIntent());
                                 }
                                 else {
-                                    SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
-                                    editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
+                                    SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
+                                    editor.putInt("loopCat" ,loopCat + 1);
+                                    editor.remove("AptScore");
+                                    editor.remove("AptQuestionsAnswered");
+                                    editor.putInt(String.valueOf(loopCat),totalscore);
                                     editor.apply();
+                                    loopCat += 1;
+                                    editor.putInt(String.valueOf(loopCat),totalscore);
 
-                                    Intent intent = new Intent(TriviaActivity.this, TriviaEndActivity.class);
-                                    startActivity(intent);
+
+
+                                    if (loopCat>7){
+
+
+                                        Intent intent  = new Intent(AptitudeTestActivity.this,ViewAptitudeResultActivity.class);
+
+                                        startActivity(intent);
+                                    }
+
+                                    startActivity(getIntent());
+
                                 }
 
                             }
@@ -226,7 +273,7 @@ public class TriviaActivity extends AppCompatActivity {
             }
 
 
-        }, error -> Toast.makeText(TriviaActivity.this, "something wrong", Toast.LENGTH_SHORT).show());
+        }, error -> Toast.makeText(AptitudeTestActivity.this, "something wrong", Toast.LENGTH_SHORT).show());
 
         queue.add(request);
 
@@ -244,7 +291,7 @@ public class TriviaActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("Debug", "starting");
+        Log.d("Debug", "start");
     }
 
     @Override
@@ -257,7 +304,7 @@ public class TriviaActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d("Debug", "destroy");
-        SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
         editor.clear();
         editor.apply();
 

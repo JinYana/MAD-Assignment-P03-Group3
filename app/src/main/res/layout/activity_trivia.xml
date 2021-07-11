@@ -38,7 +38,7 @@
         app:lottie_rawRes="@raw/cross" />
 
     <TextView
-        android:id="@+id/question"
+        android:id="@+id/Aptquestion"
         android:layout_width="351dp"
         android:layout_height="155dp"
         android:layout_marginTop="52dp"
@@ -51,7 +51,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/answer1"
+        android:id="@+id/Aptanswer1"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
@@ -66,12 +66,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/question"
+        app:layout_constraintTop_toBottomOf="@+id/Aptquestion"
         app:rippleColor="#F8F8F8"
         app:strokeColor="#919191" />
 
     <Button
-        android:id="@+id/answer3"
+        android:id="@+id/Aptanswer3"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
@@ -86,12 +86,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/answer2"
+        app:layout_constraintTop_toTopOf="@+id/Aptanswer2"
         app:rippleColor="#F8F8F8"
         app:strokeColor="#919191" />
 
     <Button
-        android:id="@+id/answer2"
+        android:id="@+id/Aptanswer2"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
@@ -106,12 +106,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/answer1"
+        app:layout_constraintTop_toTopOf="@+id/Aptanswer1"
         app:rippleColor="#F8F8F8"
         app:strokeColor="#919191" />
 
     <Button
-        android:id="@+id/answer4"
+        android:id="@+id/Aptanswer4"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
@@ -126,7 +126,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/answer3"
+        app:layout_constraintTop_toTopOf="@+id/Aptanswer3"
         app:rippleColor="#F8F8F8"
         app:strokeColor="#919191" />
 
