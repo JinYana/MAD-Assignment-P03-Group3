@@ -26,6 +26,7 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity {
 
     Button loginButton;
+
     DBHandler dbHandler = new DBHandler(this, null, null, 1);
 
     @Override
@@ -34,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         TextView newSignup = findViewById(R.id.newsignup);
+
+
 
 
 
