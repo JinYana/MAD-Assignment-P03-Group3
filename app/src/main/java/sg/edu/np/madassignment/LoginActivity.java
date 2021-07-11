@@ -11,21 +11,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class LoginActivity extends AppCompatActivity {
 
     Button loginButton;
+
     DBHandler dbHandler = new DBHandler(this, null, null, 1);
 
     @Override
@@ -34,6 +23,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         TextView newSignup = findViewById(R.id.newsignup);
+
+
 
 
 
@@ -56,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                 //compare username and password
                 if(isValidCredentials(etUsername.getText().toString(), etPassword.getText().toString()))
                 {
-                    Intent intent = new Intent(LoginActivity.this, MainPage.class);
+                    Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
                     startActivity(intent);
                     Toast.makeText(LoginActivity.this, "Valid Credentials", Toast.LENGTH_SHORT).show();
                 }
