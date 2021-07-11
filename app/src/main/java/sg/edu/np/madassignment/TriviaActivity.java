@@ -81,7 +81,7 @@ public class TriviaActivity extends AppCompatActivity {
                 gameeditor.putInt("QuestionsAnswered", 0);
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
-                Intent intent = new Intent(TriviaActivity.this, MainPage.class);
+                Intent intent = new Intent(TriviaActivity.this, CategoryActivity.class);
                 startActivity(intent);
             }
         });

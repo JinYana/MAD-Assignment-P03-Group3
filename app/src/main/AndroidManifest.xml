@@ -11,12 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MADAssignment">
-        <activity android:name=".ViewAptitudeResultActivity"></activity>
-        <activity android:name=".AptitudeTestActivity" />
+        <activity android:name=".ViewAptitudeResultActivity" />
         <activity android:name=".TriviaEndActivity" />
         <activity android:name=".TriviaActivity" />
         <activity
-            android:name=".MainPage"
+            android:name=".CategoryActivity"
             android:launchMode="singleInstance" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity">

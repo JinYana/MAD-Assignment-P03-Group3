@@ -31,7 +31,7 @@ public class TriviaEndActivity extends AppCompatActivity {
         backtohome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TriviaEndActivity.this, MainPage.class);
+                Intent intent = new Intent(TriviaEndActivity.this, CategoryActivity.class);
                 startActivity(intent);
             }
         });

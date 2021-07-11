@@ -1,13 +1,14 @@
 package sg.edu.np.madassignment;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -15,17 +16,34 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 
-public class MainPage extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity {
     String token = " ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page);
+        setContentView(R.layout.activity_category_page);
         Log.v("Debug", "create");
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+
+                    case R.id.page_2:
+                        Intent a = new Intent(CategoryActivity.this,ViewAptitudeResultActivity.class);
+                        startActivity(a);
+                        break;
+
+                }
+                return false;
+            }
+        });
 
 
         // Instantiate the RequestQueue
@@ -50,7 +68,7 @@ public class MainPage extends AppCompatActivity {
             }
 
 
-        }, error -> Toast.makeText(MainPage.this, "something wrong", Toast.LENGTH_SHORT).show());
+        }, error -> Toast.makeText(CategoryActivity.this, "something wrong", Toast.LENGTH_SHORT).show());
 
         queue.add(request);
 
@@ -64,16 +82,15 @@ public class MainPage extends AppCompatActivity {
         ImageButton cartoon = findViewById(R.id.cartoon);
         ImageButton sport = findViewById(R.id.sport);
 
-        Button logout = findViewById(R.id.logout);
 
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainPage.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
+
+
+
+
+
 
 
 
@@ -87,7 +104,7 @@ public class MainPage extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
-                Intent intent = new Intent(MainPage.this, TriviaActivity.class);
+                Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "15");
 
                 startActivity(intent);
@@ -104,7 +121,7 @@ public class MainPage extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
-                Intent intent = new Intent(MainPage.this, TriviaActivity.class);
+                Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "18");
 
                 startActivity(intent);
@@ -119,7 +136,7 @@ public class MainPage extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
-                Intent intent = new Intent(MainPage.this, TriviaActivity.class);
+                Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "19");
 
                 startActivity(intent);
@@ -134,7 +151,7 @@ public class MainPage extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
-                Intent intent = new Intent(MainPage.this, TriviaActivity.class);
+                Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "20");
 
                 startActivity(intent);
@@ -150,7 +167,7 @@ public class MainPage extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
-                Intent intent = new Intent(MainPage.this, TriviaActivity.class);
+                Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "31");
 
                 startActivity(intent);
@@ -166,7 +183,7 @@ public class MainPage extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
-                Intent intent = new Intent(MainPage.this, TriviaActivity.class);
+                Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "27");
 
                 startActivity(intent);
@@ -182,7 +199,7 @@ public class MainPage extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
-                Intent intent = new Intent(MainPage.this, TriviaActivity.class);
+                Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "32");
 
                 startActivity(intent);
@@ -198,7 +215,7 @@ public class MainPage extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
-                Intent intent = new Intent(MainPage.this, TriviaActivity.class);
+                Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "21");
 
                 startActivity(intent);
