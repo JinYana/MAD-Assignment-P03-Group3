@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#353535"
+    tools:context=".AptitudeTestActivity">
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/checkmark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.318"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/checkmark" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/cross"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.318"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/cross" />
+
+    <TextView
+        android:id="@+id/Aptquestion"
+        android:layout_width="350dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="52dp"
+        android:gravity="center"
+        android:textColor="#FDFDFD"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Aptanswer1"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="302dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="128dp"
+        android:textColor="#DDDDDD"
+        app:backgroundTint="#353535"
+        app:backgroundTintMode="src_over"
+        app:cornerRadius="5dp"
+        app:elevation="100dp"
+        app:iconTint="#FDFDFD"
+        app:iconTintMode="src_over"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Aptquestion"
+        app:rippleColor="#F8F8F8"
+        app:strokeColor="#919191" />
+
+    <Button
+        android:id="@+id/Aptanswer3"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="302dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="100dp"
+        android:textColor="#DDDDDD"
+        app:backgroundTint="#353535"
+        app:backgroundTintMode="src_over"
+        app:cornerRadius="5dp"
+        app:elevation="100dp"
+        app:iconTint="#FDFDFD"
+        app:iconTintMode="src_over"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Aptanswer2"
+        app:rippleColor="#F8F8F8"
+        app:strokeColor="#919191" />
+
+    <Button
+        android:id="@+id/Aptanswer2"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="302dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="100dp"
+        android:textColor="#DDDDDD"
+        app:backgroundTint="#353535"
+        app:backgroundTintMode="src_over"
+        app:cornerRadius="5dp"
+        app:elevation="100dp"
+        app:iconTint="#FDFDFD"
+        app:iconTintMode="src_over"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Aptanswer1"
+        app:rippleColor="#F8F8F8"
+        app:strokeColor="#919191" />
+
+    <Button
+        android:id="@+id/Aptanswer4"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="302dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="100dp"
+        android:textColor="#DDDDDD"
+        app:backgroundTint="#353535"
+        app:backgroundTintMode="src_over"
+        app:cornerRadius="5dp"
+        app:elevation="100dp"
+        app:iconTint="#FDFDFD"
+        app:iconTintMode="src_over"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Aptanswer3"
+        app:rippleColor="#F8F8F8"
+        app:strokeColor="#919191" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
