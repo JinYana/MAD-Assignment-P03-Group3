@@ -110,7 +110,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
         // Instantiate the RequestQueue.
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://opentdb.com/api.php?amount=4&difficulty=easy&type=multiple" + "&category=" + categoryCode.get(loopCat).toString() ;
+        String url ="https://opentdb.com/api.php?amount=4&type=multiple" + "&category=" + categoryCode.get(loopCat).toString() ;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
 
@@ -173,20 +173,24 @@ public class AptitudeTestActivity extends AppCompatActivity {
 
                                 SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
                                 editor.putInt("loopCat" ,loopCat + 1);
-                                //editor.putInt(String.valueOf(loopCat),totalscore);
-                                //eachCatScoreList.add(totalscore);
                                 editor.remove("AptScore");
                                 editor.remove("AptQuestionsAnswered");
+                                editor.putInt(String.valueOf(loopCat),totalscore);
                                 editor.apply();
+
                                 loopCat += 1;
 
 
 
                                 if (loopCat>7){
-                                    editor.remove("loopCat");
+                                    editor.putInt(String.valueOf(loopCat),totalscore);
+
+                                    editor.apply();
+
                                     Intent intent  = new Intent(AptitudeTestActivity.this,ViewAptitudeResultActivity.class);
-                                    // intent.putIntegerArrayListExtra("ScoreList",eachCatScoreList);
+
                                     startActivity(intent);
+
 
                                 }
 
@@ -232,25 +236,27 @@ public class AptitudeTestActivity extends AppCompatActivity {
                                     editor.putInt("AptQuestionsAnswered", totalquestionsanswered + 1);
                                     editor.apply();
 
+
+
                                     startActivity(getIntent());
                                 }
                                 else {
                                     SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
                                     editor.putInt("loopCat" ,loopCat + 1);
-                                    // editor.putInt(String.valueOf(loopCat),totalscore);
-                                    //eachCatScoreList.add(totalscore);
                                     editor.remove("AptScore");
                                     editor.remove("AptQuestionsAnswered");
+                                    editor.putInt(String.valueOf(loopCat),totalscore);
                                     editor.apply();
                                     loopCat += 1;
+                                    editor.putInt(String.valueOf(loopCat),totalscore);
 
 
 
                                     if (loopCat>7){
-                                        editor.remove("loopCat");
+
 
                                         Intent intent  = new Intent(AptitudeTestActivity.this,ViewAptitudeResultActivity.class);
-                                        //intent.putIntegerArrayListExtra("ScoreList",eachCatScoreList);
+
                                         startActivity(intent);
                                     }
 
