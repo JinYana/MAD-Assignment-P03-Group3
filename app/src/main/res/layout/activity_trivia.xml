@@ -39,7 +39,7 @@
     <TextView
         android:id="@+id/question"
         android:layout_width="350dp"
-        android:layout_height="125dp"
+        android:layout_height="155dp"
         android:layout_marginTop="52dp"
         android:gravity="center"
         android:textColor="#FDFDFD"
@@ -54,7 +54,7 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="120dp"
         android:textColor="#DDDDDD"
         app:backgroundTint="#353535"
         app:backgroundTintMode="src_over"
@@ -90,31 +90,11 @@
         app:strokeColor="#919191" />
 
     <Button
-        android:id="@+id/answer2"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="302dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="100dp"
-        android:textColor="#DDDDDD"
-        app:backgroundTint="#353535"
-        app:backgroundTintMode="src_over"
-        app:cornerRadius="5dp"
-        app:elevation="100dp"
-        app:iconTint="#FDFDFD"
-        app:iconTintMode="src_over"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/answer1"
-        app:rippleColor="#F8F8F8"
-        app:strokeColor="#919191" />
-
-    <Button
         android:id="@+id/answer4"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="92dp"
         android:textColor="#DDDDDD"
         app:backgroundTint="#353535"
         app:backgroundTintMode="src_over"
@@ -129,6 +109,26 @@
         app:rippleColor="#F8F8F8"
         app:strokeColor="#919191" />
 
+    <Button
+        android:id="@+id/answer2"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="302dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="104dp"
+        android:textColor="#DDDDDD"
+        app:backgroundTint="#353535"
+        app:backgroundTintMode="src_over"
+        app:cornerRadius="5dp"
+        app:elevation="100dp"
+        app:iconTint="#FDFDFD"
+        app:iconTintMode="src_over"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/answer1"
+        app:rippleColor="#F8F8F8"
+        app:strokeColor="#919191" />
+
     <TextView
         android:id="@+id/score"
         android:layout_width="0dp"
@@ -140,4 +140,5 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

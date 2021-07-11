@@ -29,27 +29,31 @@ import org.json.JSONObject;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
+
 
 public class TriviaActivity extends AppCompatActivity {
+    private final static String TAG = "Trivia Activity";
+
     Random random = new Random();
     int totalscore = 0;
     int totalquestionsanswered = 0;
 
+
+
     CountDownTimer cdt;
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trivia);
 
         SharedPreferences prefs = 	getSharedPreferences("Gameinfo", MODE_PRIVATE);
         totalscore = prefs.getInt("Score", 0);
         totalquestionsanswered = prefs.getInt("QuestionsAnswered", 0);
+
+        Log.v(TAG, "Total Score " +totalscore + "/" +totalquestionsanswered);
 
         LottieAnimationView checkmark = findViewById(R.id.checkmark);
         checkmark.setVisibility(View.GONE);
@@ -61,7 +65,8 @@ public class TriviaActivity extends AppCompatActivity {
 
         TextView question = findViewById(R.id.question);
         TextView score = findViewById(R.id.score);
-        score.setText( totalscore + "/10");
+        //score.setText( totalscore + "/10");
+        score.setText( totalquestionsanswered + 1 + "/10");
 
         Button answer1 = findViewById(R.id.answer1);
         Button answer2 = findViewById(R.id.answer2);
@@ -76,21 +81,25 @@ public class TriviaActivity extends AppCompatActivity {
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple";
+        String url ="https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
 
+            Log.v(TAG, "Start Over");
+
             JSONObject triviainfo ;
+            String triviaCategory = " ";
             String questiontext = " ";
             String correctans = " ";
             ArrayList<String> wrongans = new ArrayList<String>();
 
-
             try {
+                Log.v(TAG, "Executing API");
                 //extracting values from the JSON response
                 JSONArray results = response.getJSONArray("results");
 
                 triviainfo = results.getJSONObject(0);
+                triviaCategory = triviainfo.getString("category");
                 questiontext = triviainfo.getString("question");
                 correctans = triviainfo.getString("correct_answer");
                 JSONArray incorrectans = triviainfo.getJSONArray("incorrect_answers");
@@ -98,14 +107,16 @@ public class TriviaActivity extends AppCompatActivity {
                     wrongans.add(incorrectans.getString(i));
                 }
 
+                Log.v(TAG, "Trivia " + triviaCategory);
 
-
-
+                Log.v(TAG, "Answer " + correctans);
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             question.setText(Html.fromHtml(questiontext));
+
+            String category = triviaCategory;
 
             //To randomise position of the correct ans
             int randomisecorrect = random.nextInt(3);
@@ -114,6 +125,7 @@ public class TriviaActivity extends AppCompatActivity {
             Button correctbutton = allbuttons.get(randomisecorrect);
 
             correctbutton.setText(Html.fromHtml(correctans));
+
 
         correctbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -126,23 +138,35 @@ public class TriviaActivity extends AppCompatActivity {
                         }
 
                         public void onFinish() {
+                            // If quiz has not end but selected correct answer,
                             if(totalquestionsanswered < 9){
-
 
                                 SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
                                 editor.putInt("Score", totalscore + 1);
                                 editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
+
                                 editor.apply();
+
                                 startActivity(getIntent());
                             }
+
+                            // If quiz end and selected correct answer,
                             else {
 
                                 SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+
+                                editor.putInt("Score", totalscore + 1);
+                                Intent intent = new Intent(TriviaActivity.this, Result.class);
+
+                                intent.putExtra("Score", totalscore + 1);
+                                intent.putExtra("QuestionsAnswered", totalquestionsanswered + 1);
+
                                 editor.clear();
                                 editor.apply();
-                                Intent intent = new Intent(TriviaActivity.this, MainPage.class);
+
                                 startActivity(intent);
                             };
+
                         }
                     }.start();
 
@@ -176,6 +200,8 @@ public class TriviaActivity extends AppCompatActivity {
 
                             @Override
                             public void onFinish() {
+
+                                // If quiz has not end but selected wrong answer,
                                 if(totalquestionsanswered < 9){
 
                                     SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
@@ -184,15 +210,21 @@ public class TriviaActivity extends AppCompatActivity {
 
                                     startActivity(getIntent());
                                 }
+
+                                // If quiz end and selected wrong answer,
                                 else {
                                     SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+
+                                    Intent intent = new Intent(TriviaActivity.this, Result.class);
+
+                                    intent.putExtra("Score", totalscore + 1);
+                                    intent.putExtra("QuestionsAnswered", totalquestionsanswered + 1);
+
                                     editor.clear();
                                     editor.apply();
 
-                                    Intent intent = new Intent(TriviaActivity.this, MainPage.class);
                                     startActivity(intent);
                                 }
-
                             }
                         }.start();
 
@@ -249,6 +281,8 @@ public class TriviaActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d("Debug", "resume");
+
+
     }
 
     @Override
