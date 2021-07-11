@@ -57,14 +57,14 @@ public class TriviaActivity extends AppCompatActivity {
 
 
 
-        TextView question = findViewById(R.id.question);
+        TextView question = findViewById(R.id.Aptquestion);
         TextView score = findViewById(R.id.score);
         score.setText( totalscore + "/10");
 
-        Button answer1 = findViewById(R.id.answer1);
-        Button answer2 = findViewById(R.id.answer2);
-        Button answer3 = findViewById(R.id.answer3);
-        Button answer4 = findViewById(R.id.answer4);
+        Button answer1 = findViewById(R.id.Aptanswer1);
+        Button answer2 = findViewById(R.id.Aptanswer2);
+        Button answer3 = findViewById(R.id.Aptanswer3);
+        Button answer4 = findViewById(R.id.Aptanswer4);
 
         ArrayList<Button> allbuttons = new ArrayList<Button>();
         allbuttons.add(answer1);

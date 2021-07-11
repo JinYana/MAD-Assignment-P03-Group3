@@ -298,7 +298,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d("Debug", "destroy");
-        SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
         editor.clear();
         editor.apply();
 
