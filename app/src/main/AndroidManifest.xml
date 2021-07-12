@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MADAssignment">
         <activity android:name=".AptitudeTestHomeActivity"></activity>
+        <activity android:name=".AptitudeTestActivity"></activity>
         <activity android:name=".ViewAptitudeResultActivity" />
         <activity android:name=".TriviaEndActivity" />
         <activity android:name=".TriviaActivity" />
