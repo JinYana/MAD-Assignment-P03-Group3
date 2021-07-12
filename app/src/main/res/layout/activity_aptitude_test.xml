@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#353535"
     tools:context=".AptitudeTestActivity">
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/checkmark"
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.318"
+        app:layout_constraintVertical_bias="0.339"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/checkmark" />
@@ -29,15 +30,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.318"
+        app:layout_constraintVertical_bias="0.339"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/cross" />
 
     <TextView
         android:id="@+id/Aptquestion"
-        android:layout_width="350dp"
-        android:layout_height="125dp"
+        android:layout_width="362dp"
+        android:layout_height="157dp"
         android:layout_marginTop="52dp"
         android:gravity="center"
         android:textColor="#FDFDFD"
@@ -48,7 +49,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/Aptanswer1"
+        android:id="@+id/answer1"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
@@ -68,7 +69,7 @@
         app:strokeColor="#919191" />
 
     <Button
-        android:id="@+id/Aptanswer3"
+        android:id="@+id/answer3"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
@@ -83,12 +84,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Aptanswer2"
+        app:layout_constraintTop_toTopOf="@+id/answer2"
         app:rippleColor="#F8F8F8"
         app:strokeColor="#919191" />
 
     <Button
-        android:id="@+id/Aptanswer2"
+        android:id="@+id/answer2"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
@@ -103,12 +104,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Aptanswer1"
+        app:layout_constraintTop_toTopOf="@+id/answer1"
         app:rippleColor="#F8F8F8"
         app:strokeColor="#919191" />
 
     <Button
-        android:id="@+id/Aptanswer4"
+        android:id="@+id/answer4"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
@@ -123,7 +124,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Aptanswer3"
+        app:layout_constraintTop_toTopOf="@+id/answer3"
         app:rippleColor="#F8F8F8"
         app:strokeColor="#919191" />
 

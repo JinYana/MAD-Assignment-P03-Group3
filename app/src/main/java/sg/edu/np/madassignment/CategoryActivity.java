@@ -23,21 +23,34 @@ import org.json.JSONException;
 public class CategoryActivity extends AppCompatActivity {
     String token = " ";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_page);
         Log.v("Debug", "create");
 
+
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        navigation.getMenu().getItem(0).setChecked(true);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
 
+
+                    case R.id.page_1:
+
+
+                        break;
+
                     case R.id.page_2:
-                        Intent a = new Intent(CategoryActivity.this,ViewAptitudeResultActivity.class);
+                        Intent a = new Intent(CategoryActivity.this,AptitudeTestHomeActivity.class);
                         startActivity(a);
+
+
+
                         break;
 
                 }

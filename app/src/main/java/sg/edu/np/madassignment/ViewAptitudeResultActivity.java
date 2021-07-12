@@ -66,6 +66,7 @@ public class ViewAptitudeResultActivity extends AppCompatActivity {
         xAxis.setLabelCount(xAxisValue.size());
         xAxis.setCenterAxisLabels(true);//Set the label to center
         xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+        xAxis.setTextColor(Color.WHITE);
 
         java.util.List<RadarEntry> radarEntries = new ArrayList<>();
         radarEntries.add(new RadarEntry(prefs.getInt("0",0)));

@@ -11,14 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MADAssignment">
-        <activity android:name=".ViewAptitudeResultActivity" />
-        <activity android:name=".TriviaEndActivity" />
-        <activity android:name=".TriviaActivity" />
+        <activity android:name=".AptitudeTestHomeActivity" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".AptitudeTestActivity" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".ViewAptitudeResultActivity" android:screenOrientation="portrait" />
+        <activity android:name=".TriviaEndActivity" android:screenOrientation="portrait" />
+        <activity android:name=".TriviaActivity" android:screenOrientation="portrait"  />
         <activity
             android:name=".CategoryActivity"
-            android:launchMode="singleInstance" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".LoginActivity">
+            android:launchMode="singleInstance"  android:screenOrientation="portrait" />
+        <activity android:name=".SignupActivity" android:screenOrientation="portrait" />
+        <activity android:name=".LoginActivity" android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -2,12 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/page_1"
+        android:checkable="true"
+        android:checked="false"
         android:enabled="true"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home"/>
+        android:icon="@drawable/category"
+        android:title="Trivia" />
     <item
         android:id="@+id/page_2"
+        android:checkable="false"
         android:enabled="true"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="Apptitude"/>
+        android:icon="@drawable/radar"
+        android:title="Apptitude" />
 </menu>
