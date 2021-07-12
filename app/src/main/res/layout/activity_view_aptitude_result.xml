@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#353535"
     tools:context=".ViewAptitudeResultActivity">
     <TextView
         android:id="@+id/textView17"
@@ -16,6 +17,9 @@
         android:layout_marginRight="163dp"
         android:layout_marginBottom="672dp"
         android:text="Your Aptitude In Different Categories"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +32,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
