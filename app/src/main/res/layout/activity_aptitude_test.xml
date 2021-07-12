@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/Aptanswer1"
+        android:id="@+id/answer1"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
@@ -68,7 +68,7 @@
         app:strokeColor="#919191" />
 
     <Button
-        android:id="@+id/Aptanswer3"
+        android:id="@+id/answer3"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
@@ -83,12 +83,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Aptanswer2"
+        app:layout_constraintTop_toTopOf="@+id/answer2"
         app:rippleColor="#F8F8F8"
         app:strokeColor="#919191" />
 
     <Button
-        android:id="@+id/Aptanswer2"
+        android:id="@+id/answer2"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
@@ -103,12 +103,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Aptanswer1"
+        app:layout_constraintTop_toTopOf="@+id/answer1"
         app:rippleColor="#F8F8F8"
         app:strokeColor="#919191" />
 
     <Button
-        android:id="@+id/Aptanswer4"
+        android:id="@+id/answer4"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="302dp"
         android:layout_height="72dp"
@@ -123,7 +123,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Aptanswer3"
+        app:layout_constraintTop_toTopOf="@+id/answer3"
         app:rippleColor="#F8F8F8"
         app:strokeColor="#919191" />
 
