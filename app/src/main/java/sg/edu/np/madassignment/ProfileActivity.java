@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,11 +20,14 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,6 +41,35 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        navigation.getMenu().getItem(2).setChecked(true);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+
+
+                    case R.id.page_1:
+                        Intent b = new Intent(ProfileActivity.this, CategoryActivity.class);
+                        startActivity(b);
+
+
+                        break;
+
+                    case R.id.page_2:
+                        Intent a = new Intent(ProfileActivity.this,AptitudeTestHomeActivity.class);
+                        startActivity(a);
+                        break;
+
+                    case R.id.page_3:
+
+                        break;
+
+                }
+                return false;
+            }
+        });
 
         //getting user info
         SharedPreferences logprefs = getSharedPreferences("Loggedin", MODE_PRIVATE);
@@ -54,7 +87,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         //Displaying user's level
         TextView level = findViewById(R.id.level);
-        level.setText(String.valueOf(user.level));
+        level.setText("Level: " + String.valueOf(user.level));
 
         //Converting string to uri to set profile picture
         ImageView pp = findViewById(R.id.profilepicture);

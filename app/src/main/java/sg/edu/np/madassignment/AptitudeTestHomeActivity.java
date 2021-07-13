@@ -41,6 +41,15 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
                     case R.id.page_2:
                         break;
 
+                    case R.id.page_3:
+                        Intent b = new Intent(AptitudeTestHomeActivity.this, ProfileActivity.class);
+                        startActivity(b);
+                        break;
+
+
+
+
+
                 }
                 return false;
             }
