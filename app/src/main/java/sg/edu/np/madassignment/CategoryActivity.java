@@ -31,7 +31,7 @@ public class CategoryActivity extends AppCompatActivity {
         Log.v("Debug", "create");
 
 
-
+        //Setting up bottom nav bar
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         navigation.getMenu().getItem(0).setChecked(true);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,6 +48,10 @@ public class CategoryActivity extends AppCompatActivity {
                     case R.id.page_2:
                         Intent a = new Intent(CategoryActivity.this,AptitudeTestHomeActivity.class);
                         startActivity(a);
+
+                    case R.id.page_3:
+                        Intent b = new Intent(CategoryActivity.this, ProfileActivity.class);
+                        startActivity(b);
 
 
 

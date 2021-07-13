@@ -3,6 +3,7 @@ package sg.edu.np.madassignment;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -47,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
                 //compare username and password
                 if(isValidCredentials(etUsername.getText().toString(), etPassword.getText().toString()))
                 {
+                    SharedPreferences.Editor editor = 	getSharedPreferences("Loggedin", MODE_PRIVATE).edit();
+                    editor.putString("User", etUsername.getText().toString());
+                    editor.apply();
                     Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
                     startActivity(intent);
                     Toast.makeText(LoginActivity.this, "Valid Credentials", Toast.LENGTH_SHORT).show();

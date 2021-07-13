@@ -33,9 +33,7 @@ public class TriviaActivity extends AppCompatActivity {
     int totalquestionsanswered = 0;
 
     CountDownTimer cdt;
-
-
-
+    DBHandler dbHandler = new DBHandler(this, null, null, 1);
 
 
 
@@ -44,10 +42,17 @@ public class TriviaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trivia);
 
-        SharedPreferences prefs = 	getSharedPreferences("Gameinfo", MODE_PRIVATE);
-        totalscore = prefs.getInt("Score", 0);
-        totalquestionsanswered = prefs.getInt("QuestionsAnswered", 0);
-        String token = prefs.getString("token", "");
+        //getting user info
+        SharedPreferences logprefs = 	getSharedPreferences("Loggedin", MODE_PRIVATE);
+        String username = logprefs.getString("User","");
+
+
+
+        //getting game info
+        SharedPreferences gameprefs = 	getSharedPreferences("Gameinfo", MODE_PRIVATE);
+        totalscore = gameprefs.getInt("Score", 0);
+        totalquestionsanswered = gameprefs.getInt("QuestionsAnswered", 0);
+        String token = gameprefs.getString("token", "");
 
         LottieAnimationView checkmark = findViewById(R.id.trophy);
         checkmark.setVisibility(View.GONE);
@@ -86,16 +91,12 @@ public class TriviaActivity extends AppCompatActivity {
             }
         });
 
-
-
+        //get the category id chosen
         Intent receive = getIntent();
 
         String gameid = receive.getStringExtra("gameid");
 
-        if(gameid == null){
-            Log.d("Debug", "wrong");
 
-        }
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -159,6 +160,19 @@ public class TriviaActivity extends AppCompatActivity {
                                 startActivity(getIntent());
                             }
                             else {
+
+                                User user = dbHandler.findUser(username);
+                                if(totalscore < 3){
+                                    user.level = user.level + 1;
+                                }
+                                else if(totalscore < 5){
+                                    user.level = user.level + 2;
+                                }
+                                else {
+                                    user.level = user.level + 3;
+                                }
+
+                                dbHandler.updateUser(user);
                                 SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
 
                                 editor.putInt("Score", totalscore + 1);
@@ -209,6 +223,18 @@ public class TriviaActivity extends AppCompatActivity {
                                     startActivity(getIntent());
                                 }
                                 else {
+                                    User user = dbHandler.findUser(username);
+                                    if(totalscore < 3){
+                                        user.level = user.level + 1;
+                                    }
+                                    else if(totalscore < 5){
+                                        user.level = user.level + 2;
+                                    }
+                                    else {
+                                        user.level = user.level + 3;
+                                    }
+
+                                    dbHandler.updateUser(user);
                                     SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
                                     editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
                                     editor.apply();
