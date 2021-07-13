@@ -18,6 +18,14 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_aptitude_test_home);
 
 
+        ImageView choose = findViewById(R.id.choose);
+
+        ObjectAnimator animation = ObjectAnimator.ofFloat(choose, "rotationY", 0.0f, 360f);
+        animation.setDuration(3600);
+        animation.setRepeatCount(ObjectAnimator.INFINITE);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.start();
+
         Button GoTest = findViewById(R.id.takeAptQuiz);
         GoTest.setOnClickListener(new View.OnClickListener() {
             @Override
