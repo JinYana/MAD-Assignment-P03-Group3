@@ -23,7 +23,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, Username TEXT, Description TEXT, Password TEXT, Email TEXT, Level INTEGER)";
+        String create = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, Username TEXT, Description TEXT, Password TEXT, Email TEXT, Level INTEGER, Profilepic String)";
         db.execSQL(create);
 
 
@@ -50,6 +50,7 @@ public class DBHandler extends SQLiteOpenHelper {
             u.password = cursor.getString(3);
             u.email = cursor.getString(4);
             u.level = cursor.getInt(5);
+            u.profilepicture = cursor.getString(6);
 
 
 
@@ -68,6 +69,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put("Email", user.getEmail());
         values.put("Description", user.getDescription());
         values.put("Level", user.getLevel());
+        values.put("Profilepic", user.getProfilepicture());
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("user", null, values);
@@ -94,6 +96,7 @@ public class DBHandler extends SQLiteOpenHelper {
             queryData.setPassword(cursor.getString(3));
             queryData.setEmail(cursor.getString(4));
             queryData.setLevel(cursor.getInt(5));
+            queryData.setProfilepicture(cursor.getString(6));
             cursor.close();
 
         }
@@ -109,6 +112,9 @@ public class DBHandler extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put("Level", u.getLevel());
+        values.put("Description", u.getDescription());
+        values.put("Profilepic", u.getProfilepicture());
 
         int count = db.update("user", values, "id = ?", new String[]{ "" + u.id });
 

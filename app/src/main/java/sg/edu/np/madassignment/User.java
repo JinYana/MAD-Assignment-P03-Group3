@@ -1,5 +1,7 @@
 package sg.edu.np.madassignment;
 
+import android.net.Uri;
+
 public class User {
 
     public int getId() {
@@ -50,6 +52,14 @@ public class User {
         this.level = level;
     }
 
+    public String  getProfilepicture() {
+        return profilepicture;
+    }
+
+    public void setProfilepicture(String  profilepicture) {
+        this.profilepicture = profilepicture;
+    }
+
 
     public int id;
     public String username;
@@ -57,6 +67,7 @@ public class User {
     public String password;
     public String email;
     public int level;
-
-
+    public String profilepicture;
 }
+
+

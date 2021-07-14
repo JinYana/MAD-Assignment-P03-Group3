@@ -20,9 +20,6 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aptitude_test_home);
-
-
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         navigation.getMenu().getItem(1).setChecked(true);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -41,10 +38,26 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
                     case R.id.page_2:
                         break;
 
+                    case R.id.page_3:
+                        Intent b = new Intent(AptitudeTestHomeActivity.this, ProfileActivity.class);
+                        startActivity(b);
+                        break;
+
+
+
+
+
                 }
                 return false;
             }
         });
+        ImageView choose = findViewById(R.id.choose);
+
+        ObjectAnimator animation = ObjectAnimator.ofFloat(choose, "rotationY", 0.0f, 360f);
+        animation.setDuration(3600);
+        animation.setRepeatCount(ObjectAnimator.INFINITE);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.start();
 
 
         Button GoTest = findViewById(R.id.takeAptQuiz);
