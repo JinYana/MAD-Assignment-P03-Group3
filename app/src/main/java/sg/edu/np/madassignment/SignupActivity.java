@@ -11,8 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -23,10 +21,10 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        EditText signupUser = findViewById(R.id.signupusername);
-        EditText signupPassword = findViewById(R.id.signuppassword);
-        EditText signupConfirm = findViewById(R.id.signupconfirm);
-        EditText signupEmail = findViewById(R.id.signupemail);
+        EditText signupUser = findViewById(R.id.settingsusername);
+        EditText signupPassword = findViewById(R.id.settingspassword);
+        EditText signupConfirm = findViewById(R.id.confrimpassword);
+        EditText signupEmail = findViewById(R.id.settingemail);
 
         Button signup = findViewById(R.id.signup);
 
