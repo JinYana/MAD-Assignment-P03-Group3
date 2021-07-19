@@ -23,11 +23,17 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,7 +41,7 @@ import java.io.InputStream;
 
 public class ProfileActivity extends AppCompatActivity {
     DBHandler dbHandler = new DBHandler(this, null, null, 1);
-    int SELECT_PICTURE = 200;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,22 +83,45 @@ public class ProfileActivity extends AppCompatActivity {
 
         User user = dbHandler.findUser(username);
 
-        //Displaying user's username
-        TextView titleUsername = findViewById(R.id.username);
-        titleUsername.setText(user.username);
 
-        //Displaying user's description
-        TextView desc = findViewById(R.id.description);
-        desc.setText(user.description);
+        
+        //getting user info from firebase
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference myRef = database.getReference("User").child(username);
 
-        //Displaying user's level
-        TextView level = findViewById(R.id.level);
-        level.setText("Level: " + String.valueOf(user.level));
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
 
-        //Converting string to uri to set profile picture
-        ImageView pp = findViewById(R.id.profilepicture);
-        Uri uri = Uri.parse(user.profilepicture);
-        pp.setImageURI(uri);
+                //Displaying user's username
+                String username = snapshot.child("username").getValue(String.class);
+                TextView titleUsername = findViewById(R.id.username);
+                titleUsername.setText(username);
+
+                //Displaying user's description
+                String description = snapshot.child("description").getValue(String.class);
+                TextView desc = findViewById(R.id.description);
+                desc.setText(description);
+
+                //Displaying user's level
+                Integer userlevel = snapshot.child("level").getValue(Integer.class);
+                TextView level = findViewById(R.id.level);
+                level.setText("Level: " + userlevel);
+
+                //Converting string to uri to set profile picture
+                String picture = snapshot.child("profilepicture").getValue(String.class);
+                
+                ImageView pp = findViewById(R.id.profilepicture);
+                Uri uri = Uri.parse(picture);
+                pp.setImageURI(uri);
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
+        
 
         ActivityResultLauncher<Intent> imageActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -107,11 +136,14 @@ public class ProfileActivity extends AppCompatActivity {
 
                             ContentResolver cr = getContentResolver();
                           cr.takePersistableUriPermission(uri, flag);
+                            ImageView pp = findViewById(R.id.profilepicture);
                             pp.setImageURI(uri);
 
-
-
-                            user.setProfilepicture(uri.toString());
+                            //updating profile pic to firebase
+                            
+                            FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                            DatabaseReference myRef = database.getReference("User").child(username).child("profilepicture");
+                            myRef.setValue(uri.toString());
 
                             dbHandler.updateUser(user);
                         }

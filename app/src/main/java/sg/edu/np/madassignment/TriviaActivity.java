@@ -161,18 +161,9 @@ public class TriviaActivity extends AppCompatActivity {
                             }
                             else {
 
-                                User user = dbHandler.findUser(username);
-                                if(totalscore < 3){
-                                    user.level = user.level + 1;
-                                }
-                                else if(totalscore < 5){
-                                    user.level = user.level + 2;
-                                }
-                                else {
-                                    user.level = user.level + 3;
-                                }
 
-                                dbHandler.updateUser(user);
+
+
                                 SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
 
                                 editor.putInt("Score", totalscore + 1);
@@ -223,18 +214,7 @@ public class TriviaActivity extends AppCompatActivity {
                                     startActivity(getIntent());
                                 }
                                 else {
-                                    User user = dbHandler.findUser(username);
-                                    if(totalscore < 3){
-                                        user.level = user.level + 1;
-                                    }
-                                    else if(totalscore < 5){
-                                        user.level = user.level + 2;
-                                    }
-                                    else {
-                                        user.level = user.level + 3;
-                                    }
 
-                                    dbHandler.updateUser(user);
                                     SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
                                     editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
                                     editor.apply();
