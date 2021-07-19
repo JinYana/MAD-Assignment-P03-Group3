@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SignupActivity extends AppCompatActivity {
 
-    DBHandler dbHandler = new DBHandler(this, null , null, 1);
+
     public long maxid = 0;
 
 
@@ -64,90 +64,118 @@ public class SignupActivity extends AppCompatActivity {
                 String dbEmail = signupEmail.getText().toString();
                 User dbUser = new User();
 
-                boolean usernameOK = false;
-                boolean paswordOK = false;
-                boolean emailOK = false;
 
 
-                User dbData = dbHandler.findUser(signupUser.getText().toString());
 
-                if(dbData == null)
-                {
-                    dbUser.setUsername(dbUsername);
-                    usernameOK = true;
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                DatabaseReference myRef = database.getReference().child("User");
 
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull  DataSnapshot snapshot) {
 
-                }
-                else
-                {
-                    signupUser.setError("Username already exsists");
-
-                }
-                if(dbPassword.equals(dbConfrim)){
-
-                    dbUser.setPassword(dbPassword);
-                    paswordOK = true;
-                }
-                else {
-                    signupConfirm.setError("Passwords do not match");
-                }
-                if(isValidEmail(dbEmail)){
-                    dbUser.setEmail(dbEmail);
-                    emailOK = true;
-                }
-                else {
-                    signupEmail.setError("Email does not exsist");
-                }
-
-
-                if(usernameOK && paswordOK && emailOK){
-
-
-                    //adding user info into database
-                    FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
-                    DatabaseReference myRef = database.getReference().child("User");
-
-                    //generating auto increment id
-                    myRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull  DataSnapshot snapshot) {
-                            if(snapshot.exists()){
-                                maxid = snapshot.getChildrenCount();
-                                Log.d("TAG", "Value is: " + maxid);
-                                SharedPreferences.Editor editor = 	getSharedPreferences("firebaseid", MODE_PRIVATE).edit();
-                                editor.putInt("ID", (int) maxid);
-                                editor.apply();
-                            }
+                        boolean usernameOK = false;
+                        boolean paswordOK = false;
+                        boolean emailOK = false;
+                        //checkung if user signup info is valid
+                        if(dbUsername.matches("")){
+                            signupUser.setError("Username cannot be empty");
                         }
+                        else if(snapshot.child(dbUsername).exists())
+                        {
 
-                        @Override
-                        public void onCancelled(@NonNull  DatabaseError error) {
+                            signupUser.setError("Username already exsists");
+
 
                         }
-                    });
+                        else
+                        {
+                            dbUser.setUsername(dbUsername);
+                            usernameOK = true;
 
-                    SharedPreferences logprefs = getSharedPreferences("firebaseid", MODE_PRIVATE);
-                    int id = logprefs.getInt("ID", 0);
-
-
-
-
-                    dbUser.setUsername(dbUsername);
-                    dbUser.setPassword(dbPassword);
-                    dbUser.setEmail(dbEmail);
-                    dbUser.setDescription("-");
-                    dbUser.setLevel(1);
-                    dbUser.setProfilepicture("");
-                    dbUser.setId(id + 1);
-                    dbHandler.addUser(dbUser);
-
-                    myRef.child(dbUsername).setValue(dbUser);
+                        }
 
 
-                    Toast.makeText(SignupActivity.this, "New User Created!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
+                        if(dbPassword.matches("")){
+                            signupPassword.setError("Password cannot be empty");
+                        }
+                        else if(dbPassword.equals(dbConfrim)){
+
+                            dbUser.setPassword(dbPassword);
+                            paswordOK = true;
+                        }
+                        else {
+                            signupConfirm.setError("Passwords do not match");
+                        }
+
+
+                        if(dbEmail.matches("")){
+                            signupEmail.setError("Email cannot be empty");
+                        }
+                        else if(isValidEmail(dbEmail)){
+                            dbUser.setEmail(dbEmail);
+                            emailOK = true;
+                        }
+
+                        else {
+                            signupEmail.setError("Email does not exsist");
+                        }
+
+
+
+
+
+                        if(snapshot.exists()){
+                            maxid = snapshot.getChildrenCount();
+                            Log.d("TAG", "Value is: " + maxid);
+                            SharedPreferences.Editor editor = 	getSharedPreferences("firebaseid", MODE_PRIVATE).edit();
+                            editor.putInt("ID", (int) maxid);
+                            editor.apply();
+                        }
+
+                        //if user signup info is valid
+                        if(usernameOK && paswordOK && emailOK){
+
+                            //adding user info into database
+
+                            dbUser.setUsername(dbUsername);
+                            dbUser.setPassword(dbPassword);
+                            dbUser.setEmail(dbEmail);
+                            dbUser.setDescription("-");
+                            dbUser.setLevel(1);
+                            dbUser.setProfilepicture("");
+                            dbUser.setId((int) maxid + 1);
+
+
+                            myRef.child(dbUsername).setValue(dbUser);
+
+
+                            Toast.makeText(SignupActivity.this, "New User Created!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull  DatabaseError error) {
+
+                    }
+                });
+
+
+
+
+
+
+
+
+
+                SharedPreferences logprefs = getSharedPreferences("firebaseid", MODE_PRIVATE);
+                int id = logprefs.getInt("ID", 0);
+
+
+
             }
         });
 

@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     Button loginButton;
 
-    DBHandler dbHandler = new DBHandler(this, null, null, 1);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

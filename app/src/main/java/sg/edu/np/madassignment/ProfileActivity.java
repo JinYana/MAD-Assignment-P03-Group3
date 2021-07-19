@@ -40,7 +40,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class ProfileActivity extends AppCompatActivity {
-    DBHandler dbHandler = new DBHandler(this, null, null, 1);
+
     
 
     @Override
@@ -81,7 +81,7 @@ public class ProfileActivity extends AppCompatActivity {
         SharedPreferences logprefs = getSharedPreferences("Loggedin", MODE_PRIVATE);
         String username = logprefs.getString("User", "");
 
-        User user = dbHandler.findUser(username);
+
 
 
         
@@ -145,7 +145,7 @@ public class ProfileActivity extends AppCompatActivity {
                             DatabaseReference myRef = database.getReference("User").child(username).child("profilepicture");
                             myRef.setValue(uri.toString());
 
-                            dbHandler.updateUser(user);
+
                         }
 
                     }
