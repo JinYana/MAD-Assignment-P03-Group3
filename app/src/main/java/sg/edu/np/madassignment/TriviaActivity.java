@@ -34,7 +34,7 @@ public class TriviaActivity extends AppCompatActivity {
     int totalquestionsanswered = 0;
 
     CountDownTimer cdt;
-    DBHandler dbHandler = new DBHandler(this, null, null, 1);
+
 
 
 
