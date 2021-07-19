@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,8 +64,7 @@ public class TriviaActivity extends AppCompatActivity {
 
 
         TextView question = findViewById(R.id.Aptquestion);
-        TextView score = findViewById(R.id.score);
-        score.setText( totalscore + "/10");
+
 
         Button answer1 = findViewById(R.id.answer1);
         Button answer2 = findViewById(R.id.answer2);
@@ -78,6 +78,15 @@ public class TriviaActivity extends AppCompatActivity {
         allbuttons.add(answer4);
 
         ImageButton close = findViewById(R.id.closebutton);
+
+
+        //Show question progress
+        ProgressBar questionprogress = findViewById(R.id.answerProgress);
+        questionprogress.setMax(11);
+        questionprogress.setProgress(totalquestionsanswered + 1);
+
+        TextView questionNo = findViewById(R.id.questionNo);
+        questionNo.setText("Q" +  String.valueOf(totalquestionsanswered + 1));
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +138,12 @@ public class TriviaActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+
+
+
+
+            //display question
             question.setText(Html.fromHtml(questiontext));
 
             //To randomise position of the correct ans
