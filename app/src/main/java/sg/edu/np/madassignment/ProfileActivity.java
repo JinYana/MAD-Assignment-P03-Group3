@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -20,6 +23,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,16 +32,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.animation.content.Content;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -77,17 +85,84 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        //getting user info
+        Context context = this;
+
         SharedPreferences logprefs = getSharedPreferences("Loggedin", MODE_PRIVATE);
         String username = logprefs.getString("User", "");
-
-
-
-
-        
         //getting user info from firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference myRef = database.getReference("User").child(username);
+        DatabaseReference newRef = database.getReference("User");
+
+        newRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+
+
+
+
+                GenericTypeIndicator<ArrayList<String>> genericTypeIndicator = new GenericTypeIndicator<ArrayList<String>>() {};
+                GenericTypeIndicator<User> genericUserIndicator = new GenericTypeIndicator<User>() {};
+                ArrayList<String> map = snapshot.child(username).child("friendslist").getValue(genericTypeIndicator);
+                if(map !=null){
+                    ArrayList<User> friendsList = new ArrayList<>();
+                    for(int i = 1; i < map.size(); i++){
+                        User user = snapshot.child(map.get(i)).getValue(User.class);
+
+
+                        Log.d("Debug", ""+map.size());
+                        Log.d("Debug", ""+user.getUsername());
+
+
+
+
+                        friendsList.add(user);
+                    }
+
+                    RecyclerView recyclerView = findViewById(R.id.friendslist);
+                    ProfileAdapter mAdapter = new ProfileAdapter(friendsList);
+
+                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
+
+                    recyclerView.setLayoutManager(mLayoutManager);
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(mAdapter);
+                }
+                else {
+
+                }
+
+
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -114,6 +189,17 @@ public class ProfileActivity extends AppCompatActivity {
                 ImageView pp = findViewById(R.id.profilepicture);
                 Uri uri = Uri.parse(picture);
                 pp.setImageURI(uri);
+
+
+
+
+
+
+
+
+
+
+
             }
 
             @Override
@@ -153,19 +239,22 @@ public class ProfileActivity extends AppCompatActivity {
 
                 });
 
+                Button button = findViewById(R.id.photo);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent();
+                        i.setType("image/*");
+                        i.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                        i.addCategory(Intent.CATEGORY_OPENABLE);
 
-        Button button = findViewById(R.id.photo);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent();
-                i.setType("image/*");
-                i.setAction(Intent.ACTION_OPEN_DOCUMENT);
-                i.addCategory(Intent.CATEGORY_OPENABLE);
+                        imageActivityResultLauncher.launch(i);
+                    }
+                });
 
-                imageActivityResultLauncher.launch(i);
-            }
-        });
+
+
+
 
 
     }

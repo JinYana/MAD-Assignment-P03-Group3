@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -145,6 +147,7 @@ public class SignupActivity extends AppCompatActivity {
                             dbUser.setLevel(1);
                             dbUser.setProfilepicture("");
                             dbUser.setId((int) maxid + 1);
+                            dbUser.setFriendslist(new ArrayList<>());
 
 
                             myRef.child(dbUsername).setValue(dbUser);
