@@ -1,6 +1,5 @@
 package sg.edu.np.madassignment;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -35,6 +34,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
     CountDownTimer cdt;
 
     int loopCat = 0 ;
+
 
 
 
@@ -186,6 +186,10 @@ public class AptitudeTestActivity extends AppCompatActivity {
                                     editor.putInt(String.valueOf(loopCat),totalscore);
 
                                     editor.apply();
+
+
+
+
 
                                     Intent intent  = new Intent(AptitudeTestActivity.this,ViewAptitudeResultActivity.class);
 
