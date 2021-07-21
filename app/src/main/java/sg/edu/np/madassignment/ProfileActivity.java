@@ -110,8 +110,7 @@ public class ProfileActivity extends AppCompatActivity {
                         User user = snapshot.child(map.get(i)).getValue(User.class);
 
 
-                        Log.d("Debug", ""+map.size());
-                        Log.d("Debug", ""+user.getUsername());
+
 
 
 
@@ -190,6 +189,8 @@ public class ProfileActivity extends AppCompatActivity {
                 Uri uri = Uri.parse(picture);
                 pp.setImageURI(uri);
 
+                myRef.removeEventListener(this);
+
 
 
 
@@ -226,10 +227,9 @@ public class ProfileActivity extends AppCompatActivity {
                             pp.setImageURI(uri);
 
                             //updating profile pic to firebase
-                            
-                            FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
-                            DatabaseReference myRef = database.getReference("User").child(username).child("profilepicture");
-                            myRef.setValue(uri.toString());
+                            myRef.child("profilepicture").setValue(uri.toString());
+
+
 
 
                         }
@@ -239,18 +239,18 @@ public class ProfileActivity extends AppCompatActivity {
 
                 });
 
-                Button button = findViewById(R.id.photo);
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent();
-                        i.setType("image/*");
-                        i.setAction(Intent.ACTION_OPEN_DOCUMENT);
-                        i.addCategory(Intent.CATEGORY_OPENABLE);
+        Button button = findViewById(R.id.photo);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent();
+                i.setType("image/*");
+                i.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                i.addCategory(Intent.CATEGORY_OPENABLE);
 
-                        imageActivityResultLauncher.launch(i);
-                    }
-                });
+                imageActivityResultLauncher.launch(i);
+            }
+        });
 
 
 
