@@ -62,7 +62,17 @@ public class User {
         this.profilepicture = profilepicture;
     }
 
+    public ArrayList<User> getFirendslist() {
+        return firendslist;
+    }
 
+    public void setFirendslist(ArrayList<User> firendslist) {
+        this.firendslist = firendslist;
+    }
+
+
+
+    public ArrayList<User> firendslist;
     public int id;
     public String username;
     public String description;
