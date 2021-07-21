@@ -86,8 +86,14 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
                             Boolean takenAptQuiz = dataSnapshot.child("takenAptQuiz").getValue(Boolean.class);
 
                             if (takenAptQuiz.equals(true)){
+
+
                                 Intent intent = new Intent(AptitudeTestHomeActivity.this, CategoryActivity.class);
                                 startActivity(intent);
+
+
+
+
 
 
 
@@ -95,6 +101,19 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
                             }
 
                             else{
+
+                                SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
+                                editor.putInt("loopCat" ,0);
+                                editor.putInt("AptQuestionsAnswered", 0);
+
+                                for(int i = 0; i < 8; i++){
+
+                                    editor.putInt(String.valueOf(i), 0);
+
+
+                                }
+
+                                editor.apply();
                                 Intent intent = new Intent(AptitudeTestHomeActivity.this, AptitudeTestActivity.class);
                                 startActivity(intent);
 
