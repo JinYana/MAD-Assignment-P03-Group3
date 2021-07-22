@@ -6,7 +6,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,24 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageSwitcher;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.airbnb.lottie.animation.content.Content;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,11 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -110,11 +99,6 @@ public class ProfileActivity extends AppCompatActivity {
                         User user = snapshot.child(map.get(i)).getValue(User.class);
 
 
-
-
-
-
-
                         friendsList.add(user);
                     }
 
@@ -126,6 +110,7 @@ public class ProfileActivity extends AppCompatActivity {
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.setAdapter(mAdapter);
+                    newRef.removeEventListener(this);
                 }
                 else {
 
@@ -145,20 +130,6 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -221,13 +192,17 @@ public class ProfileActivity extends AppCompatActivity {
                            Uri uri = data.getData();
                            int flag = Intent.FLAG_GRANT_READ_URI_PERMISSION;
 
+
+                            myRef.child("profilepicture").setValue(String.valueOf(uri));
+
                             ContentResolver cr = getContentResolver();
                           cr.takePersistableUriPermission(uri, flag);
                             ImageView pp = findViewById(R.id.profilepicture);
                             pp.setImageURI(uri);
-
                             //updating profile pic to firebase
-                            myRef.child("profilepicture").setValue(uri.toString());
+
+
+
 
 
 
@@ -249,6 +224,24 @@ public class ProfileActivity extends AppCompatActivity {
                 i.addCategory(Intent.CATEGORY_OPENABLE);
 
                 imageActivityResultLauncher.launch(i);
+            }
+        });
+
+        ImageButton addfriends = findViewById(R.id.addfriends);
+        addfriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, AddFriendsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button frireq = findViewById(R.id.friendreq);
+        frireq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, NewFriendsActivity.class);
+                startActivity(intent);
             }
         });
 

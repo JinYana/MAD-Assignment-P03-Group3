@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                         else {
                             Toast.makeText(LoginActivity.this, "Please Make An Account", Toast.LENGTH_SHORT).show();
                         }
+                        myRef.removeEventListener(this);
 
                     }
 
