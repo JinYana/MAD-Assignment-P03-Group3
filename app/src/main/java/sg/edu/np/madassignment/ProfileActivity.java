@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -20,22 +23,33 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.animation.content.Content;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
-    DBHandler dbHandler = new DBHandler(this, null, null, 1);
-    int SELECT_PICTURE = 200;
+
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,28 +85,130 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        //getting user info
+        Context context = this;
+
         SharedPreferences logprefs = getSharedPreferences("Loggedin", MODE_PRIVATE);
         String username = logprefs.getString("User", "");
+        //getting user info from firebase
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference myRef = database.getReference("User").child(username);
+        DatabaseReference newRef = database.getReference("User");
 
-        User user = dbHandler.findUser(username);
+        newRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
 
-        //Displaying user's username
-        TextView titleUsername = findViewById(R.id.username);
-        titleUsername.setText(user.username);
 
-        //Displaying user's description
-        TextView desc = findViewById(R.id.description);
-        desc.setText(user.description);
 
-        //Displaying user's level
-        TextView level = findViewById(R.id.level);
-        level.setText("Level: " + String.valueOf(user.level));
 
-        //Converting string to uri to set profile picture
-        ImageView pp = findViewById(R.id.profilepicture);
-        Uri uri = Uri.parse(user.profilepicture);
-        pp.setImageURI(uri);
+                GenericTypeIndicator<ArrayList<String>> genericTypeIndicator = new GenericTypeIndicator<ArrayList<String>>() {};
+                GenericTypeIndicator<User> genericUserIndicator = new GenericTypeIndicator<User>() {};
+                ArrayList<String> map = snapshot.child(username).child("friendslist").getValue(genericTypeIndicator);
+                if(map !=null){
+                    ArrayList<User> friendsList = new ArrayList<>();
+                    for(int i = 1; i < map.size(); i++){
+                        User user = snapshot.child(map.get(i)).getValue(User.class);
+
+
+
+
+
+
+
+                        friendsList.add(user);
+                    }
+
+                    RecyclerView recyclerView = findViewById(R.id.friendslist);
+                    ProfileAdapter mAdapter = new ProfileAdapter(friendsList);
+
+                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
+
+                    recyclerView.setLayoutManager(mLayoutManager);
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(mAdapter);
+                }
+                else {
+
+                }
+
+
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+
+                //Displaying user's username
+                String username = snapshot.child("username").getValue(String.class);
+                TextView titleUsername = findViewById(R.id.username);
+                titleUsername.setText(username);
+
+                //Displaying user's description
+                String description = snapshot.child("description").getValue(String.class);
+                TextView desc = findViewById(R.id.description);
+                desc.setText(description);
+
+                //Displaying user's level
+                Integer userlevel = snapshot.child("level").getValue(Integer.class);
+                TextView level = findViewById(R.id.level);
+                level.setText("Level: " + userlevel);
+
+                //Converting string to uri to set profile picture
+                String picture = snapshot.child("profilepicture").getValue(String.class);
+                
+                ImageView pp = findViewById(R.id.profilepicture);
+                Uri uri = Uri.parse(picture);
+                pp.setImageURI(uri);
+
+                myRef.removeEventListener(this);
+
+
+
+
+
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
+        
 
         ActivityResultLauncher<Intent> imageActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -107,20 +223,21 @@ public class ProfileActivity extends AppCompatActivity {
 
                             ContentResolver cr = getContentResolver();
                           cr.takePersistableUriPermission(uri, flag);
+                            ImageView pp = findViewById(R.id.profilepicture);
                             pp.setImageURI(uri);
 
+                            //updating profile pic to firebase
+                            myRef.child("profilepicture").setValue(uri.toString());
 
 
-                            user.setProfilepicture(uri.toString());
 
-                            dbHandler.updateUser(user);
+
                         }
 
                     }
 
 
                 });
-
 
         Button button = findViewById(R.id.photo);
         button.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +251,10 @@ public class ProfileActivity extends AppCompatActivity {
                 imageActivityResultLauncher.launch(i);
             }
         });
+
+
+
+
 
 
     }

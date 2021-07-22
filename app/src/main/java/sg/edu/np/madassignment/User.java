@@ -2,6 +2,8 @@ package sg.edu.np.madassignment;
 
 import android.net.Uri;
 
+import java.util.ArrayList;
+
 public class User {
 
     public int getId() {
@@ -68,6 +70,103 @@ public class User {
     public String email;
     public int level;
     public String profilepicture;
+    public ArrayList<User> friendslist;
+
+    public ArrayList<User> getFriendslist() {
+        return friendslist;
+    }
+
+    public void setFriendslist(ArrayList<User> friendslist) {
+        this.friendslist = friendslist;
+    }
+
+
+
+    //Aptitude quiz
+
+    public boolean isTakenAptQuiz() {
+        return takenAptQuiz;
+    }
+
+    public void setTakenAptQuiz(boolean takenAptQuiz) {
+        this.takenAptQuiz = takenAptQuiz;
+    }
+
+    public int getAptAnimeScore() {
+        return aptAnimeScore;
+    }
+
+    public void setAptAnimeScore(int aptAnimeScore) {
+        this.aptAnimeScore = aptAnimeScore;
+    }
+
+    public int getAptComputerScore() {
+        return aptComputerScore;
+    }
+
+    public void setAptComputerScore(int aptComputerScore) {
+        this.aptComputerScore = aptComputerScore;
+    }
+
+    public int getAptMathScore() {
+        return aptMathScore;
+    }
+
+    public void setAptMathScore(int aptMathScore) {
+        this.aptMathScore = aptMathScore;
+    }
+
+    public int getAptAnimalScore() {
+        return aptAnimalScore;
+    }
+
+    public void setAptAnimalScore(int aptAnimalScore) {
+        this.aptAnimalScore = aptAnimalScore;
+    }
+
+    public int getAptMythScore() {
+        return aptMythScore;
+    }
+
+    public void setAptMythScore(int aptMythScore) {
+        this.aptMythScore = aptMythScore;
+    }
+
+    public int getAptCartoonScore() {
+        return aptCartoonScore;
+    }
+
+    public void setAptCartoonScore(int aptCartoonScore) {
+        this.aptCartoonScore = aptCartoonScore;
+    }
+
+    public int getAptSportScore() {
+        return aptSportScore;
+    }
+
+    public void setAptSportScore(int aptSportScore) {
+        this.aptSportScore = aptSportScore;
+    }
+
+    public int getAptVideoGameScore() {
+        return aptVideoGameScore;
+    }
+
+    public void setAptVideoGameScore(int aptVideoGameScore) {
+        this.aptVideoGameScore = aptVideoGameScore;
+    }
+
+    public boolean takenAptQuiz;
+
+    public int aptAnimeScore;
+    public int aptComputerScore;
+    public int aptMathScore;
+    public int aptAnimalScore;
+    public int aptMythScore;
+    public int aptCartoonScore;
+    public int aptSportScore;
+    public int aptVideoGameScore;
+
 }
 
 
