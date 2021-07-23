@@ -73,6 +73,8 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("User").child(User);
 
 
+
+
         Button GoTest = findViewById(R.id.takeAptQuiz);
         GoTest.setOnClickListener(new View.OnClickListener() {
             @Override
