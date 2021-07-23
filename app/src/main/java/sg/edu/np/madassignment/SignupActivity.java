@@ -148,7 +148,7 @@ public class SignupActivity extends AppCompatActivity {
                             dbUser.setProfilepicture("");
                             dbUser.setId((int) maxid + 1);
                             dbUser.setTakenAptQuiz(false);
-                            dbUser.setFriendslist(new ArrayList<>());
+
 
 
                             myRef.child(dbUsername).setValue(dbUser);

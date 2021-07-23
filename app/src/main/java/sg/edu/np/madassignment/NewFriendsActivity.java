@@ -10,8 +10,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,9 +31,10 @@ public class NewFriendsActivity extends AppCompatActivity {
 
         SharedPreferences logprefs = getSharedPreferences("Loggedin", MODE_PRIVATE);
         String username = logprefs.getString("User", "");
+        SharedPreferences refreshpref = getSharedPreferences("refresh", MODE_PRIVATE);
+        boolean refresh = refreshpref.getBoolean("refresh", false);
         //getting user info from firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        DatabaseReference myRef = database.getReference("User").child(username);
         DatabaseReference newRef = database.getReference("User");
 
         newRef.addValueEventListener(new ValueEventListener() {
@@ -43,30 +42,46 @@ public class NewFriendsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-                GenericTypeIndicator<ArrayList<String>> genericTypeIndicator = new GenericTypeIndicator<ArrayList<String>>() {
-                };
+                ArrayList<String> map = new ArrayList<>();
+                for(DataSnapshot ur : snapshot.child(username).child("friendreq").getChildren()) {
+                    String userreq = ur.getValue(String.class);
+                    map.add(userreq);
+                }
 
-                ArrayList<String> map = snapshot.child(username).child("friendreq").getValue(genericTypeIndicator);
+
 
 
                 if (map != null) {
                     ArrayList<User> friendsList = new ArrayList<>();
-                    for (int i = 1; i < map.size(); i++) {
-                        User user = snapshot.child(map.get(i)).getValue(User.class);
-
-
-
+                    for(DataSnapshot ds : snapshot.getChildren()) {
+                        User user = ds.getValue(User.class);
                         friendsList.add(user);
                     }
 
+                    ArrayList<User> friendreqlist = new ArrayList<>();
+                    for(int i = 0; i < friendsList.size(); i++){
+                        if(map.contains(friendsList.get(i).getUsername())){
+                            friendreqlist.add(friendsList.get(i));
+                        }
+                    }
+                    Log.v("hi", "" + friendreqlist.size());
+
+
+
                     RecyclerView recyclerView = findViewById(R.id.newfriendreq);
-                    ProfileAdapter mAdapter = new ProfileAdapter(friendsList);
+                    RequestAdapter mAdapter = new RequestAdapter(friendreqlist);
 
                     LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
 
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.setAdapter(mAdapter);
+
+                    if(refresh == true){
+                        startActivity(getIntent());
+                    }
+
+
 
                 }
 
@@ -82,6 +97,8 @@ public class NewFriendsActivity extends AppCompatActivity {
 
 
         });
+
+
 
 
     }

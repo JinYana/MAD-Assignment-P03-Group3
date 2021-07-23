@@ -19,6 +19,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -103,7 +104,7 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                     RecyclerView recyclerView = findViewById(R.id.friendslist);
-                    ProfileAdapter mAdapter = new ProfileAdapter(friendsList);
+                    FriendAdapter mAdapter = new FriendAdapter(friendsList);
 
                     LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
 
@@ -112,9 +113,7 @@ public class ProfileActivity extends AppCompatActivity {
                     recyclerView.setAdapter(mAdapter);
                     newRef.removeEventListener(this);
                 }
-                else {
 
-                }
 
 
 
@@ -156,11 +155,19 @@ public class ProfileActivity extends AppCompatActivity {
                 //Converting string to uri to set profile picture
                 String picture = snapshot.child("profilepicture").getValue(String.class);
                 
-                ImageView pp = findViewById(R.id.profilepicture);
-                Uri uri = Uri.parse(picture);
-                pp.setImageURI(uri);
+                if(picture.matches("-")){
+                    ImageView pp = findViewById(R.id.profilepicture);
+                    pp.setImageResource(R.drawable.user);
+                }
+                else {
+                    ImageView pp = findViewById(R.id.profilepicture);
+                    Uri uri = Uri.parse(picture);
+                    pp.setImageURI(uri);
+                    Log.v("yo", picture);
 
-                myRef.removeEventListener(this);
+                    myRef.removeEventListener(this);
+
+                }
 
 
 
