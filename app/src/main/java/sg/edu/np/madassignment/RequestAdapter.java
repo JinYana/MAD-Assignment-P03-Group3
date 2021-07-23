@@ -66,7 +66,9 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder> {
                     FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
                     DatabaseReference newRef = database.getReference("User");
 
-                    newRef.addValueEventListener(new ValueEventListener() {
+
+
+                    newRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -78,8 +80,18 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder> {
                                 childkey.add(name);
                             }
 
+
+
                             for(int i = 0; i < childkey.size(); i++){
-                                if(snapshot.child(username).child("friendreq").child(childkey.get(i)).getValue(String.class) == u.getUsername());{
+                                Log.v("TAG", ""+childkey.size());
+                                Log.v("TAG", u.getUsername());
+                                Log.v("TAG", snapshot.child(username).child("friendreq").child(childkey.get(i)).getValue(String.class));
+                                String friendkey = snapshot.child(username).child("friendreq").child(childkey.get(i)).getValue(String.class);
+                                Log.v("TAG", "" + friendkey.equals(u.getUsername()));
+
+                                if(friendkey.equals(u.getUsername())){
+                                    Log.v("TAG", "YO" + snapshot.child(username).child("friendreq").child(childkey.get(i)).getValue(String.class));
+
                                     newRef.child(username).child("friendreq").child(childkey.get(i)).removeValue();
                                     int friendcount = (int) snapshot.child(username).child("friendslist").getChildrenCount() + 1;
                                     int otherfriendcount = (int) snapshot.child(u.getUsername()).child("friendslist").getChildrenCount() + 1;
@@ -90,9 +102,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder> {
                             }
 
 
-                            SharedPreferences.Editor editor = 	v.getContext().getSharedPreferences("refresh", MODE_PRIVATE).edit();
-                            editor.putBoolean("refresh", true);
-                            data.remove(position);
+
+
 
                             Intent intent = new Intent(v.getContext(), ProfileActivity.class);
                             v.getContext().startActivity(intent);

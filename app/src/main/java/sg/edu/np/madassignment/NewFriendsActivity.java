@@ -64,7 +64,7 @@ public class NewFriendsActivity extends AppCompatActivity {
                             friendreqlist.add(friendsList.get(i));
                         }
                     }
-                    Log.v("hi", "" + friendreqlist.size());
+
 
 
 
