@@ -74,6 +74,9 @@ public class TriviaActivity extends AppCompatActivity {
         LottieAnimationView cross = findViewById(R.id.cross);
         cross.setVisibility(View.GONE);
 
+        LottieAnimationView bomb = findViewById(R.id.bombtrampoline);
+        bomb.setVisibility(View.GONE);
+
 
 
         TextView question = findViewById(R.id.Aptquestion);
@@ -161,7 +164,7 @@ public class TriviaActivity extends AppCompatActivity {
             question.setText(Html.fromHtml(questiontext));
 
             //To randomise position of the correct ans
-            int randomisecorrect = random.nextInt(3);
+            int randomisecorrect = random.nextInt(4);
 
             //Setting up correct ans button
             Button correctbutton = allbuttons.get(randomisecorrect);
@@ -236,6 +239,8 @@ public class TriviaActivity extends AppCompatActivity {
 
                         if (powerup1 == 1){
                            if(clickpowerup1 == 0){
+
+                               bomb.setVisibility(View.VISIBLE);
                                Integer powerupIncorrect = random.nextInt(3);
 
                                Button showWronganswer = allbuttons.get(powerupIncorrect);
