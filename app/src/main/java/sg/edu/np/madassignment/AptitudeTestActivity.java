@@ -18,6 +18,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -196,7 +198,6 @@ public class AptitudeTestActivity extends AppCompatActivity {
 
 
 
-
                                     Intent intent  = new Intent(AptitudeTestActivity.this,ViewAptitudeResultActivity.class);
 
                                     startActivity(intent);
@@ -268,6 +269,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
                                             Log.d("Debug", ""+ prefs.getInt(String.valueOf(i),0));
 
                                         }
+
 
 
                                         Intent intent  = new Intent(AptitudeTestActivity.this,ViewAptitudeResultActivity.class);
