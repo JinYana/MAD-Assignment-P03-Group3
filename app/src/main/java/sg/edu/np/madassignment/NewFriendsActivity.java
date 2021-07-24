@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static android.view.View.GONE;
+
 public class NewFriendsActivity extends AppCompatActivity {
 
     @Override
@@ -29,10 +33,12 @@ public class NewFriendsActivity extends AppCompatActivity {
 
         Context context = this;
 
+        TextView noreq = findViewById(R.id.noreq);
+        noreq.setVisibility(View.GONE);
+
         SharedPreferences logprefs = getSharedPreferences("Loggedin", MODE_PRIVATE);
         String username = logprefs.getString("User", "");
-        SharedPreferences refreshpref = getSharedPreferences("refresh", MODE_PRIVATE);
-        boolean refresh = refreshpref.getBoolean("refresh", false);
+
         //getting user info from firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference newRef = database.getReference("User");
@@ -51,7 +57,7 @@ public class NewFriendsActivity extends AppCompatActivity {
 
 
 
-                if (map != null) {
+                if (!map.isEmpty()) {
                     ArrayList<User> friendsList = new ArrayList<>();
                     for(DataSnapshot ds : snapshot.getChildren()) {
                         User user = ds.getValue(User.class);
@@ -77,12 +83,13 @@ public class NewFriendsActivity extends AppCompatActivity {
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.setAdapter(mAdapter);
 
-                    if(refresh == true){
-                        startActivity(getIntent());
-                    }
 
 
 
+
+                }
+                else {
+                    noreq.setVisibility(View.VISIBLE);
                 }
 
 

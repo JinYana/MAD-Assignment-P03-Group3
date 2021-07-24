@@ -1,17 +1,28 @@
 package sg.edu.np.madassignment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardViewHolder>{
     ArrayList<User> data;
+    private Context context;
 
 
     public LeaderboardAdapter(ArrayList<User> input) {
@@ -24,10 +35,12 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardViewHold
         View item = null;
 
         item = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.friendrecycler,
+                R.layout.leaderboardrecycler,
                 parent,
                 false
         );
+
+         context = parent.getContext();
 
 
         return new LeaderboardViewHolder(item);
@@ -37,6 +50,12 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardViewHold
     @Override
     public void onBindViewHolder(@NonNull LeaderboardViewHolder holder, int position) {
         User u = data.get(position);
+        holder.position.setText(String.valueOf(position +1));
+
+        SharedPreferences logprefs = context.getSharedPreferences("Loggedin", MODE_PRIVATE);
+        String username = logprefs.getString("User", "");
+
+
 
         holder.name.setText(u.getUsername());
         holder.level.setText("Level" + String.valueOf(u.getLevel()));
@@ -44,7 +63,15 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardViewHold
             holder.profileppic.setImageResource(R.drawable.user);
         }
         else {
-            holder.profileppic.setImageURI(Uri.parse(u.getProfilepicture()));
+            StorageReference storage = FirebaseStorage.getInstance("gs://mad-project-2-eeea1.appspot.com/").getReference();
+            StorageReference pathReference = storage.child(username + ".jpg");
+            pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+
+                    Picasso.with(context).load(uri).into(holder.profileppic);
+                }
+            });
         }
 
 
