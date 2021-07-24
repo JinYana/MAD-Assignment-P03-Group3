@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,22 +15,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.provider.UserDictionary;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.animation.content.Content;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -43,14 +48,16 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicMarkableReference;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
+    public AlertDialog.Builder dialogBuilder;
+    public AlertDialog dialog;
 
-    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
                         break;
 
                     case R.id.page_2:
-                        Intent a = new Intent(ProfileActivity.this,AptitudeTestHomeActivity.class);
+                        Intent a = new Intent(ProfileActivity.this, AptitudeTestHomeActivity.class);
                         startActivity(a);
                         break;
 
@@ -97,17 +104,17 @@ public class ProfileActivity extends AppCompatActivity {
 
         newRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-
-
-                GenericTypeIndicator<ArrayList<String>> genericTypeIndicator = new GenericTypeIndicator<ArrayList<String>>() {};
-                GenericTypeIndicator<User> genericUserIndicator = new GenericTypeIndicator<User>() {};
+                GenericTypeIndicator<ArrayList<String>> genericTypeIndicator = new GenericTypeIndicator<ArrayList<String>>() {
+                };
+                GenericTypeIndicator<User> genericUserIndicator = new GenericTypeIndicator<User>() {
+                };
                 ArrayList<String> map = snapshot.child(username).child("friendslist").getValue(genericTypeIndicator);
-                if(map !=null){
+                if (map != null) {
                     ArrayList<User> friendsList = new ArrayList<>();
-                    for(int i = 1; i < map.size(); i++){
+                    for (int i = 1; i < map.size(); i++) {
                         User user = snapshot.child(map.get(i)).getValue(User.class);
 
 
@@ -122,32 +129,24 @@ public class ProfileActivity extends AppCompatActivity {
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.setAdapter(mAdapter);
-                    newRef.removeEventListener(this);
+                } else {
+
                 }
-
-
-
-
-
-
-
 
 
             }
 
             @Override
-            public void onCancelled(@NonNull  DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
 
 
-
-
         myRef.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
-            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 //Displaying user's username
                 String username = snapshot.child("username").getValue(String.class);
@@ -167,14 +166,14 @@ public class ProfileActivity extends AppCompatActivity {
                 //Converting string to uri to set profile picture
                 String picture = snapshot.child("profilepicture").getValue(String.class);
 
+
                 TextView frireqcount = findViewById(R.id.frireqcount);
-                frireqcount. setText(String.valueOf(snapshot.child("friendreq").getChildrenCount()));
-                
-                if(picture.matches("-")){
+                frireqcount.setText(String.valueOf(snapshot.child("friendreq").getChildrenCount()));
+
+                if (picture.matches("-")) {
                     ImageView pp = findViewById(R.id.profilepicture);
                     pp.setImageResource(R.drawable.user);
-                }
-                else {
+                } else {
 
                     Intent i = new Intent();
 
@@ -188,37 +187,17 @@ public class ProfileActivity extends AppCompatActivity {
                             Picasso.with(context).load(uri).into(pp);
                         }
                     });
-
-
-
-
-
-
-
-                    Log.v("yo", picture);
-
-                    myRef.removeEventListener(this);
-
                 }
-
-
-
-
-
-
-
-
-
 
 
             }
 
             @Override
-            public void onCancelled(@NonNull  DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-        
+
 
         ActivityResultLauncher<Intent> imageActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -228,25 +207,15 @@ public class ProfileActivity extends AppCompatActivity {
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             Intent data = result.getData();
 
-                           Uri uri = data.getData();
-                           int flag = Intent.FLAG_GRANT_READ_URI_PERMISSION;
-
-
-
+                            Uri uri = data.getData();
+                            int flag = Intent.FLAG_GRANT_READ_URI_PERMISSION;
 
                             ContentResolver cr = getApplicationContext().getContentResolver();
-                           cr.takePersistableUriPermission(uri, flag);
+                            cr.takePersistableUriPermission(uri, flag);
                             ImageView pp = findViewById(R.id.profilepicture);
                             pp.setImageURI(uri);
                             //updating profile pic to firebase
                             Uploadimagetofirebase(uri);
-
-
-
-
-
-
-
 
 
                         }
@@ -256,21 +225,28 @@ public class ProfileActivity extends AppCompatActivity {
 
                 });
 
-
-
         Button button = findViewById(R.id.photo);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent();
                 i.setType("image/*");
-
                 i.setAction(Intent.ACTION_OPEN_DOCUMENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
 
                 imageActivityResultLauncher.launch(i);
             }
         });
+
+        Button editDesc = findViewById(R.id.editdesc);
+        editDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createdescriptiondialog();
+            }
+        });
+
+
 
         ImageButton addfriends = findViewById(R.id.addfriends);
         addfriends.setOnClickListener(new View.OnClickListener() {
@@ -289,6 +265,55 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+    }
+    public void createdescriptiondialog(){
+        dialogBuilder =  new AlertDialog.Builder(this);
+        final View popupdescriptionView = getLayoutInflater().inflate(R.layout.popup,null);
+
+        EditText newdescription = popupdescriptionView.findViewById(R.id.popupdescription);
+
+        Button saveDesc = popupdescriptionView.findViewById(R.id.savedescription);
+        Button goBack = popupdescriptionView.findViewById(R.id.back);
+
+        dialogBuilder.setView(popupdescriptionView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        SharedPreferences pref = getSharedPreferences("Loggedin",MODE_PRIVATE);
+        String User = pref.getString("User","1");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference myRef = database.getReference("User").child(User);
+
+        saveDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                TextView profdesc =  findViewById(R.id.description);
+                profdesc.setText(newdescription.getText());
+
+
+                myRef.child("description").setValue(newdescription.getText().toString());
+
+                dialog.dismiss();
+
+
+
+            }
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+
+
 
 
 
@@ -323,6 +348,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 }
+
+
+
+
+
+
 
 
 
