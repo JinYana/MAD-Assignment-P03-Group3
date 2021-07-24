@@ -123,7 +123,7 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                     RecyclerView recyclerView = findViewById(R.id.friendslist);
-                    ProfileAdapter mAdapter = new ProfileAdapter(friendsList);
+                    FriendAdapter mAdapter = new FriendAdapter(friendsList);
 
                     LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
 
