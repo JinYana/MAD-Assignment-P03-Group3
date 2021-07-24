@@ -19,6 +19,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.UserDictionary;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +28,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,8 +38,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicMarkableReference;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -134,6 +145,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         myRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull  DataSnapshot snapshot) {
 
@@ -154,15 +166,35 @@ public class ProfileActivity extends AppCompatActivity {
 
                 //Converting string to uri to set profile picture
                 String picture = snapshot.child("profilepicture").getValue(String.class);
+
+                TextView frireqcount = findViewById(R.id.frireqcount);
+                frireqcount. setText(String.valueOf(snapshot.child("friendreq").getChildrenCount()));
                 
                 if(picture.matches("-")){
                     ImageView pp = findViewById(R.id.profilepicture);
                     pp.setImageResource(R.drawable.user);
                 }
                 else {
-                    ImageView pp = findViewById(R.id.profilepicture);
-                    Uri uri = Uri.parse(picture);
-                    pp.setImageURI(uri);
+
+                    Intent i = new Intent();
+
+                    int flag = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                    StorageReference storage = FirebaseStorage.getInstance("gs://mad-project-2-eeea1.appspot.com/").getReference();
+                    StorageReference pathReference = storage.child(username + ".jpg");
+                    pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            ImageView pp = findViewById(R.id.profilepicture);
+                            Picasso.with(context).load(uri).into(pp);
+                        }
+                    });
+
+
+
+
+
+
+
                     Log.v("yo", picture);
 
                     myRef.removeEventListener(this);
@@ -200,13 +232,16 @@ public class ProfileActivity extends AppCompatActivity {
                            int flag = Intent.FLAG_GRANT_READ_URI_PERMISSION;
 
 
-                            myRef.child("profilepicture").setValue(String.valueOf(uri));
 
-                            ContentResolver cr = getContentResolver();
-                          cr.takePersistableUriPermission(uri, flag);
+
+                            ContentResolver cr = getApplicationContext().getContentResolver();
+                           cr.takePersistableUriPermission(uri, flag);
                             ImageView pp = findViewById(R.id.profilepicture);
                             pp.setImageURI(uri);
                             //updating profile pic to firebase
+                            Uploadimagetofirebase(uri);
+
+
 
 
 
@@ -221,12 +256,15 @@ public class ProfileActivity extends AppCompatActivity {
 
                 });
 
+
+
         Button button = findViewById(R.id.photo);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent();
                 i.setType("image/*");
+
                 i.setAction(Intent.ACTION_OPEN_DOCUMENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
 
@@ -243,7 +281,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        Button frireq = findViewById(R.id.friendreq);
+        ImageButton frireq = findViewById(R.id.friendreq);
         frireq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,6 +290,32 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
+
+
+
+    }
+
+    private void Uploadimagetofirebase(Uri uri){
+
+        SharedPreferences logprefs = getSharedPreferences("Loggedin", MODE_PRIVATE);
+        String username = logprefs.getString("User", "");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        StorageReference storage = FirebaseStorage.getInstance("gs://mad-project-2-eeea1.appspot.com/").getReference();
+
+        StorageReference fileref = storage.child(username + ".jpg");
+
+
+
+        fileref.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+            }
+        });
 
 
 
