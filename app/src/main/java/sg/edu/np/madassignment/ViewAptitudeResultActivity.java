@@ -50,18 +50,30 @@ public class ViewAptitudeResultActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("Loggedin",MODE_PRIVATE);
         String User = pref.getString("User","1");
 
+        SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
+        editor.remove("loopCat");
+        editor.apply();
+        SharedPreferences prefs = 	getSharedPreferences("catGameinfo", MODE_PRIVATE);
+
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference myRef = database.getReference("User").child(User);
 
         myRef.child("takenAptQuiz").setValue(true);
 
+        myRef.child("aptAnimeScore").setValue(prefs.getInt("0",0));
+        myRef.child("aptComputerScore").setValue(prefs.getInt("1",0));
+        myRef.child("aptMathScore").setValue(prefs.getInt("2",0));
+        myRef.child("aptAnimalScore").setValue(prefs.getInt("3",0));
+        myRef.child("aptMythScore").setValue(prefs.getInt("4",0));
+        myRef.child("aptCartoonScore").setValue(prefs.getInt("5",0));
+        myRef.child("aptSportScore").setValue(prefs.getInt("6",0));
+        myRef.child("aptVideoGameScore").setValue(prefs.getInt("7",0));
 
 
-        SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
-        editor.remove("loopCat");
-        editor.apply();
-        SharedPreferences prefs = 	getSharedPreferences("catGameinfo", MODE_PRIVATE);
+
+
+
 
 
         ArrayList<String> xAxisValue = new ArrayList<String>();//X-axis data source
