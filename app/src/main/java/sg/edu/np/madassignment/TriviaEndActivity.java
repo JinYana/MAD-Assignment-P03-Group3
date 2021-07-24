@@ -14,6 +14,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TriviaEndActivity extends AppCompatActivity {
 
     @Override
@@ -49,20 +52,26 @@ public class TriviaEndActivity extends AppCompatActivity {
         String username = logprefs.getString("User", "");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        DatabaseReference myRef = database.getReference("User").child(username).child("level");
+        DatabaseReference myRef = database.getReference("User").child(username);
+        HashMap<String, Object> updates = new HashMap<String,Object>();
 
 
         int playerscore = prefs.getInt("Score", 0);
 
         if(playerscore < 3){
-            myRef.setValue(ServerValue.increment(1));
+            updates.put("level", ServerValue.increment(1));
+
         }
         else if(playerscore < 5){
-            myRef.setValue(ServerValue.increment(2));
+            updates.put("level", ServerValue.increment(2));
+
         }
         else {
-            myRef.setValue(ServerValue.increment(3));
+            updates.put("level", ServerValue.increment(3));
+
         }
+
+        myRef.push().updateChildren(updates);
 
 
 
