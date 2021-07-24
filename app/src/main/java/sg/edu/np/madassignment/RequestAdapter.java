@@ -54,7 +54,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder> {
 
             holder.name.setText(u.getUsername());
             holder.level.setText("Level" + String.valueOf(u.getLevel()));
-            holder.profileppic.setImageURI(Uri.parse(u.getProfilepicture()));
+
 
             //onclick for accept friend request
             holder.accept.setOnClickListener(new View.OnClickListener() {

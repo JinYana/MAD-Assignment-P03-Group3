@@ -25,6 +25,9 @@
             android:name=".AptitudeTestActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".LeaderBoardActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ViewAptitudeResultActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -4,7 +4,7 @@ import android.net.Uri;
 
 import java.util.ArrayList;
 
-public class User {
+public class User implements Comparable<User>{
 
     public int getId() {
         return id;
@@ -162,6 +162,19 @@ public class User {
     public int aptCartoonScore;
     public int aptSportScore;
     public int aptVideoGameScore;
+
+    @Override
+    public int compareTo(User user) {
+        if (level > user.level) {
+            return -1;
+        }
+        else if (level <  user.level) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
 
 }
 

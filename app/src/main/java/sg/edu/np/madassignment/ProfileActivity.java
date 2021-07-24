@@ -18,8 +18,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -65,7 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        navigation.getMenu().getItem(2).setChecked(true);
+
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -262,6 +260,15 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, NewFriendsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button hi = findViewById(R.id.hi);
+        hi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, LeaderBoardActivity.class);
                 startActivity(intent);
             }
         });
