@@ -164,7 +164,7 @@ public class TriviaActivity extends AppCompatActivity {
             question.setText(Html.fromHtml(questiontext));
 
             //To randomise position of the correct ans
-            int randomisecorrect = random.nextInt(3);
+            int randomisecorrect = random.nextInt(4);
 
             //Setting up correct ans button
             Button correctbutton = allbuttons.get(randomisecorrect);
