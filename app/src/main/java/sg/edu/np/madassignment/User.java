@@ -63,6 +63,10 @@ public class User {
     }
 
 
+
+
+
+
     public int id;
     public String username;
     public String description;
@@ -70,15 +74,7 @@ public class User {
     public String email;
     public int level;
     public String profilepicture;
-    public ArrayList<User> friendslist;
 
-    public ArrayList<User> getFriendslist() {
-        return friendslist;
-    }
-
-    public void setFriendslist(ArrayList<User> friendslist) {
-        this.friendslist = friendslist;
-    }
 
 
 
