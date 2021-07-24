@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
                                 startActivity(intent);
                                 Toast.makeText(LoginActivity.this, "Valid Credentials", Toast.LENGTH_SHORT).show();
+
                             }
                             else {
                                 Toast.makeText(LoginActivity.this, "Invalid Credentials!", Toast.LENGTH_SHORT).show();
@@ -81,9 +82,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else {
                             Toast.makeText(LoginActivity.this, "Please Make An Account", Toast.LENGTH_SHORT).show();
-                        }
-                        myRef.removeEventListener(this);
 
+                        }
+                          myRef.removeEventListener(this);
                     }
 
                     @Override

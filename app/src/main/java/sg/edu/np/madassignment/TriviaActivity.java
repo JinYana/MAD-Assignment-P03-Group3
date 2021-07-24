@@ -223,26 +223,53 @@ public class TriviaActivity extends AppCompatActivity {
             //Setting up wrong ans buttons
             for(int i = 0; i < allbuttons.size() ; i++){
 
+
                 ImageView powerUp1 = findViewById(R.id.powerUp1);
+
+
                 powerUp1.setOnClickListener(new View.OnClickListener() {
+                    int clickpowerup1 = 0;
                     @Override
+
                     public void onClick(View v) {
 
 
                         if (powerup1 == 1){
+                           if(clickpowerup1 == 0){
+                               Integer powerupIncorrect = random.nextInt(3);
 
-                            Integer powerupIncorrect = random.nextInt(3);
+                               Button showWronganswer = allbuttons.get(powerupIncorrect);
 
-                            Button showWronganswer = allbuttons.get(powerupIncorrect);
+                               showWronganswer.setText(" ");
 
-                            showWronganswer.setText(" ");
+                               allbuttons.remove(powerupIncorrect);
 
-                            allbuttons.remove(powerupIncorrect);
+                               SharedPreferences.Editor powerupeditor = getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                               powerupeditor.putInt("powerup1count", 0);
 
-                            SharedPreferences.Editor powerupeditor = getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
-                            powerupeditor.putInt("powerup1count", 0);
+                               powerupeditor.apply();
 
-                            powerupeditor.apply();
+                               clickpowerup1 +=1;
+
+
+
+
+
+
+                           }
+
+                           else if(clickpowerup1 == 1){
+                               Toast usepowerup = Toast.makeText(TriviaActivity.this,"Power Up Used",Toast.LENGTH_SHORT);
+                               usepowerup.show();
+
+
+                           }
+
+
+
+
+
+
                         }
 
                         else if (powerup1 == 0){
