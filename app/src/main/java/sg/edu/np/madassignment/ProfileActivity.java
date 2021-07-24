@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,6 +49,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
+    public AlertDialog.Builder dialogBuilder;
+    public AlertDialog dialog;
+
 
     
 
@@ -164,6 +168,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         myRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull  DataSnapshot snapshot) {
 
@@ -187,6 +192,7 @@ public class ProfileActivity extends AppCompatActivity {
                 
                 ImageView pp = findViewById(R.id.profilepicture);
                 Uri uri = Uri.parse(picture);
+
                 pp.setImageURI(uri);
 
                 myRef.removeEventListener(this);
@@ -252,6 +258,62 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+         Button editDesc =  findViewById(R.id.editDesc);
+         editDesc.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 createdescriptiondialog();
+             }
+         });
+
+
+
+
+    }
+
+
+    public void createdescriptiondialog(){
+        dialogBuilder =  new AlertDialog.Builder(this);
+        final View popupdescriptionView = getLayoutInflater().inflate(R.layout.popup,null);
+
+         EditText newdescription = popupdescriptionView.findViewById(R.id.popupdescription);
+
+         Button saveDesc = popupdescriptionView.findViewById(R.id.savedescription);
+         Button goBack = popupdescriptionView.findViewById(R.id.back);
+
+         dialogBuilder.setView(popupdescriptionView);
+         dialog = dialogBuilder.create();
+         dialog.show();
+
+        SharedPreferences pref = getSharedPreferences("Loggedin",MODE_PRIVATE);
+        String User = pref.getString("User","1");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference myRef = database.getReference("User").child(User);
+
+         saveDesc.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+
+
+                 TextView profdesc =  findViewById(R.id.description);
+                 profdesc.setText(newdescription.getText());
+
+
+                 myRef.child("description").setValue(newdescription.getText().toString());
+
+                 dialog.dismiss();
+
+
+
+             }
+         });
+
+         goBack.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+               dialog.dismiss();
+             }
+         });
 
 
 

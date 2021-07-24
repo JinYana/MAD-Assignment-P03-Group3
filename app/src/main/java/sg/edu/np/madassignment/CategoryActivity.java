@@ -119,6 +119,11 @@ public class CategoryActivity extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
+                SharedPreferences.Editor powerupeditor = 	getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                powerupeditor.putInt("powerup1count", 1);
+                powerupeditor.putInt("powerup2count", 1);
+                powerupeditor.apply();
+
                 Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "15");
 
@@ -136,6 +141,11 @@ public class CategoryActivity extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
+                SharedPreferences.Editor powerupeditor = 	getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                powerupeditor.putInt("powerup1count", 1);
+                powerupeditor.putInt("powerup2count", 1);
+                powerupeditor.apply();
+
                 Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "18");
 
@@ -151,6 +161,11 @@ public class CategoryActivity extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
+                SharedPreferences.Editor powerupeditor = 	getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                powerupeditor.putInt("powerup1count", 1);
+                powerupeditor.putInt("powerup2count", 1);
+                powerupeditor.apply();
+
                 Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "19");
 
@@ -165,6 +180,11 @@ public class CategoryActivity extends AppCompatActivity {
                 gameeditor.putInt("QuestionsAnswered", 0);
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
+
+                SharedPreferences.Editor powerupeditor = 	getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                powerupeditor.putInt("powerup1count", 1);
+                powerupeditor.putInt("powerup2count", 1);
+                powerupeditor.apply();
 
                 Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "20");
@@ -182,6 +202,11 @@ public class CategoryActivity extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
+                SharedPreferences.Editor powerupeditor = 	getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                powerupeditor.putInt("powerup1count", 1);
+                powerupeditor.putInt("powerup2count", 1);
+                powerupeditor.apply();
+
                 Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "31");
 
@@ -197,6 +222,11 @@ public class CategoryActivity extends AppCompatActivity {
                 gameeditor.putInt("QuestionsAnswered", 0);
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
+
+                SharedPreferences.Editor powerupeditor = 	getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                powerupeditor.putInt("powerup1count", 1);
+                powerupeditor.putInt("powerup2count", 1);
+                powerupeditor.apply();
 
                 Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "27");
@@ -214,6 +244,11 @@ public class CategoryActivity extends AppCompatActivity {
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
 
+                SharedPreferences.Editor powerupeditor = 	getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                powerupeditor.putInt("powerup1count", 1);
+                powerupeditor.putInt("powerup2count", 1);
+                powerupeditor.apply();
+
                 Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "32");
 
@@ -229,6 +264,11 @@ public class CategoryActivity extends AppCompatActivity {
                 gameeditor.putInt("QuestionsAnswered", 0);
                 gameeditor.putInt("Score", 0);
                 gameeditor.apply();
+
+                SharedPreferences.Editor powerupeditor = 	getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                powerupeditor.putInt("powerup1count", 1);
+                powerupeditor.putInt("powerup2count", 1);
+                powerupeditor.apply();
 
                 Intent intent = new Intent(CategoryActivity.this, TriviaActivity.class);
                 intent.putExtra("gameid", "21");
