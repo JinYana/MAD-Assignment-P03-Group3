@@ -1,6 +1,5 @@
 package sg.edu.np.madassignment;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,6 +18,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +36,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
     CountDownTimer cdt;
 
     int loopCat = 0 ;
+
 
 
 
@@ -160,7 +162,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
                         }
 
                         public void onFinish() {
-                            if(totalquestionsanswered < 1){
+                            if(totalquestionsanswered < 3){
 
 
                                 SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
@@ -186,6 +188,15 @@ public class AptitudeTestActivity extends AppCompatActivity {
                                     editor.putInt(String.valueOf(loopCat),totalscore);
 
                                     editor.apply();
+
+                                    for(int i = 0; i < 8; i++){
+                                        Log.d("Debug", ""+ prefs.getInt(String.valueOf(i),0));
+
+                                    }
+
+
+
+
 
                                     Intent intent  = new Intent(AptitudeTestActivity.this,ViewAptitudeResultActivity.class);
 
@@ -230,7 +241,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
 
                             @Override
                             public void onFinish() {
-                                if(totalquestionsanswered < 1){
+                                if(totalquestionsanswered < 3){
 
                                     SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
                                     editor.putInt("AptQuestionsAnswered", totalquestionsanswered + 1);
@@ -253,6 +264,12 @@ public class AptitudeTestActivity extends AppCompatActivity {
 
 
                                     if (loopCat>7){
+
+                                        for(int i = 0; i < 8; i++){
+                                            Log.d("Debug", ""+ prefs.getInt(String.valueOf(i),0));
+
+                                        }
+
 
 
                                         Intent intent  = new Intent(AptitudeTestActivity.this,ViewAptitudeResultActivity.class);

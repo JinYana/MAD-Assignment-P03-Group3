@@ -10,6 +10,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TriviaEndActivity extends AppCompatActivity {
 
@@ -36,11 +42,40 @@ public class TriviaEndActivity extends AppCompatActivity {
             }
         });
 
+
+        //Adding levels to user account
         SharedPreferences prefs = 	getSharedPreferences("Gameinfo", MODE_PRIVATE);
 
         TextView score = findViewById(R.id.totalscore);
 
+        SharedPreferences logprefs = getSharedPreferences("Loggedin", MODE_PRIVATE);
+        String username = logprefs.getString("User", "");
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference myRef = database.getReference("User").child(username);
+        HashMap<String, Object> updates = new HashMap<String,Object>();
+
+
         int playerscore = prefs.getInt("Score", 0);
+
+        if(playerscore < 3){
+            updates.put("level", ServerValue.increment(1));
+
+        }
+        else if(playerscore < 5){
+            updates.put("level", ServerValue.increment(2));
+
+        }
+        else {
+            updates.put("level", ServerValue.increment(3));
+
+        }
+
+        myRef.push().updateChildren(updates);
+
+
+
+
 
         score.setText("Score: " + playerscore + "/10");
         SharedPreferences.Editor gameeditor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();

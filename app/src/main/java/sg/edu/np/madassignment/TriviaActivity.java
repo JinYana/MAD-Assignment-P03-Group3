@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,8 @@ public class TriviaActivity extends AppCompatActivity {
 
 
 
+    int powerup1 = 1;
+    int powerup2 = 1;
 
 
 
@@ -55,10 +59,25 @@ public class TriviaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trivia);
 
-        SharedPreferences prefs = 	getSharedPreferences("Gameinfo", MODE_PRIVATE);
-        totalscore = prefs.getInt("Score", 0);
-        totalquestionsanswered = prefs.getInt("QuestionsAnswered", 0);
-        String token = prefs.getString("token", "");
+        //getting user info
+        SharedPreferences logprefs = 	getSharedPreferences("Loggedin", MODE_PRIVATE);
+        String username = logprefs.getString("User","");
+
+
+
+        //getting game info
+        SharedPreferences gameprefs = 	getSharedPreferences("Gameinfo", MODE_PRIVATE);
+        totalscore = gameprefs.getInt("Score", 0);
+        totalquestionsanswered = gameprefs.getInt("QuestionsAnswered", 0);
+
+        //storing number of times power up is used
+        SharedPreferences powerupprefs = getSharedPreferences("powerupcount",MODE_PRIVATE);
+        powerup1 = powerupprefs.getInt("powerup1count",1);
+        powerup2 = powerupprefs.getInt("powerup2count",1);
+
+
+
+        String token = gameprefs.getString("token", "");
 
         LottieAnimationView checkmark = findViewById(R.id.trophy);
         checkmark.setVisibility(View.GONE);
@@ -69,8 +88,7 @@ public class TriviaActivity extends AppCompatActivity {
 
 
         TextView question = findViewById(R.id.Aptquestion);
-        TextView score = findViewById(R.id.score);
-        score.setText( totalscore + "/10");
+
 
         Button answer1 = findViewById(R.id.answer1);
         Button answer2 = findViewById(R.id.answer2);
@@ -85,6 +103,16 @@ public class TriviaActivity extends AppCompatActivity {
 
         ImageButton close = findViewById(R.id.closebutton);
 
+
+
+        //Show question progress
+        ProgressBar questionprogress = findViewById(R.id.answerProgress);
+        questionprogress.setMax(11);
+        questionprogress.setProgress(totalquestionsanswered + 1);
+
+        TextView questionNo = findViewById(R.id.questionNo);
+        questionNo.setText("Q" +  String.valueOf(totalquestionsanswered + 1));
+
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,16 +125,12 @@ public class TriviaActivity extends AppCompatActivity {
             }
         });
 
-
-
+        //get the category id chosen
         Intent receive = getIntent();
 
         String gameid = receive.getStringExtra("gameid");
 
-        if(gameid == null){
-            Log.d("Debug", "wrong");
 
-        }
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -139,6 +163,12 @@ public class TriviaActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+
+
+
+
+            //display question
             question.setText(Html.fromHtml(questiontext));
 
             //To randomise position of the correct ans
@@ -170,11 +200,22 @@ public class TriviaActivity extends AppCompatActivity {
                                 startActivity(getIntent());
                             }
                             else {
+
+
+
+
                                 SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
 
                                 editor.putInt("Score", totalscore + 1);
                                 editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
                                 editor.apply();
+
+                                SharedPreferences.Editor powerupeditor = 	getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                                powerupeditor.putInt("powerup1count", 1);
+                                powerupeditor.putInt("powerup2count", 1);
+                                powerupeditor.apply();
+
+
                                 Intent intent = new Intent(TriviaActivity.this, TriviaEndActivity.class);
                                 startActivity(intent);
                             };
@@ -193,7 +234,73 @@ public class TriviaActivity extends AppCompatActivity {
             //Setting up wrong ans buttons
             for(int i = 0; i < allbuttons.size() ; i++){
 
+
+                ImageView powerUp1 = findViewById(R.id.powerUp1);
+
+
+                powerUp1.setOnClickListener(new View.OnClickListener() {
+                    int clickpowerup1 = 0;
+                    @Override
+
+                    public void onClick(View v) {
+
+
+                        if (powerup1 == 1){
+                           if(clickpowerup1 == 0){
+                               Integer powerupIncorrect = random.nextInt(3);
+
+                               Button showWronganswer = allbuttons.get(powerupIncorrect);
+
+                               showWronganswer.setText(" ");
+
+                               allbuttons.remove(powerupIncorrect);
+
+                               SharedPreferences.Editor powerupeditor = getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                               powerupeditor.putInt("powerup1count", 0);
+
+                               powerupeditor.apply();
+
+                               clickpowerup1 +=1;
+
+
+
+
+
+
+                           }
+
+                           else if(clickpowerup1 == 1){
+                               Toast usepowerup = Toast.makeText(TriviaActivity.this,"Power Up Used",Toast.LENGTH_SHORT);
+                               usepowerup.show();
+
+
+                           }
+
+
+
+
+
+
+                        }
+
+                        else if (powerup1 == 0){
+                            Toast usepowerup = Toast.makeText(TriviaActivity.this,"Power Up Used",Toast.LENGTH_SHORT);
+                            usepowerup.show();
+
+
+
+                        }
+
+
+
+
+                    }
+                });
+
+
+
                 Button wrongbutton = allbuttons.get(i);
+
 
 
                 wrongbutton.setText(Html.fromHtml(wrongans.get(i)));
@@ -220,6 +327,7 @@ public class TriviaActivity extends AppCompatActivity {
                                     startActivity(getIntent());
                                 }
                                 else {
+
                                     SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
                                     editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
                                     /*
@@ -231,8 +339,16 @@ public class TriviaActivity extends AppCompatActivity {
                                     editor.clear(); */
                                     editor.apply();
 
+                                    SharedPreferences.Editor powerupeditor = 	getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                                    powerupeditor.putInt("powerup1count", 1);
+                                    powerupeditor.putInt("powerup2count", 1);
+                                    powerupeditor.apply();
+
+
+
                                     Intent intent = new Intent(TriviaActivity.this, TriviaEndActivity.class);
                                     startActivity(intent);
+
                                 }
 
                             }
@@ -243,6 +359,25 @@ public class TriviaActivity extends AppCompatActivity {
 
             }
 
+
+            ImageView powerUp2 = findViewById(R.id.powerUp2);
+            powerUp2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(powerup2 == 1){SharedPreferences.Editor powerupeditor = getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                        powerupeditor.putInt("powerup2count", 0);
+                        powerupeditor.apply();
+                        startActivity(getIntent());}
+
+                    else{
+                        Toast usepowerup = Toast.makeText(TriviaActivity.this,"Power Up Used",Toast.LENGTH_SHORT);
+                        usepowerup.show();
+
+
+                    }
+
+                }
+            });
 
         }, error -> Toast.makeText(TriviaActivity.this, "something wrong", Toast.LENGTH_SHORT).show());
 
