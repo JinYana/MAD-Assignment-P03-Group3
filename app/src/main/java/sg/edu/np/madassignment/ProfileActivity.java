@@ -115,52 +115,35 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-                ArrayList<String> map = new ArrayList<>();
-                for(DataSnapshot ur : snapshot.child(username).child("friendreq").getChildren()) {
-                    String userreq = ur.getValue(String.class);
-                    map.add(userreq);
-                }
-
-
-
-
-
+                GenericTypeIndicator<ArrayList<String>> genericTypeIndicator = new GenericTypeIndicator<ArrayList<String>>() {
+                };
+                GenericTypeIndicator<User> genericUserIndicator = new GenericTypeIndicator<User>() {
+                };
+                ArrayList<String> map = snapshot.child(username).child("friendslist").getValue(genericTypeIndicator);
                 if (map != null) {
                     ArrayList<User> friendsList = new ArrayList<>();
+                    for (int i = 1; i < map.size(); i++) {
+                        User user = snapshot.child(map.get(i)).getValue(User.class);
 
 
-                        for(DataSnapshot ds : snapshot.getChildren()) {
-                            User user = ds.getValue(User.class);
-                            friendsList.add(user);
-                        }
-
-                        ArrayList<User> friendreqlist = new ArrayList<>();
-                        for(int i = 0; i < friendsList.size(); i++){
-                            if(map.contains(friendsList.get(i).getUsername())){
-                                friendreqlist.add(friendsList.get(i));
-                            }
-                        }
-                        Log.v("hi", "" + friendreqlist.size());
-
-
-
-
+                        friendsList.add(user);
+                    }
 
                     RecyclerView recyclerView = findViewById(R.id.friendslist);
                     FriendAdapter mAdapter = new FriendAdapter(friendsList);
-
 
                     LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
 
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.setAdapter(mAdapter);
-
-
-
-
-
                 }
+
+
+
+
+
+
 
 
             }

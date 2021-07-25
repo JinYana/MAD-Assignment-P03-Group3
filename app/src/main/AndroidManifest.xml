@@ -16,7 +16,6 @@
         <activity android:name=".NewFriendsActivity"></activity>
         <activity android:name=".AddFriendsActivity" />
         <activity android:name=".TriviaRoomActivity" />
-        <activity android:name=".SettingsActivity" />
         <activity android:name=".ProfileActivity" />
         <activity
             android:name=".AptitudeTestHomeActivity"

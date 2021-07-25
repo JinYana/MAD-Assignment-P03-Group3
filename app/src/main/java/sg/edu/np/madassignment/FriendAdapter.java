@@ -65,7 +65,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendsViewHolder> {
         }
         else {
             StorageReference storage = FirebaseStorage.getInstance("gs://mad-project-2-eeea1.appspot.com/").getReference();
-            StorageReference pathReference = storage.child(username + ".jpg");
+            StorageReference pathReference = storage.child(u.getUsername() + ".jpg");
             pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
