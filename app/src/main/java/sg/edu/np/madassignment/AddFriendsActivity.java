@@ -3,6 +3,7 @@ package sg.edu.np.madassignment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -55,6 +56,8 @@ public class AddFriendsActivity extends AppCompatActivity {
 
                                 //If user has not already sent targeted user a friend request
                                 if(!snapshot.child(targeteduser).child("friendreq").child(username).exists()){
+                                    Intent intent = new Intent(AddFriendsActivity.this, ProfileActivity.class);
+                                    startActivity(intent);
 
                                 }
                                 else {

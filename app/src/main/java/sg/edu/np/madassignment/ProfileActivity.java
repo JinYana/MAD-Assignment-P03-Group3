@@ -146,7 +146,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-                    RecyclerView recyclerView = findViewById(R.id.newfriendreq);
+                    RecyclerView recyclerView = findViewById(R.id.friendslist);
                     FriendAdapter mAdapter = new FriendAdapter(friendsList);
 
 
