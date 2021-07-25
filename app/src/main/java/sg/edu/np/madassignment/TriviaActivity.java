@@ -74,7 +74,7 @@ public class TriviaActivity extends AppCompatActivity {
         LottieAnimationView cross = findViewById(R.id.cross);
         cross.setVisibility(View.GONE);
 
-        LottieAnimationView bomb = findViewById(R.id.bombtrampoline);
+        LottieAnimationView bomb = findViewById(R.id.explosion);
         bomb.setVisibility(View.GONE);
 
 
@@ -240,21 +240,39 @@ public class TriviaActivity extends AppCompatActivity {
                         if (powerup1 == 1){
                            if(clickpowerup1 == 0){
 
-                               bomb.setVisibility(View.VISIBLE);
-                               Integer powerupIncorrect = random.nextInt(3);
+                               bomb.setVisibility(View.VISIBLE) ;
+                               cdt = new CountDownTimer(1000, 1000) {
+                                   @Override
+                                   public void onTick(long millisUntilFinished) {
 
-                               Button showWronganswer = allbuttons.get(powerupIncorrect);
+                                   }
 
-                               showWronganswer.setText(" ");
+                                   @Override
+                                   public void onFinish() {
 
-                               allbuttons.remove(powerupIncorrect);
+                                       bomb.setVisibility(View.GONE);
+                                       Integer powerupIncorrect = random.nextInt(3);
 
-                               SharedPreferences.Editor powerupeditor = getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
-                               powerupeditor.putInt("powerup1count", 0);
+                                       Button showWronganswer = allbuttons.get(powerupIncorrect);
 
-                               powerupeditor.apply();
+                                       showWronganswer.setText(" ");
 
-                               clickpowerup1 +=1;
+                                       allbuttons.remove(powerupIncorrect);
+
+                                       SharedPreferences.Editor powerupeditor = getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                                       powerupeditor.putInt("powerup1count", 0);
+
+                                       powerupeditor.apply();
+
+                                       clickpowerup1 +=1;
+
+
+                                   }
+                               }.start();
+
+
+
+
 
 
 

@@ -148,7 +148,7 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
         radarEntries.add(new RadarEntry(chartvideogamescore));
 
 
-        RadarDataSet radarDataSet = new RadarDataSet(radarEntries, "data one");
+        RadarDataSet radarDataSet = new RadarDataSet(radarEntries, "");
         // Solid fill area color
         radarDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);
         // Whether to fill the area solidly

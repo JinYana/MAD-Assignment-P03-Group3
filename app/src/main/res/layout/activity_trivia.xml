@@ -38,7 +38,7 @@
         app:lottie_rawRes="@raw/cross" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/bombtrampoline"
+        android:id="@+id/explosion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -46,10 +46,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.369"
+        app:layout_constraintVertical_bias="0.302"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/bombtrampoline" />
+        app:lottie_rawRes="@raw/explosion" />
 
     <TextView
         android:id="@+id/Aptquestion"
