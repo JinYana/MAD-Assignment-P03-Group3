@@ -58,6 +58,8 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendsViewHolder> {
         SharedPreferences logprefs = context.getSharedPreferences("Loggedin", MODE_PRIVATE);
         String username = logprefs.getString("User", "");
 
+
+
         if(u.getProfilepicture().matches("")){
             holder.profileppic.setImageResource(R.drawable.user);
         }
@@ -69,6 +71,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendsViewHolder> {
                 public void onSuccess(Uri uri) {
 
                     Picasso.with(context).load(uri).into(holder.profileppic);
+
                 }
             });
         }

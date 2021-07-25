@@ -33,7 +33,7 @@ public class CategoryActivity extends AppCompatActivity {
 
         //Setting up bottom nav bar
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        navigation.getMenu().getItem(0).setChecked(true);
+        navigation.getMenu().findItem(R.id.page_1).setChecked(true);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -51,8 +51,13 @@ public class CategoryActivity extends AppCompatActivity {
                         break;
 
                     case R.id.page_3:
-                        Intent b = new Intent(CategoryActivity.this, ProfileActivity.class);
+                        Intent b = new Intent(CategoryActivity.this, LeaderBoardActivity.class);
                         startActivity(b);
+                        break;
+
+                    case R.id.page_4:
+                        Intent c = new Intent(CategoryActivity.this, ProfileActivity.class);
+                        startActivity(c);
                         break;
 
                 }

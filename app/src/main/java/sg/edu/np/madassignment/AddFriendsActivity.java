@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +37,8 @@ public class AddFriendsActivity extends AppCompatActivity {
 
         Button addfriend = findViewById(R.id.addfriendbutton);
 
+        String targeteduser = String.valueOf(addfriend.getText());
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull  DataSnapshot snapshot) {
@@ -43,9 +46,28 @@ public class AddFriendsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        int reqcount = (int) snapshot.child("friendreq").getChildrenCount() + 1;
 
-                        myRef.child(String.valueOf(friendusername.getText())).child("friendreq").child(String.valueOf(reqcount)).setValue(username);
+                        //If targeted username is same as current user
+                        if(!targeteduser.equals(username)){
+
+                            //If targeted user is  not already in current user's friendslist
+                            if(!snapshot.child(username).child("friendslist").child(targeteduser).exists()){
+
+                                //If user has not already sent targeted user a friend request
+                                if(!snapshot.child(targeteduser).child("friendreq").child(username).exists()){
+
+                                }
+                                else {
+                                    Toast.makeText(AddFriendsActivity.this, "Already sent User friend request", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else {
+                                Toast.makeText(AddFriendsActivity.this, "User is already your friend", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else {
+                            Toast.makeText(AddFriendsActivity.this, "Cannot add yourself as friend", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }

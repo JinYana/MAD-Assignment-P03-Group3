@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +32,43 @@ public class LeaderBoardActivity extends AppCompatActivity {
 
         SharedPreferences logprefs = getSharedPreferences("Loggedin", MODE_PRIVATE);
         String username = logprefs.getString("User", "");
+
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        navigation.getMenu().findItem(R.id.page_3).setChecked(true);
+
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+
+
+                    case R.id.page_1:
+                        Intent b = new Intent(LeaderBoardActivity.this, CategoryActivity.class);
+                        startActivity(b);
+
+
+                        break;
+
+                    case R.id.page_2:
+                        Intent a = new Intent(LeaderBoardActivity.this, AptitudeTestHomeActivity.class);
+                        startActivity(a);
+                        break;
+
+                    case R.id.page_3:
+
+
+                    case R.id.page_4:
+                        Intent c = new Intent(LeaderBoardActivity.this, ProfileActivity.class);
+                        startActivity(c);
+
+                        break;
+
+
+                }
+                return false;
+            }
+        });
 
         Context context = this;
 
