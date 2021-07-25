@@ -217,7 +217,7 @@ public class CategoryActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.v("Debug", "stop");
+        Log.v("Debug", "sassastop");
     }
 
     @Override

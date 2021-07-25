@@ -66,6 +66,26 @@ public class LoginActivity extends AppCompatActivity {
                             String password = dataSnapshot.child("password").getValue(String.class);
                             String username = dataSnapshot.child("username").getValue(String.class);
 
+                            //Load User's aptitude score
+                            int aptanimescore = dataSnapshot.child("aptAnimeScore").getValue(int.class);
+                            int aptcomputerscore = dataSnapshot.child("aptComputerScore").getValue(int.class);
+                            int aptmathscore = dataSnapshot.child("aptMathScore").getValue(int.class);
+                            int aptanimalscore = dataSnapshot.child("aptAnimalScore").getValue(int.class);
+                            int aptmythscore = dataSnapshot.child("aptMythScore").getValue(int.class);
+                            int aptcartoonscore = dataSnapshot.child("aptCartoonScore").getValue(int.class);
+                            int aptsportscore = dataSnapshot.child("aptSportScore").getValue(int.class);
+                            int aptvideogamescore = dataSnapshot.child("aptVideoGameScore").getValue(int.class);
+                            SharedPreferences.Editor charteditor = 	getSharedPreferences("chartscore", MODE_PRIVATE).edit();
+                            charteditor.putInt("chartanimescore",aptanimescore);
+                            charteditor.putInt("chartcomputerscore",aptcomputerscore);
+                            charteditor.putInt("chartmathscore",aptmathscore);
+                            charteditor.putInt("chartanimalscore",aptanimalscore);
+                            charteditor.putInt("chartmythscore",aptmythscore);
+                            charteditor.putInt("chartcartoonscore",aptcartoonscore);
+                            charteditor.putInt("chartsportscore",aptsportscore);
+                            charteditor.putInt("chartvideogamescore",aptvideogamescore);
+                            charteditor.apply();
+
                             if (username != null || password != null){
 
 
@@ -75,6 +95,10 @@ public class LoginActivity extends AppCompatActivity {
                                     SharedPreferences.Editor editor = getSharedPreferences("Loggedin", MODE_PRIVATE).edit();
                                     editor.putString("User", etUsername.getText().toString());
                                     editor.apply();
+
+
+
+
                                     Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
                                     startActivity(intent);
                                     Toast.makeText(LoginActivity.this, "Valid Credentials", Toast.LENGTH_SHORT).show();
