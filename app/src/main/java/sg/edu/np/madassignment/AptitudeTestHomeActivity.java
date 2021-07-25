@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,13 +14,23 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.RadarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.RadarData;
+import com.github.mikephil.charting.data.RadarDataSet;
+import com.github.mikephil.charting.data.RadarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class AptitudeTestHomeActivity extends AppCompatActivity {
 
@@ -90,10 +101,11 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
                             if (takenAptQuiz.equals(true)){
 
 
+
+                                Toast.makeText(AptitudeTestHomeActivity.this, "Done Aptitude Quiz!", Toast.LENGTH_SHORT).show();
+
                                 Intent intent = new Intent(AptitudeTestHomeActivity.this, CategoryActivity.class);
                                 startActivity(intent);
-
-
 
 
 
@@ -116,6 +128,7 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
                                 }
 
                                 editor.apply();
+
                                 Intent intent = new Intent(AptitudeTestHomeActivity.this, AptitudeTestActivity.class);
                                 startActivity(intent);
 
@@ -144,15 +157,113 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
         });
 
 
-        Button noTest = findViewById(R.id.dontTakeAptQuiz);
-        noTest.setOnClickListener(new View.OnClickListener() {
+
+
+//////////////////////////
+
+
+
+
+        String[] labels = {"Anime","Computers","Math","Animals","Mythology","Cartoon","Sports","VideoGames"};
+        SharedPreferences prefs = 	getSharedPreferences("catGameinfo", MODE_PRIVATE);
+
+
+
+
+
+
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AptitudeTestHomeActivity.this, CategoryActivity.class);
-                startActivity(intent);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+                    int aptanimescore = dataSnapshot.child("aptAnimeScore").getValue(int.class);
+                    int aptcomputerscore = dataSnapshot.child("aptComputerScore").getValue(int.class);
+                    int aptmathscore = dataSnapshot.child("aptMathScore").getValue(int.class);
+                    int aptanimalscore = dataSnapshot.child("aptAnimalScore").getValue(int.class);
+                    int aptmythscore = dataSnapshot.child("aptMythScore").getValue(int.class);
+                    int aptcartoonscore = dataSnapshot.child("aptCartoonScore").getValue(int.class);
+                    int aptsportscore = dataSnapshot.child("aptSportScore").getValue(int.class);
+                    int aptvideogamescore = dataSnapshot.child("aptVideoGameScore").getValue(int.class);
+
+                    SharedPreferences.Editor charteditor = 	getSharedPreferences("chartscore", MODE_PRIVATE).edit();
+                    charteditor.putInt("chartanimescore",aptanimescore);
+                    charteditor.putInt("chartcomputerscore",aptcomputerscore);
+                    charteditor.putInt("chartmathscore",aptmathscore);
+                    charteditor.putInt("chartanimalscore",aptanimalscore);
+                    charteditor.putInt("chartmythscore",aptmythscore);
+                    charteditor.putInt("chartcartoonscore",aptcartoonscore);
+                    charteditor.putInt("chartsportscore",aptsportscore);
+                    charteditor.putInt("chartvideogamescore",aptvideogamescore);
+                    charteditor.apply();
+
+
+
+
+
+                }
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled( DatabaseError error) {
+
             }
         });
 
+        SharedPreferences chartpref = 	getSharedPreferences("chartscore", MODE_PRIVATE);
+        int chartanimescore = chartpref.getInt("chartanimescore",0);
+        int chartcomputerscore = chartpref.getInt("chartcomputerscore",0);
+        int chartmathscore = chartpref.getInt("chartmathscore",0);
+        int chartanimalscore = chartpref.getInt("chartanimalscore",0);
+        int chartmythcore = chartpref.getInt("chartmythscore",0);
+        int chartcartoonscore = chartpref.getInt("chartcartoonscore",0);
+        int chartsportscore = chartpref.getInt("chartsportscore",0);
+        int chartvideogamescore = chartpref.getInt("chartvideogamescore",0);
+
+        ArrayList<String> xAxisValue = new ArrayList<String>();//X-axis data source
+        RadarChart radarChart;//radar
+
+        radarChart = findViewById(R.id.RadarChart);
+
+        radarChart.getDescription().setEnabled(false);
+
+        XAxis xAxis = radarChart.getXAxis();
+
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setDrawLabels(true);
+        xAxis.setGranularity(1f);
+        xAxis.setTextSize(10);
+        xAxis.setLabelCount(xAxisValue.size());
+        xAxis.setCenterAxisLabels(true);//Set the label to center
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+        xAxis.setTextColor(Color.WHITE);
+
+        java.util.List<RadarEntry> radarEntries = new ArrayList<>();
+
+
+
+        radarEntries.add(new RadarEntry(chartanimescore));
+        radarEntries.add(new RadarEntry(chartcomputerscore));
+        radarEntries.add(new RadarEntry(chartmathscore));
+        radarEntries.add(new RadarEntry(chartanimalscore));
+        radarEntries.add(new RadarEntry(chartmythcore));
+        radarEntries.add(new RadarEntry(chartcartoonscore));
+        radarEntries.add(new RadarEntry(chartsportscore));
+        radarEntries.add(new RadarEntry(chartvideogamescore));
+
+
+        RadarDataSet radarDataSet = new RadarDataSet(radarEntries, "data one");
+        // Solid fill area color
+        radarDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        // Whether to fill the area solidly
+        radarDataSet.setDrawFilled(true);
+        RadarData radarData = new RadarData(radarDataSet);
+        radarChart.setData(radarData);
 
 
 

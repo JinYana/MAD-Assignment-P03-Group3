@@ -1,17 +1,20 @@
 package sg.edu.np.madassignment;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Toast;
 //import android.support.v7.app.AppCompatActivity;
 import com.github.mikephil.charting.charts.BubbleChart;
 import com.github.mikephil.charting.charts.RadarChart;
@@ -24,8 +27,11 @@ import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -70,10 +76,52 @@ public class ViewAptitudeResultActivity extends AppCompatActivity {
         myRef.child("aptSportScore").setValue(prefs.getInt("6",0));
         myRef.child("aptVideoGameScore").setValue(prefs.getInt("7",0));
 
+        myRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                            if (dataSnapshot.exists()) {
+                                                int aptanimescore = dataSnapshot.child("aptAnimeScore").getValue(int.class);
+                                                int aptcomputerscore = dataSnapshot.child("aptComputerScore").getValue(int.class);
+                                                int aptmathscore = dataSnapshot.child("aptMathScore").getValue(int.class);
+                                                int aptanimalscore = dataSnapshot.child("aptAnimalScore").getValue(int.class);
+                                                int aptmythscore = dataSnapshot.child("aptMythScore").getValue(int.class);
+                                                int aptcartoonscore = dataSnapshot.child("aptCartoonScore").getValue(int.class);
+                                                int aptsportscore = dataSnapshot.child("aptSportScore").getValue(int.class);
+                                                int aptvideogamescore = dataSnapshot.child("aptVideoGameScore").getValue(int.class);
 
 
 
 
+
+
+                                                SharedPreferences.Editor charteditor = 	getSharedPreferences("chartscore", MODE_PRIVATE).edit();
+                                                charteditor.putInt("chartanime",aptanimescore);
+                                                charteditor.putInt("chartcomputerscore",aptcomputerscore);
+                                                charteditor.putInt("chartmathscore",aptmathscore);
+                                                charteditor.putInt("chartanimalscore",aptanimalscore);
+                                                charteditor.putInt("chartmythscore",aptmythscore);
+                                                charteditor.putInt("chartcartoonscore",aptcartoonscore);
+                                                charteditor.putInt("sportscore",aptsportscore);
+                                                charteditor.putInt("chartvideogamescore",aptvideogamescore);
+                                                charteditor.apply();
+
+
+                                            }
+
+
+
+
+                                        }
+
+            @Override
+            public void onCancelled( DatabaseError error) {
+
+            }
+        });
+
+
+        ///////////
 
 
         ArrayList<String> xAxisValue = new ArrayList<String>();//X-axis data source
@@ -109,6 +157,10 @@ public class ViewAptitudeResultActivity extends AppCompatActivity {
 
 
 
+
+
+
+
         RadarDataSet radarDataSet = new RadarDataSet(radarEntries, "data one");
         // Solid fill area color
         radarDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);
@@ -126,6 +178,7 @@ public class ViewAptitudeResultActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
 
 

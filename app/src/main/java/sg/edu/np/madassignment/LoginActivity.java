@@ -75,6 +75,17 @@ public class LoginActivity extends AppCompatActivity {
                                     SharedPreferences.Editor editor = getSharedPreferences("Loggedin", MODE_PRIVATE).edit();
                                     editor.putString("User", etUsername.getText().toString());
                                     editor.apply();
+                                    SharedPreferences.Editor charteditor = 	getSharedPreferences("chartscore", MODE_PRIVATE).edit();
+                                    charteditor.putInt("chartanimescore",0);
+                                    charteditor.putInt("chartcomputerscore",0);
+                                    charteditor.putInt("chartmathscore",0);
+                                    charteditor.putInt("chartanimalscore",0);
+                                    charteditor.putInt("chartmythscore",0);
+                                    charteditor.putInt("chartcartoonscore",0);
+                                    charteditor.putInt("sportscore",0);
+                                    charteditor.putInt("chartvideogamescore",0);
+                                    charteditor.apply();
+
                                     Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
                                     startActivity(intent);
                                     Toast.makeText(LoginActivity.this, "Valid Credentials", Toast.LENGTH_SHORT).show();
