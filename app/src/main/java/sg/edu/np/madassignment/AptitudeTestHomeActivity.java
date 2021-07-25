@@ -50,15 +50,19 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
                         Intent a = new Intent(AptitudeTestHomeActivity.this,CategoryActivity.class);
                         startActivity(a);
 
-
                         break;
 
                     case R.id.page_2:
                         break;
 
                     case R.id.page_3:
-                        Intent b = new Intent(AptitudeTestHomeActivity.this, ProfileActivity.class);
+                        Intent b = new Intent(AptitudeTestHomeActivity.this, LeaderBoardActivity.class);
                         startActivity(b);
+                        break;
+
+                    case R.id.page_4:
+                        Intent c = new Intent(AptitudeTestHomeActivity.this, ProfileActivity.class);
+                        startActivity(c);
                         break;
 
 
