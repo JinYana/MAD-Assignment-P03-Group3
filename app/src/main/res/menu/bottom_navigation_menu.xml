@@ -13,9 +13,15 @@
         android:enabled="true"
         android:icon="@drawable/radar"
         android:title="Apptitude" />
-
     <item
         android:id="@+id/page_3"
+        android:checkable="false"
+        android:enabled="true"
+        android:icon="@drawable/podium"
+        android:title="Profile" />
+
+    <item
+        android:id="@+id/page_4"
         android:checkable="false"
         android:enabled="true"
         android:icon="@drawable/user"

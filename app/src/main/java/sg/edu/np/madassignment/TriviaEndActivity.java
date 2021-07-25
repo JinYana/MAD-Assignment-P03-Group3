@@ -53,25 +53,24 @@ public class TriviaEndActivity extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference myRef = database.getReference("User").child(username);
-        HashMap<String, Object> updates = new HashMap<String,Object>();
+
 
 
         int playerscore = prefs.getInt("Score", 0);
 
         if(playerscore < 3){
-            updates.put("level", ServerValue.increment(1));
+            myRef.child("level").setValue(ServerValue.increment(1));
 
         }
         else if(playerscore < 5){
-            updates.put("level", ServerValue.increment(2));
+            myRef.child("level").setValue(ServerValue.increment(2));
 
         }
         else {
-            updates.put("level", ServerValue.increment(3));
-
+            myRef.child("level").setValue(ServerValue.increment(3));
         }
 
-        myRef.push().updateChildren(updates);
+
 
 
 
