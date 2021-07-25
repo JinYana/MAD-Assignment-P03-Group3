@@ -168,7 +168,7 @@ public class ProfileActivity extends AppCompatActivity {
                 TextView frireqcount = findViewById(R.id.frireqcount);
                 frireqcount.setText(String.valueOf(snapshot.child("friendreq").getChildrenCount()));
 
-                if (picture.matches("-")) {
+                if (picture.matches("")) {
                     ImageView pp = findViewById(R.id.profilepicture);
                     pp.setImageResource(R.drawable.user);
                 } else {
@@ -214,6 +214,7 @@ public class ProfileActivity extends AppCompatActivity {
                             pp.setImageURI(uri);
                             //updating profile pic to firebase
                             Uploadimagetofirebase(uri);
+                            myRef.child("profilepicture").setValue("exsist");
 
 
                         }
