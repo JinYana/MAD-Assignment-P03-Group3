@@ -83,6 +83,79 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference myRef = database.getReference("User").child(User);
 
+        String[] labels = {"Anime","Computers","Math","Animals","Mythology","Cartoon","Sports","VideoGames"};
+        SharedPreferences prefs = 	getSharedPreferences("catGameinfo", MODE_PRIVATE);
+
+
+
+
+
+
+
+
+        SharedPreferences chartpref = 	getSharedPreferences("chartscore", MODE_PRIVATE);
+        int chartanimescore = chartpref.getInt("chartanimescore",0);
+        int chartcomputerscore = chartpref.getInt("chartcomputerscore",0);
+        int chartmathscore = chartpref.getInt("chartmathscore",0);
+        int chartanimalscore = chartpref.getInt("chartanimalscore",0);
+        int chartmythcore = chartpref.getInt("chartmythscore",0);
+        int chartcartoonscore = chartpref.getInt("chartcartoonscore",0);
+        int chartsportscore = chartpref.getInt("chartsportscore",0);
+        int chartvideogamescore = chartpref.getInt("chartvideogamescore",0);
+
+        Log.v("anime", ""+chartanimescore);
+        Log.v("comp", ""+chartcomputerscore);
+        Log.v("math", ""+chartmathscore);
+        Log.v("animal", ""+chartanimalscore);
+        Log.v("myth", ""+chartmythcore);
+        Log.v("cartoon", ""+chartcartoonscore);
+        Log.v("sport", ""+chartsportscore);
+        Log.v("video", ""+chartvideogamescore);
+
+
+
+
+        ArrayList<String> xAxisValue = new ArrayList<String>();//X-axis data source
+        RadarChart radarChart;//radar
+
+        radarChart = findViewById(R.id.RadarChart);
+
+        radarChart.getDescription().setEnabled(false);
+
+        XAxis xAxis = radarChart.getXAxis();
+
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setDrawLabels(true);
+        xAxis.setGranularity(1f);
+        xAxis.setTextSize(10);
+        xAxis.setLabelCount(xAxisValue.size());
+        xAxis.setCenterAxisLabels(true);//Set the label to center
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+        xAxis.setTextColor(Color.WHITE);
+
+        java.util.List<RadarEntry> radarEntries = new ArrayList<>();
+
+
+
+        radarEntries.add(new RadarEntry(chartanimescore));
+        radarEntries.add(new RadarEntry(chartcomputerscore));
+        radarEntries.add(new RadarEntry(chartmathscore));
+        radarEntries.add(new RadarEntry(chartanimalscore));
+        radarEntries.add(new RadarEntry(chartmythcore));
+        radarEntries.add(new RadarEntry(chartcartoonscore));
+        radarEntries.add(new RadarEntry(chartsportscore));
+        radarEntries.add(new RadarEntry(chartvideogamescore));
+
+
+        RadarDataSet radarDataSet = new RadarDataSet(radarEntries, "data one");
+        // Solid fill area color
+        radarDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        // Whether to fill the area solidly
+        radarDataSet.setDrawFilled(true);
+        RadarData radarData = new RadarData(radarDataSet);
+        radarChart.setData(radarData);
+
 
 
 
@@ -156,114 +229,17 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-//////////////////////////
-
-
-
-
-        String[] labels = {"Anime","Computers","Math","Animals","Mythology","Cartoon","Sports","VideoGames"};
-        SharedPreferences prefs = 	getSharedPreferences("catGameinfo", MODE_PRIVATE);
+        Log.v("tag", "fgdfgdgf");
 
 
 
 
 
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if (dataSnapshot.exists()) {
-                    int aptanimescore = dataSnapshot.child("aptAnimeScore").getValue(int.class);
-                    int aptcomputerscore = dataSnapshot.child("aptComputerScore").getValue(int.class);
-                    int aptmathscore = dataSnapshot.child("aptMathScore").getValue(int.class);
-                    int aptanimalscore = dataSnapshot.child("aptAnimalScore").getValue(int.class);
-                    int aptmythscore = dataSnapshot.child("aptMythScore").getValue(int.class);
-                    int aptcartoonscore = dataSnapshot.child("aptCartoonScore").getValue(int.class);
-                    int aptsportscore = dataSnapshot.child("aptSportScore").getValue(int.class);
-                    int aptvideogamescore = dataSnapshot.child("aptVideoGameScore").getValue(int.class);
-
-                    SharedPreferences.Editor charteditor = 	getSharedPreferences("chartscore", MODE_PRIVATE).edit();
-                    charteditor.putInt("chartanimescore",aptanimescore);
-                    charteditor.putInt("chartcomputerscore",aptcomputerscore);
-                    charteditor.putInt("chartmathscore",aptmathscore);
-                    charteditor.putInt("chartanimalscore",aptanimalscore);
-                    charteditor.putInt("chartmythscore",aptmythscore);
-                    charteditor.putInt("chartcartoonscore",aptcartoonscore);
-                    charteditor.putInt("chartsportscore",aptsportscore);
-                    charteditor.putInt("chartvideogamescore",aptvideogamescore);
-                    charteditor.apply();
 
 
 
 
-
-                }
-
-
-
-
-            }
-
-            @Override
-            public void onCancelled( DatabaseError error) {
-
-            }
-        });
-
-        SharedPreferences chartpref = 	getSharedPreferences("chartscore", MODE_PRIVATE);
-        int chartanimescore = chartpref.getInt("chartanimescore",0);
-        int chartcomputerscore = chartpref.getInt("chartcomputerscore",0);
-        int chartmathscore = chartpref.getInt("chartmathscore",0);
-        int chartanimalscore = chartpref.getInt("chartanimalscore",0);
-        int chartmythcore = chartpref.getInt("chartmythscore",0);
-        int chartcartoonscore = chartpref.getInt("chartcartoonscore",0);
-        int chartsportscore = chartpref.getInt("chartsportscore",0);
-        int chartvideogamescore = chartpref.getInt("chartvideogamescore",0);
-
-        ArrayList<String> xAxisValue = new ArrayList<String>();//X-axis data source
-        RadarChart radarChart;//radar
-
-        radarChart = findViewById(R.id.RadarChart);
-
-        radarChart.getDescription().setEnabled(false);
-
-        XAxis xAxis = radarChart.getXAxis();
-
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
-        xAxis.setDrawLabels(true);
-        xAxis.setGranularity(1f);
-        xAxis.setTextSize(10);
-        xAxis.setLabelCount(xAxisValue.size());
-        xAxis.setCenterAxisLabels(true);//Set the label to center
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
-        xAxis.setTextColor(Color.WHITE);
-
-        java.util.List<RadarEntry> radarEntries = new ArrayList<>();
-
-
-
-        radarEntries.add(new RadarEntry(chartanimescore));
-        radarEntries.add(new RadarEntry(chartcomputerscore));
-        radarEntries.add(new RadarEntry(chartmathscore));
-        radarEntries.add(new RadarEntry(chartanimalscore));
-        radarEntries.add(new RadarEntry(chartmythcore));
-        radarEntries.add(new RadarEntry(chartcartoonscore));
-        radarEntries.add(new RadarEntry(chartsportscore));
-        radarEntries.add(new RadarEntry(chartvideogamescore));
-
-
-        RadarDataSet radarDataSet = new RadarDataSet(radarEntries, "data one");
-        // Solid fill area color
-        radarDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        // Whether to fill the area solidly
-        radarDataSet.setDrawFilled(true);
-        RadarData radarData = new RadarData(radarDataSet);
-        radarChart.setData(radarData);
 
 
 
