@@ -85,6 +85,9 @@ public class TriviaActivity extends AppCompatActivity {
         LottieAnimationView cross = findViewById(R.id.cross);
         cross.setVisibility(View.GONE);
 
+        LottieAnimationView bomb = findViewById(R.id.explosion);
+        bomb.setVisibility(View.GONE);
+
 
 
         TextView question = findViewById(R.id.Aptquestion);
@@ -172,7 +175,7 @@ public class TriviaActivity extends AppCompatActivity {
             question.setText(Html.fromHtml(questiontext));
 
             //To randomise position of the correct ans
-            int randomisecorrect = random.nextInt(3);
+            int randomisecorrect = random.nextInt(4);
 
             //Setting up correct ans button
             Button correctbutton = allbuttons.get(randomisecorrect);
@@ -247,20 +250,40 @@ public class TriviaActivity extends AppCompatActivity {
 
                         if (powerup1 == 1){
                            if(clickpowerup1 == 0){
-                               Integer powerupIncorrect = random.nextInt(3);
 
-                               Button showWronganswer = allbuttons.get(powerupIncorrect);
+                               bomb.setVisibility(View.VISIBLE) ;
+                               cdt = new CountDownTimer(1000, 1000) {
+                                   @Override
+                                   public void onTick(long millisUntilFinished) {
 
-                               showWronganswer.setText(" ");
+                                   }
 
-                               allbuttons.remove(powerupIncorrect);
+                                   @Override
+                                   public void onFinish() {
 
-                               SharedPreferences.Editor powerupeditor = getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
-                               powerupeditor.putInt("powerup1count", 0);
+                                       bomb.setVisibility(View.GONE);
+                                       Integer powerupIncorrect = random.nextInt(3);
 
-                               powerupeditor.apply();
+                                       Button showWronganswer = allbuttons.get(powerupIncorrect);
 
-                               clickpowerup1 +=1;
+                                       showWronganswer.setText(" ");
+
+                                       allbuttons.remove(powerupIncorrect);
+
+                                       SharedPreferences.Editor powerupeditor = getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                                       powerupeditor.putInt("powerup1count", 0);
+
+                                       powerupeditor.apply();
+
+                                       clickpowerup1 +=1;
+
+
+                                   }
+                               }.start();
+
+
+
+
 
 
 
