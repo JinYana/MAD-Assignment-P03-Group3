@@ -24,6 +24,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,6 +67,10 @@ public class TriviaActivity extends AppCompatActivity {
         String username = logprefs.getString("User","");
 
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference myRef = database.getReference("User").child(username);
+
+
 
         //getting game info
         SharedPreferences gameprefs = 	getSharedPreferences("Gameinfo", MODE_PRIVATE);
@@ -84,6 +91,9 @@ public class TriviaActivity extends AppCompatActivity {
 
         LottieAnimationView cross = findViewById(R.id.cross);
         cross.setVisibility(View.GONE);
+
+        LottieAnimationView bomb = findViewById(R.id.explosion);
+        bomb.setVisibility(View.GONE);
 
 
 
@@ -132,6 +142,8 @@ public class TriviaActivity extends AppCompatActivity {
 
 
 
+
+
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://opentdb.com/api.php?amount=1&category=" + gameid + "&type=multiple&token=" + token;
@@ -172,7 +184,7 @@ public class TriviaActivity extends AppCompatActivity {
             question.setText(Html.fromHtml(questiontext));
 
             //To randomise position of the correct ans
-            int randomisecorrect = random.nextInt(3);
+            int randomisecorrect = random.nextInt(4);
 
             //Setting up correct ans button
             Button correctbutton = allbuttons.get(randomisecorrect);
@@ -183,6 +195,7 @@ public class TriviaActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     checkmark.setVisibility(View.VISIBLE);
+
                     cdt = new CountDownTimer(500, 1000) {
 
                         public void onTick(long millisUntilFinished) {
@@ -190,6 +203,8 @@ public class TriviaActivity extends AppCompatActivity {
                         }
 
                         public void onFinish() {
+
+
                             if(totalquestionsanswered < 9){
 
 
@@ -197,7 +212,48 @@ public class TriviaActivity extends AppCompatActivity {
                                 editor.putInt("Score", totalscore + 1);
                                 editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
                                 editor.apply();
+
+                                //Adding user game score to firebase based on category;
+                                if(gameid.equals("31")){
+                                    myRef.child("gameAnimeanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameAnimecorrect").setValue(ServerValue.increment(1));
+                                }
+                                else if(gameid.equals("18")){
+                                    myRef.child("gameComputeranswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameComputercorrect").setValue(ServerValue.increment(1));
+
+                                }
+                                else if(gameid.equals("19")){
+                                    myRef.child("gameMathanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameMathcorrect").setValue(ServerValue.increment(1));
+                                }
+                                else if(gameid.equals("27")){
+                                    myRef.child("gameAnimalsanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameAnimalscorrect").setValue(ServerValue.increment(1));
+                                }
+                                else if(gameid.equals("20")){
+                                    myRef.child("gameMythanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameMythcorrect").setValue(ServerValue.increment(1));
+
+                                }
+                                else if(gameid.equals("32")){
+                                    myRef.child("gameCartoonanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameCartooncorrect").setValue(ServerValue.increment(1));
+                                }
+                                else if(gameid.equals("21")){
+                                    myRef.child("gameSportanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameSportcorrect").setValue(ServerValue.increment(1));
+                                }
+                                else if(gameid.equals("15")){
+                                    myRef.child("gameVideoGameanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameVideoGamecorrect").setValue(ServerValue.increment(1));
+                                }
+
                                 startActivity(getIntent());
+
+
+
+
                             }
                             else {
 
@@ -214,6 +270,44 @@ public class TriviaActivity extends AppCompatActivity {
                                 powerupeditor.putInt("powerup1count", 1);
                                 powerupeditor.putInt("powerup2count", 1);
                                 powerupeditor.apply();
+
+                                if(gameid.equals("31")){
+                                    myRef.child("gameAnimeanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameAnimecorrect").setValue(ServerValue.increment(1));
+                                }
+                                else if(gameid.equals("18")){
+                                    myRef.child("gameComputeranswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameComputercorrect").setValue(ServerValue.increment(1));
+
+                                }
+                                else if(gameid.equals("19")){
+                                    myRef.child("gameMathanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameMathcorrect").setValue(ServerValue.increment(1));
+                                }
+                                else if(gameid.equals("27")){
+                                    myRef.child("gameAnimalsanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameAnimalscorrect").setValue(ServerValue.increment(1));
+                                }
+                                else if(gameid.equals("20")){
+                                    myRef.child("gameMythanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameMythcorrect").setValue(ServerValue.increment(1));
+
+                                }
+                                else if(gameid.equals("32")){
+                                    myRef.child("gameCartoonanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameCartooncorrect").setValue(ServerValue.increment(1));
+                                }
+                                else if(gameid.equals("21")){
+                                    myRef.child("gameSportanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameSportcorrect").setValue(ServerValue.increment(1));
+                                }
+                                else if(gameid.equals("15")){
+                                    myRef.child("gameVideoGameanswered").setValue(ServerValue.increment(1));
+                                    myRef.child("gameVideoGamecorrect").setValue(ServerValue.increment(1));
+                                }
+
+
+
 
 
                                 Intent intent = new Intent(TriviaActivity.this, TriviaEndActivity.class);
@@ -247,20 +341,40 @@ public class TriviaActivity extends AppCompatActivity {
 
                         if (powerup1 == 1){
                            if(clickpowerup1 == 0){
-                               Integer powerupIncorrect = random.nextInt(3);
 
-                               Button showWronganswer = allbuttons.get(powerupIncorrect);
+                               bomb.setVisibility(View.VISIBLE) ;
+                               cdt = new CountDownTimer(1000, 1000) {
+                                   @Override
+                                   public void onTick(long millisUntilFinished) {
 
-                               showWronganswer.setText(" ");
+                                   }
 
-                               allbuttons.remove(powerupIncorrect);
+                                   @Override
+                                   public void onFinish() {
 
-                               SharedPreferences.Editor powerupeditor = getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
-                               powerupeditor.putInt("powerup1count", 0);
+                                       bomb.setVisibility(View.GONE);
+                                       Integer powerupIncorrect = random.nextInt(3);
 
-                               powerupeditor.apply();
+                                       Button showWronganswer = allbuttons.get(powerupIncorrect);
 
-                               clickpowerup1 +=1;
+                                       showWronganswer.setText(" ");
+
+                                       allbuttons.remove(powerupIncorrect);
+
+                                       SharedPreferences.Editor powerupeditor = getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
+                                       powerupeditor.putInt("powerup1count", 0);
+
+                                       powerupeditor.apply();
+
+                                       clickpowerup1 +=1;
+
+
+                                   }
+                               }.start();
+
+
+
+
 
 
 
@@ -318,11 +432,48 @@ public class TriviaActivity extends AppCompatActivity {
 
                             @Override
                             public void onFinish() {
+
                                 if(totalquestionsanswered < 9){
 
                                     SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
                                     editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
                                     editor.apply();
+
+                                    if(gameid.equals("31")){
+                                        myRef.child("gameAnimeanswered").setValue(ServerValue.increment(1));
+
+                                    }
+                                    else if(gameid.equals("18")){
+                                        myRef.child("gameComputeranswered").setValue(ServerValue.increment(1));
+
+
+                                    }
+                                    else if(gameid.equals("19")){
+                                        myRef.child("gameMathanswered").setValue(ServerValue.increment(1));
+
+                                    }
+                                    else if(gameid.equals("27")){
+                                        myRef.child("gameAnimalsanswered").setValue(ServerValue.increment(1));
+
+                                    }
+                                    else if(gameid.equals("20")){
+                                        myRef.child("gameMythanswered").setValue(ServerValue.increment(1));
+
+
+                                    }
+                                    else if(gameid.equals("32")){
+                                        myRef.child("gameCartoonanswered").setValue(ServerValue.increment(1));
+
+                                    }
+                                    else if(gameid.equals("21")){
+                                        myRef.child("gameSportanswered").setValue(ServerValue.increment(1));
+
+                                    }
+                                    else if(gameid.equals("15")){
+                                        myRef.child("gameVideoGameanswered").setValue(ServerValue.increment(1));
+
+                                    }
+
 
                                     startActivity(getIntent());
                                 }
@@ -343,6 +494,41 @@ public class TriviaActivity extends AppCompatActivity {
                                     powerupeditor.putInt("powerup1count", 1);
                                     powerupeditor.putInt("powerup2count", 1);
                                     powerupeditor.apply();
+
+                                    if(gameid.equals("31")){
+                                        myRef.child("gameAnimeanswered").setValue(ServerValue.increment(1));
+
+                                    }
+                                    else if(gameid.equals("18")){
+                                        myRef.child("gameComputeranswered").setValue(ServerValue.increment(1));
+
+
+                                    }
+                                    else if(gameid.equals("19")){
+                                        myRef.child("gameMathanswered").setValue(ServerValue.increment(1));
+
+                                    }
+                                    else if(gameid.equals("27")){
+                                        myRef.child("gameAnimalsanswered").setValue(ServerValue.increment(1));
+
+                                    }
+                                    else if(gameid.equals("20")){
+                                        myRef.child("gameMythanswered").setValue(ServerValue.increment(1));
+
+
+                                    }
+                                    else if(gameid.equals("32")){
+                                        myRef.child("gameCartoonanswered").setValue(ServerValue.increment(1));
+
+                                    }
+                                    else if(gameid.equals("21")){
+                                        myRef.child("gameSportanswered").setValue(ServerValue.increment(1));
+
+                                    }
+                                    else if(gameid.equals("15")){
+                                        myRef.child("gameVideoGameanswered").setValue(ServerValue.increment(1));
+
+                                    }
 
 
 

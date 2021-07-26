@@ -66,20 +66,46 @@ public class LoginActivity extends AppCompatActivity {
                             String password = dataSnapshot.child("password").getValue(String.class);
                             String username = dataSnapshot.child("username").getValue(String.class);
 
-                            if (username.equals(etUsername.getText().toString()) && password.equals(etPassword.getText().toString())) {
-                                SharedPreferences.Editor editor = getSharedPreferences("Loggedin", MODE_PRIVATE).edit();
-                                editor.putString("User", etUsername.getText().toString());
-                                editor.apply();
-                                Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
-                                startActivity(intent);
-                                Toast.makeText(LoginActivity.this, "Valid Credentials", Toast.LENGTH_SHORT).show();
+
+
+                            if (username != null || password != null){
+
+
+
+
+                                if (username.equals(etUsername.getText().toString()) && password.equals(etPassword.getText().toString())) {
+                                    SharedPreferences.Editor editor = getSharedPreferences("Loggedin", MODE_PRIVATE).edit();
+                                    editor.putString("User", etUsername.getText().toString());
+                                    editor.apply();
+
+
+
+
+                                    Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
+                                    startActivity(intent);
+                                    Toast.makeText(LoginActivity.this, "Valid Credentials", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                                else {
+                                    Toast.makeText(LoginActivity.this, "Invalid Credentials!", Toast.LENGTH_SHORT).show();
+                                }
+
 
                             }
+
+
                             else {
                                 Toast.makeText(LoginActivity.this, "Invalid Credentials!", Toast.LENGTH_SHORT).show();
                             }
 
+
                         }
+
+
+
+
+
                         else {
                             Toast.makeText(LoginActivity.this, "Please Make An Account", Toast.LENGTH_SHORT).show();
 

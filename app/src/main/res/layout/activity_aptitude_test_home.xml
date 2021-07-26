@@ -13,50 +13,36 @@
         android:layout_height="38dp"
         android:layout_marginStart="83dp"
         android:layout_marginLeft="83dp"
-        android:layout_marginTop="444dp"
+        android:layout_marginTop="496dp"
         android:layout_marginEnd="83dp"
         android:layout_marginRight="83dp"
-        android:layout_marginBottom="136dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center_horizontal"
         android:text="Take Aptitude Quiz Now?"
-        android:textColor="@color/purple_200"
+        android:textColor="@color/white"
         android:textSize="50px"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/takeAptQuiz"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/takeAptQuiz"
-        android:layout_width="95dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginRight="95dp"
+        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+        android:layout_width="181dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginLeft="176dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginRight="176dp"
         android:gravity="center_horizontal"
         android:text="I'll Take It Now!"
-        android:textSize="20px"
-        app:layout_constraintEnd_toStartOf="@+id/dontTakeAptQuiz"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-    <Button
-        android:id="@+id/dontTakeAptQuiz"
-        android:layout_width="94dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="95dp"
-        android:layout_marginLeft="95dp"
-        android:layout_marginTop="63dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:gravity="center_horizontal"
-        android:text="I'll take it later!"
-        android:textSize="20px"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/takeAptQuiz"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <ImageView
@@ -73,6 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/choose" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -83,6 +70,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
+
+    <com.github.mikephil.charting.charts.RadarChart
+        android:id="@+id/RadarChart"
+        android:layout_width="381dp"
+        android:layout_height="352dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.071" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

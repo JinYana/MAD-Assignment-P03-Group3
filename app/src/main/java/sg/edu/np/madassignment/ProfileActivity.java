@@ -53,8 +53,12 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        TextView nofriends = findViewById(R.id.nofir);
+        nofriends.setVisibility(View.GONE);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        navigation.getMenu().getItem(2).setChecked(true);
+        navigation.getMenu().getItem(3).setChecked(true);
+
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -74,6 +78,12 @@ public class ProfileActivity extends AppCompatActivity {
                         break;
 
                     case R.id.page_3:
+                        Intent c = new Intent(ProfileActivity.this, LeaderBoardActivity.class);
+                        startActivity(c);
+
+                        break;
+
+                    case R.id.page_4:
 
                         break;
 
@@ -118,9 +128,13 @@ public class ProfileActivity extends AppCompatActivity {
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.setAdapter(mAdapter);
-                } else {
-
                 }
+
+
+
+
+
+
 
 
             }
@@ -156,10 +170,19 @@ public class ProfileActivity extends AppCompatActivity {
                 String picture = snapshot.child("profilepicture").getValue(String.class);
 
 
-                TextView frireqcount = findViewById(R.id.frireqcount);
-                frireqcount.setText(String.valueOf(snapshot.child("friendreq").getChildrenCount()));
+                //Getting firend request count
+                int reqcount = (int) snapshot.child("friendreq").getChildrenCount();
 
-                if (picture.matches("-")) {
+                TextView requestnumber = findViewById(R.id.frireqcount);
+                requestnumber.setText(String.valueOf(reqcount));
+
+                //Checking if User has friends
+               int friendcount = (int) snapshot.child("friendslist").getChildrenCount();
+                if(friendcount == 0){
+                    nofriends.setVisibility(View.VISIBLE);
+                }
+
+                if (picture.matches("")) {
                     ImageView pp = findViewById(R.id.profilepicture);
                     pp.setImageResource(R.drawable.user);
                 } else {
@@ -205,6 +228,7 @@ public class ProfileActivity extends AppCompatActivity {
                             pp.setImageURI(uri);
                             //updating profile pic to firebase
                             Uploadimagetofirebase(uri);
+                            myRef.child("profilepicture").setValue("exsist");
 
 
                         }
@@ -214,7 +238,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 });
 
-        Button button = findViewById(R.id.photo);
+        ImageButton button = findViewById(R.id.photo);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -275,6 +299,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+
+
     }
     public void createdescriptiondialog(){
         dialogBuilder =  new AlertDialog.Builder(this);
@@ -283,7 +309,7 @@ public class ProfileActivity extends AppCompatActivity {
         EditText newdescription = popupdescriptionView.findViewById(R.id.popupdescription);
 
         Button saveDesc = popupdescriptionView.findViewById(R.id.savedescription);
-        Button goBack = popupdescriptionView.findViewById(R.id.back);
+        ImageButton goBack = popupdescriptionView.findViewById(R.id.back);
 
         dialogBuilder.setView(popupdescriptionView);
         dialog = dialogBuilder.create();

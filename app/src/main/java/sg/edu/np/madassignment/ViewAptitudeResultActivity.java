@@ -6,31 +6,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.graphics.Color;
-import android.os.Bundle;
 //import android.support.v7.app.AppCompatActivity;
-import com.github.mikephil.charting.charts.BubbleChart;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BubbleData;
-import com.github.mikephil.charting.data.BubbleDataSet;
-import com.github.mikephil.charting.data.BubbleEntry;
 import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ViewAptitudeResultActivity extends AppCompatActivity {
 //    RadarChart RadarChart;
@@ -50,24 +43,37 @@ public class ViewAptitudeResultActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("Loggedin",MODE_PRIVATE);
         String User = pref.getString("User","1");
 
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        DatabaseReference myRef = database.getReference("User").child(User);
-
-        myRef.child("takenAptQuiz").setValue(true);
-
-
-
         SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
         editor.remove("loopCat");
         editor.apply();
         SharedPreferences prefs = 	getSharedPreferences("catGameinfo", MODE_PRIVATE);
 
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://mad-project-2-eeea1-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference myRef = database.getReference("User").child(User);
+
+        myRef.child("takenAptQuiz").setValue(true);
+
+        myRef.child("aptAnimeScore").setValue(prefs.getInt("0",0));
+        myRef.child("aptComputerScore").setValue(prefs.getInt("1",0));
+        myRef.child("aptMathScore").setValue(prefs.getInt("2",0));
+        myRef.child("aptAnimalScore").setValue(prefs.getInt("3",0));
+        myRef.child("aptMythScore").setValue(prefs.getInt("4",0));
+        myRef.child("aptCartoonScore").setValue(prefs.getInt("5",0));
+        myRef.child("aptSportScore").setValue(prefs.getInt("6",0));
+        myRef.child("aptVideoGameScore").setValue(prefs.getInt("7",0));
+
+
+
+
+        ///////////
+
+
         ArrayList<String> xAxisValue = new ArrayList<String>();//X-axis data source
         RadarChart radarChart;//radar
 
         radarChart = findViewById(R.id.RadarChart);
+        radarChart.getLegend().setEnabled(false);
 
         radarChart.getDescription().setEnabled(false);
 
@@ -97,7 +103,11 @@ public class ViewAptitudeResultActivity extends AppCompatActivity {
 
 
 
-        RadarDataSet radarDataSet = new RadarDataSet(radarEntries, "data one");
+
+
+
+
+        RadarDataSet radarDataSet = new RadarDataSet(radarEntries, "");
         // Solid fill area color
         radarDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);
         // Whether to fill the area solidly
@@ -114,6 +124,7 @@ public class ViewAptitudeResultActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
 
 
