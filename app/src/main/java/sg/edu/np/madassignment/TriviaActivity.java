@@ -19,6 +19,9 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -26,13 +29,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
+
 
 public class TriviaActivity extends AppCompatActivity {
+    private final static String TAG = "Trivia Activity";
+
     Random random = new Random();
     int totalscore = 0;
     int totalquestionsanswered = 0;
+
+
 
     CountDownTimer cdt;
 
@@ -45,6 +55,7 @@ public class TriviaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trivia);
 
@@ -342,6 +353,13 @@ public class TriviaActivity extends AppCompatActivity {
 
                                     SharedPreferences.Editor editor = 	getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
                                     editor.putInt("QuestionsAnswered", totalquestionsanswered + 1);
+                                    /*
+                                    Intent intent = new Intent(TriviaActivity.this, Result.class);
+
+                                    intent.putExtra("Score", totalscore + 1);
+                                    intent.putExtra("QuestionsAnswered", totalquestionsanswered + 1);
+
+                                    editor.clear(); */
                                     editor.apply();
 
                                     SharedPreferences.Editor powerupeditor = 	getSharedPreferences("powerupcount", MODE_PRIVATE).edit();
