@@ -19,7 +19,7 @@
         android:layout_marginBottom="30dp"
         android:gravity="center_horizontal"
         android:text="Take Aptitude Quiz Now?"
-        android:textColor="@color/purple_200"
+        android:textColor="@color/white"
         android:textSize="50px"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/takeAptQuiz"
