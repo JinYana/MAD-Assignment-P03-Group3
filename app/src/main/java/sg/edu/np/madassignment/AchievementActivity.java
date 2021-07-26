@@ -49,8 +49,6 @@ public class AchievementActivity extends AppCompatActivity {
 
                     if (quizTaken.equals(true)) {
                         achv.setText("You took the aptitude test for the first time!");
-
-
                     } else {
                         achv.setText("Try and take the aptitude test now.");
                         Log.v(TAG, "You have not achieved this achievement...");
@@ -59,7 +57,7 @@ public class AchievementActivity extends AppCompatActivity {
 
                     Integer level = snapshot.child("level").getValue(Integer.class);
 
-                    if (level == 3) {
+                    if (level > 3) {
                         achv1.setText("You've reached level 3! Let's keep on going!");
 
                     } else {
@@ -77,7 +75,7 @@ public class AchievementActivity extends AppCompatActivity {
 
                     }
 
-                    if (level == 5) {
+                    if (level > 5) {
                         achv3.setText("You've reached level 5! You have earned the title 'Beginner'");
 
                     } else {
