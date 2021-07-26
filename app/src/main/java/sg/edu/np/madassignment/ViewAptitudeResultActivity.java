@@ -73,6 +73,7 @@ public class ViewAptitudeResultActivity extends AppCompatActivity {
         RadarChart radarChart;//radar
 
         radarChart = findViewById(R.id.RadarChart);
+        radarChart.getLegend().setEnabled(false);
 
         radarChart.getDescription().setEnabled(false);
 
