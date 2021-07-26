@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,42 +49,68 @@ public class AchievementActivity extends AppCompatActivity {
                     Log.v(TAG, "" + quizTaken);
 
                     if (quizTaken.equals(true)) {
-                        achv.setText("You took the aptitude test for the first time!");
-                    } else {
-                        achv.setText("Try and take the aptitude test now.");
-                        Log.v(TAG, "You have not achieved this achievement...");
+                        achv.setText("APTITUDE!");
+                    }
+
+                    else if (quizTaken.equals(false)) {
+                        achv.setText("APTITUDE!(LOCKED)");
+                        //set image black if havent get achievements
+                       ImageView imageachv1 = findViewById(R.id.imageViewachv1);
+                       imageachv1.setImageResource(R.drawable.lock);
 
                     }
+
 
                     Integer level = snapshot.child("level").getValue(Integer.class);
 
-                    if (level > 3) {
-                        achv1.setText("You've reached level 3! Let's keep on going!");
-
-                    } else {
-                        achv1.setText("Keep it up! Bring up your levels a bit more.");
+                    if (level >= 3) {
+                        achv1.setText("GETTING THERE!");
 
                     }
 
-                    if (!snapshot.child("friendslist").exists())
+                    else if (level < 3){
+                        achv1.setText("GETTING THERE!(LOCKED)");
+                        ImageView imageachv2 = findViewById(R.id.imageViewachv2);
+                        imageachv2.setImageResource(R.drawable.lock);
+                    }
+
+                    if (snapshot.child("friendslist").exists())
                     {
-                        achv2.setText("Invite your friends and play together!");
+                        achv2.setText("SOCIAL BUTTERFLY!");
+
+
 
                     }
-                    else {
-                        achv2.setText("Congrats! You have made a new friend.");
+
+                    else if (!snapshot.child("friendslist").exists()){
+                        achv2.setText("SOCIAL BUTTERFLY!(Locked)");
+                        //set image black
+                        ImageView imageachv3 = findViewById(R.id.imageViewachv3);
+                        imageachv3.setImageResource(R.drawable.lock);
+
 
                     }
 
-                    if (level > 5) {
-                        achv3.setText("You've reached level 5! You have earned the title 'Beginner'");
 
-                    } else {
-                        achv3.setText("Don't worry. Keep trying your best and raise your level more.");
+                    if (level >= 5) {
+                        achv3.setText("NOVICE!");
 
                     }
+
+                    else if (level < 5){
+                        achv3.setText("NOVICE!(LOCKED)");
+                        //set image black
+                        ImageView imageachv4 = findViewById(R.id.imageViewachv4);
+                        imageachv4.setImageResource(R.drawable.lock);
+
+                    }
+
+
                 }
             }
+
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
