@@ -41,6 +41,8 @@
         android:id="@+id/frameLayout"
         android:layout_width="400dp"
         android:layout_height="75dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
@@ -48,15 +50,16 @@
         android:background="@drawable/leaderborder"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23">
 
         <TextView
             android:id="@+id/textView11"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Congrats!You Have Made a Friend!" />
+            android:text="Congrats!You Have Made a Friend!"
+            android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/imageViewachv1"
@@ -83,23 +86,26 @@
         android:id="@+id/frameLayout1"
         android:layout_width="400dp"
         android:layout_height="75dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
+
         android:layout_marginBottom="25dp"
         android:background="@drawable/leaderborder"
-
         app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
         <TextView
             android:id="@+id/textView12"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Congrats!You Have Done The Aptitude Quiz!" />
+            android:text="Congrats!You Have Done The Aptitude Quiz!"
+            android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/imageViewachv2"
@@ -126,6 +132,8 @@
         android:id="@+id/frameLayout2"
         android:layout_width="400dp"
         android:layout_height="75dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
@@ -133,15 +141,16 @@
         android:background="@drawable/leaderborder"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout1">
 
         <TextView
             android:id="@+id/textView13"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="You'Ve Reached Level 3!Keep Going!" />
+            android:text="You'Ve Reached Level 3!Keep Going!"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/achv2"
@@ -168,6 +177,8 @@
         android:id="@+id/frameLayout3"
         android:layout_width="400dp"
         android:layout_height="75dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
@@ -175,15 +186,16 @@
         android:background="@drawable/leaderborder"
         app:layout_constraintBottom_toTopOf="@+id/back1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
 
         <TextView
             android:id="@+id/textView14"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="You've Reached Level 5!Keep Going!" />
+            android:text="You've Reached Level 5!Keep Going!"
+            android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/imageViewachv4"
