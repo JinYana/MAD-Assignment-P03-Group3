@@ -97,6 +97,8 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
 
 
 
+
+
         SharedPreferences chartpref = 	getSharedPreferences("chartscore", MODE_PRIVATE);
         int chartanimescore = chartpref.getInt("chartanimescore",0);
         int chartcomputerscore = chartpref.getInt("chartcomputerscore",0);
@@ -173,6 +175,8 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
                     public void onDataChange( DataSnapshot dataSnapshot) {
 
                         if(dataSnapshot.exists()){
+
+
 
                             Boolean takenAptQuiz = dataSnapshot.child("takenAptQuiz").getValue(Boolean.class);
 
