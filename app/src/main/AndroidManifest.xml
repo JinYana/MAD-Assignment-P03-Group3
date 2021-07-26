@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MADAssignment">
-        <activity android:name=".AchievementActivity"></activity>
+        <activity android:name=".CategoryStatActivity"></activity>
+        <activity android:name=".AchievementActivity" />
         <activity android:name=".ProgressActivity" />
         <activity android:name=".NewFriendsActivity" />
         <activity android:name=".AddFriendsActivity" />

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,37 +39,184 @@ public class ProgressActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
 
-                    String aptAnimalScore = snapshot.child("aptAnimalScore").getValue(Integer.class).toString();
-                    String aptAnimeScore = snapshot.child("aptAnimeScore").getValue(Integer.class).toString();
-                    String aptCartoonScore = snapshot.child("aptCartoonScore").getValue(Integer.class).toString();
-                    String aptComputerScore = snapshot.child("aptComputerScore").getValue(Integer.class).toString();
-                    String aptMathScore = snapshot.child("aptMathScore").getValue(Integer.class).toString();
-                    String aptMythScore = snapshot.child("aptMythScore").getValue(Integer.class).toString();
-                    String aptSportScore = snapshot.child("aptSportScore").getValue(Integer.class).toString();
-                    String aptVideoGameScore = snapshot.child("aptVideoGameScore").getValue(Integer.class).toString();
-
-                    Log.v(TAG, "" + aptAnimalScore + "\n" + aptAnimeScore + "\n" + aptCartoonScore + "\n" + aptComputerScore + "\n" + aptMathScore + "\n" + aptMythScore + "\n" + aptSportScore + "\n" + aptVideoGameScore);
-
-                    animalSc = findViewById(R.id.animalScore);
-                    animeSc = findViewById(R.id.animeScore);
-                    cartoonSc = findViewById(R.id.cartoonScore);
-                    computerSc = findViewById(R.id.compScore);
-                    mathSc = findViewById(R.id.mathScore);
-                    mythSc = findViewById(R.id.mythScore);
-                    sportSc = findViewById(R.id.sportsScore);
-                    videoGameSc = findViewById(R.id.gameScore);
+                    // gathering user's questions answered and question answered correctly from firebase
+                    int Animalans = snapshot.child("gameAnimalanswered").getValue(Integer.class);
+                    int Animalcor = snapshot.child("gameAnimalcorrect").getValue(Integer.class);
+                    int Animeans = snapshot.child("gameAnimeanswered").getValue(Integer.class);
+                    int Animecor = snapshot.child("gameAnimecorrect").getValue(Integer.class);
+                    int Cartoonans = snapshot.child("gameCartoonanswered").getValue(Integer.class);
+                    int Cartooncor = snapshot.child("gameCartooncorrect").getValue(Integer.class);
+                    int Computerans = snapshot.child("gameComputeranswered").getValue(Integer.class);
+                    int Computercor = snapshot.child("gameComputercorrect").getValue(Integer.class);
+                    int Mathans = snapshot.child("gameMathanswered").getValue(Integer.class);
+                    int Mathcor = snapshot.child("gameMathcorrect").getValue(Integer.class);
+                    int Mythans = snapshot.child("gameMythanswered").getValue(Integer.class);
+                    int Mythcor = snapshot.child("gameMythcorrect").getValue(Integer.class);
+                    int Sportans = snapshot.child("gameSportanswered").getValue(Integer.class);
+                    int Sportcor = snapshot.child("gameSportcorrect").getValue(Integer.class);
+                    int VideoGameans = snapshot.child("gameVideoGameanswered").getValue(Integer.class);
+                    int VideoGamecor = snapshot.child("gameVideoGamecorrect").getValue(Integer.class);
 
 
-                    animalSc.setText("Animal: " + aptAnimalScore);
-                    animeSc.setText("Anime: " + aptAnimeScore);
-                    cartoonSc.setText("Cartoon: " + aptCartoonScore);
-                    computerSc.setText("Computer: " + aptComputerScore);
-                    mathSc.setText("Math: " + aptMathScore);
-                    mythSc.setText("Myth: " + aptMythScore);
-                    sportSc.setText("Sports: " + aptSportScore);
-                    videoGameSc.setText("Video Game: " + aptVideoGameScore);
+                    //Adding onclick listeners to all the category buttons
+                    ImageButton game = findViewById(R.id.gameButton);
+                    ImageButton computer = findViewById(R.id.computer);
+                    ImageButton math = findViewById(R.id.math);
+                    ImageButton myth = findViewById(R.id.mythology);
+                    ImageButton anime = findViewById(R.id.anime);
+                    ImageButton animal = findViewById(R.id.animal);
+                    ImageButton cartoon = findViewById(R.id.cartoon);
+                    ImageButton sport = findViewById(R.id.sport);
+
+                    game.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            SharedPreferences.Editor gameeditor = getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+                            gameeditor.putInt("QuestionsAnswered", 0);
+                            gameeditor.putInt("Score", 0);
+                            gameeditor.apply();
+
+                            Intent intent = new Intent(ProgressActivity.this, CategoryStatActivity.class);
+                            intent.putExtra("attempts", VideoGameans);
+                            intent.putExtra("correct", VideoGamecor);
+                            intent.putExtra("cat", "Video Games");
+
+                            startActivity(intent);
+                        }
+                    });
+
+
+                    computer.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            SharedPreferences.Editor gameeditor = getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+                            gameeditor.putInt("QuestionsAnswered", 0);
+                            gameeditor.putInt("Score", 0);
+                            gameeditor.apply();
+
+                            Intent intent = new Intent(ProgressActivity.this, CategoryStatActivity.class);
+                            intent.putExtra("attempts", Computerans);
+                            intent.putExtra("correct", Computercor);
+                            intent.putExtra("cat", "Computers");
+
+                            startActivity(intent);
+                        }
+                    });
+
+                    math.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SharedPreferences.Editor gameeditor = getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+                            gameeditor.putInt("QuestionsAnswered", 0);
+                            gameeditor.putInt("Score", 0);
+                            gameeditor.apply();
+
+                            Intent intent = new Intent(ProgressActivity.this, CategoryStatActivity.class);
+                            intent.putExtra("attempts", Mathans);
+                            intent.putExtra("correct", Mathcor);
+                            intent.putExtra("cat", "Math");
+
+                            startActivity(intent);
+                        }
+                    });
+
+                    myth.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SharedPreferences.Editor gameeditor = getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+                            gameeditor.putInt("QuestionsAnswered", 0);
+                            gameeditor.putInt("Score", 0);
+                            gameeditor.apply();
+
+                            Intent intent = new Intent(ProgressActivity.this, CategoryStatActivity.class);
+                            intent.putExtra("attempts", Mythans);
+                            intent.putExtra("correct", Mythcor);
+                            intent.putExtra("cat", "Mythology");
+
+                            startActivity(intent);
+                        }
+                    });
+
+
+                    anime.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SharedPreferences.Editor gameeditor = getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+                            gameeditor.putInt("QuestionsAnswered", 0);
+                            gameeditor.putInt("Score", 0);
+                            gameeditor.apply();
+
+                            Intent intent = new Intent(ProgressActivity.this, CategoryStatActivity.class);
+                            intent.putExtra("attempts", Animeans);
+                            intent.putExtra("correct", Animecor);
+                            intent.putExtra("cat", "Anime");
+
+                            startActivity(intent);
+                        }
+                    });
+
+
+                    animal.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SharedPreferences.Editor gameeditor = getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+                            gameeditor.putInt("QuestionsAnswered", 0);
+                            gameeditor.putInt("Score", 0);
+                            gameeditor.apply();
+
+                            Intent intent = new Intent(ProgressActivity.this, CategoryStatActivity.class);
+                            intent.putExtra("attempts", Animalans);
+                            intent.putExtra("correct", Animalcor);
+                            intent.putExtra("cat", "Animals");
+
+                            startActivity(intent);
+                        }
+                    });
+
+
+                    cartoon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SharedPreferences.Editor gameeditor = getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+                            gameeditor.putInt("QuestionsAnswered", 0);
+                            gameeditor.putInt("Score", 0);
+                            gameeditor.apply();
+
+                            Intent intent = new Intent(ProgressActivity.this, CategoryStatActivity.class);
+                            intent.putExtra("attempts", Cartoonans);
+                            intent.putExtra("correct", Cartooncor);
+                            intent.putExtra("cat", "Cartoons");
+
+                            startActivity(intent);
+                        }
+                    });
+
+
+                    sport.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SharedPreferences.Editor gameeditor = getSharedPreferences("Gameinfo", MODE_PRIVATE).edit();
+                            gameeditor.putInt("QuestionsAnswered", 0);
+                            gameeditor.putInt("Score", 0);
+                            gameeditor.apply();
+
+                            Intent intent = new Intent(ProgressActivity.this, CategoryStatActivity.class);
+                            intent.putExtra("attempts", Sportans);
+                            intent.putExtra("correct", Sportcor);
+                            intent.putExtra("cat", "Sports");
+
+                            startActivity(intent);
+                        }
+
+
+                    });
+
+
+
                 }
             }
 
@@ -78,14 +226,7 @@ public class ProgressActivity extends AppCompatActivity {
             }
         });
 
-        backBtn = findViewById(R.id.back2);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProgressActivity.this, ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
 
+
+    }
 }
