@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MADAssignment">
-        <activity android:name=".NewFriendsActivity"></activity>
+        <activity android:name=".AchievementActivity"></activity>
+        <activity android:name=".ProgressActivity" />
+        <activity android:name=".NewFriendsActivity" />
         <activity android:name=".AddFriendsActivity" />
         <activity android:name=".TriviaRoomActivity" />
         <activity android:name=".SettingsActivity" />
@@ -40,11 +42,7 @@
         <activity
             android:name=".SignupActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".LoginActivity">
-
-        </activity>
-
+        <activity android:name=".LoginActivity" />
         <activity android:name=".SplashScreenActivity">
             android:screenOrientation="portrait">
             <intent-filter>
@@ -53,9 +51,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
 
         <meta-data
             android:name="preloaded_fonts"
