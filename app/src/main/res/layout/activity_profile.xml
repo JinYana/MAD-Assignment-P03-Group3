@@ -144,6 +144,7 @@
 
     <Button
         android:id="@+id/editdesc"
+
         android:layout_width="67dp"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
@@ -181,6 +182,7 @@
 
     <Button
         android:id="@+id/stats"
+        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="259dp"
@@ -199,6 +201,7 @@
 
     <Button
         android:id="@+id/achievement"
+        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
