@@ -58,12 +58,19 @@ public class AddFriendsActivity extends AppCompatActivity {
 
                                 //If user has not already sent targeted user a friend request
                                 if(!snapshot.child(targeteduser).child("friendreq").child(username).exists()){
+                                    //If targeted user has already sent a friend request
                                     if(!snapshot.child(username).child("friendreq").child(targeteduser).exists()){
 
-                                        myRef.child(targeteduser).child("friendreq").child(username).setValue(username);
-                                        Intent intent = new Intent(AddFriendsActivity.this, ProfileActivity.class);
-                                        Toast.makeText(AddFriendsActivity.this, "Friend request sent", Toast.LENGTH_SHORT).show();
-                                        startActivity(intent);
+                                        //If targeted user does not exsist
+                                        if(snapshot.child(targeteduser).exists()){
+                                            myRef.child(targeteduser).child("friendreq").child(username).setValue(username);
+                                            Intent intent = new Intent(AddFriendsActivity.this, ProfileActivity.class);
+                                            Toast.makeText(AddFriendsActivity.this, "Friend request sent", Toast.LENGTH_SHORT).show();
+                                            startActivity(intent);
+                                        }
+                                        else {
+                                            Toast.makeText(AddFriendsActivity.this, "User does not exist", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                     else {
                                         Toast.makeText(AddFriendsActivity.this, "User has already sent a request, check your request list", Toast.LENGTH_SHORT).show();

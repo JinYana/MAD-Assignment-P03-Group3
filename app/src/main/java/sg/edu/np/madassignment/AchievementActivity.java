@@ -85,7 +85,7 @@ public class AchievementActivity extends AppCompatActivity {
                     else if (!snapshot.child("friendslist").exists()){
                         achv2.setText("SOCIAL BUTTERFLY!(LOCKED)");
                         //set image black
-                        ImageView imageachv3 = findViewById(R.id.imageViewachv3);
+                        ImageView imageachv3 = findViewById(R.id.imageViewachv1);
                         imageachv3.setImageResource(R.drawable.lock);
 
 
