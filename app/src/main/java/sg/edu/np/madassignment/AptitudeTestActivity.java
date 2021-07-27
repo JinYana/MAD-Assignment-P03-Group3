@@ -54,11 +54,15 @@ public class AptitudeTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aptitude_test);
 
+
+
         SharedPreferences prefs = 	getSharedPreferences("catGameinfo", MODE_PRIVATE);
         totalscore = prefs.getInt("AptScore", 0);
         totalquestionsanswered = prefs.getInt("AptQuestionsAnswered", 0);
         loopCat = prefs.getInt("loopCat",0);
 
+
+        Log.v("loop", ""+loopCat);
 
 
 
@@ -182,7 +186,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
 
 
 
-                                if (loopCat>7){
+                                if (loopCat >= 7){
                                     editor.putInt(String.valueOf(loopCat),totalscore);
 
                                     editor.apply();
@@ -260,7 +264,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
 
 
 
-                                    if (loopCat>7){
+                                    if (loopCat >= 7){
 
                                         for(int i = 0; i < 8; i++){
                                             Log.d("Debug", ""+ prefs.getInt(String.valueOf(i),0));
