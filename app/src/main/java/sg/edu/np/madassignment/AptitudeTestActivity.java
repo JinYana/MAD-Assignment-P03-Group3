@@ -186,7 +186,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
 
 
 
-                                if (loopCat >= 7){
+                                if (loopCat == 7){
                                     editor.putInt(String.valueOf(loopCat),totalscore);
 
                                     editor.apply();
@@ -264,7 +264,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
 
 
 
-                                    if (loopCat >= 7){
+                                    if (loopCat == 7){
 
                                         for(int i = 0; i < 8; i++){
                                             Log.d("Debug", ""+ prefs.getInt(String.valueOf(i),0));
