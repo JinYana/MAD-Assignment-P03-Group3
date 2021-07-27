@@ -206,8 +206,11 @@ public class AptitudeTestActivity extends AppCompatActivity {
 
 
                                 }
+                                else {
+                                    startActivity(getIntent());
+                                }
 
-                                startActivity(getIntent());
+
 
                             }
                         }
@@ -277,8 +280,11 @@ public class AptitudeTestActivity extends AppCompatActivity {
 
                                         startActivity(intent);
                                     }
+                                    else {
+                                        startActivity(getIntent());
+                                    }
 
-                                    startActivity(getIntent());
+
 
                                 }
 
