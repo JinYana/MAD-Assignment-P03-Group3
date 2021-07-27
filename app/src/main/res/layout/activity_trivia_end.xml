@@ -71,11 +71,13 @@
         android:id="@+id/totalscore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="362dp"
         android:layout_marginBottom="224dp"
         android:fontFamily="@font/raleway"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/backtohome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

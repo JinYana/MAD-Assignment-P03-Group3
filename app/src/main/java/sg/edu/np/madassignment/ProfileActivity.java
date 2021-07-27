@@ -279,7 +279,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        Button statsButton = findViewById(R.id.stats);
+        ImageButton statsButton = findViewById(R.id.stats);
         statsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -288,7 +288,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        Button achmtButton = findViewById(R.id.achievement);
+        ImageButton achmtButton = findViewById(R.id.achievement);
         achmtButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
