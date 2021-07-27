@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -86,6 +87,8 @@ public class LeaderBoardActivity extends AppCompatActivity {
                     User user = ds.getValue(User.class);
                     friendsList.add(user);
                 }
+
+                Log.v("sdfg", friendsList.size() + "h");
 
 
                 RecyclerView recyclerView = findViewById(R.id.leaderboard);

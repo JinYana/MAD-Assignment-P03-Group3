@@ -3,6 +3,7 @@ package sg.edu.np.madassignment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,9 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardViewHold
 
         SharedPreferences logprefs = context.getSharedPreferences("Loggedin", MODE_PRIVATE);
         String username = logprefs.getString("User", "");
+
+        Log.v("sdfg", u.profilepicture + "h");
+        Log.v("sdfg", u.getUsername() + "h");
 
 
 

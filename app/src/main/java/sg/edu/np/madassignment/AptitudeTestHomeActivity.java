@@ -220,7 +220,9 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
 
 
 
+
                         }
+                        myRef.removeEventListener(this);
 
 
 
