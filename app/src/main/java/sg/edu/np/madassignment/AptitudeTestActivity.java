@@ -180,8 +180,6 @@ public class AptitudeTestActivity extends AppCompatActivity {
                                 editor.putInt(String.valueOf(loopCat),totalscore);
                                 editor.apply();
 
-                                loopCat += 1;
-
 
 
                                 if (loopCat>7){
@@ -258,8 +256,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
                                     editor.remove("AptQuestionsAnswered");
                                     editor.putInt(String.valueOf(loopCat),totalscore);
                                     editor.apply();
-                                    loopCat += 1;
-                                    editor.putInt(String.valueOf(loopCat),totalscore);
+
 
 
 
