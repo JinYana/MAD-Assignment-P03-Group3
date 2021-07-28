@@ -10,6 +10,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
     Random random = new Random();
     int totalscore = 0;
     int totalquestionsanswered = 0;
+    int realtotalquestionsanswered = 0;
 
     CountDownTimer cdt;
 
@@ -60,6 +62,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
         totalscore = prefs.getInt("AptScore", 0);
         totalquestionsanswered = prefs.getInt("AptQuestionsAnswered", 0);
         loopCat = prefs.getInt("loopCat",0);
+        realtotalquestionsanswered = prefs.getInt("RealQuestionsAnswered", 0);
 
 
         Log.v("loop", ""+loopCat);
@@ -106,6 +109,14 @@ public class AptitudeTestActivity extends AppCompatActivity {
 
 
         ArrayList<Integer> eachCatScoreList =  new ArrayList<Integer>();
+
+        //Show question progress
+        ProgressBar questionprogress = findViewById(R.id.answerProgress);
+        questionprogress.setMax(33);
+        questionprogress.setProgress(realtotalquestionsanswered+ 1);
+
+        TextView questionNo = findViewById(R.id.questionNo);
+        questionNo.setText("Q" +  (realtotalquestionsanswered + 1));
 
 
 
@@ -172,12 +183,14 @@ public class AptitudeTestActivity extends AppCompatActivity {
                                 SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
                                 editor.putInt("AptScore", totalscore + 1);
                                 editor.putInt("AptQuestionsAnswered", totalquestionsanswered + 1);
+                                editor.putInt("RealQuestionsAnswered", realtotalquestionsanswered+ 1);
                                 editor.apply();
                                 startActivity(getIntent());
                             }
                             else {
 
                                 SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
+                                editor.putInt("RealQuestionsAnswered", realtotalquestionsanswered+ 1);
                                 editor.putInt("loopCat" ,loopCat + 1);
                                 editor.remove("AptScore");
                                 editor.remove("AptQuestionsAnswered");
@@ -250,6 +263,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
 
                                     SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
                                     editor.putInt("AptQuestionsAnswered", totalquestionsanswered + 1);
+                                    editor.putInt("RealQuestionsAnswered", realtotalquestionsanswered+ 1);
                                     editor.apply();
 
 
@@ -259,6 +273,7 @@ public class AptitudeTestActivity extends AppCompatActivity {
                                 else {
                                     SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
                                     editor.putInt("loopCat" ,loopCat + 1);
+                                    editor.putInt("RealQuestionsAnswered", realtotalquestionsanswered+ 1);
                                     editor.remove("AptScore");
                                     editor.remove("AptQuestionsAnswered");
                                     editor.putInt(String.valueOf(loopCat),totalscore);

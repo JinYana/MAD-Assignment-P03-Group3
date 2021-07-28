@@ -65,6 +65,11 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
                         startActivity(c);
                         break;
 
+                    case R.id.page_5:
+                        Intent d = new Intent(AptitudeTestHomeActivity.this, LoginActivity.class);
+                        startActivity(d);
+                        break;
+
 
 
 
@@ -109,14 +114,6 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
         int chartsportscore = chartpref.getInt("chartsportscore",0);
         int chartvideogamescore = chartpref.getInt("chartvideogamescore",0);
 
-        Log.v("anime", ""+chartanimescore);
-        Log.v("comp", ""+chartcomputerscore);
-        Log.v("math", ""+chartmathscore);
-        Log.v("animal", ""+chartanimalscore);
-        Log.v("myth", ""+chartmythcore);
-        Log.v("cartoon", ""+chartcartoonscore);
-        Log.v("sport", ""+chartsportscore);
-        Log.v("video", ""+chartvideogamescore);
 
 
 
@@ -201,6 +198,7 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
                                 SharedPreferences.Editor editor = 	getSharedPreferences("catGameinfo", MODE_PRIVATE).edit();
                                 editor.putInt("loopCat" ,0);
                                 editor.putInt("AptQuestionsAnswered", 0);
+                                editor.putInt("RealQuestionsAnswered", 0);
 
                                 for(int i = 0; i < 8; i++){
 
@@ -231,8 +229,7 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError error) {
-                        // Failed to read value
-                        Log.w("TAG", "Failed to read value.", error.toException());
+
                     }
                 });
 
@@ -240,7 +237,6 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
             }
         });
 
-        Log.v("tag", "fgdfgdgf");
 
 
 
@@ -255,5 +251,11 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Do Here what ever you want do on back press;
     }
 }

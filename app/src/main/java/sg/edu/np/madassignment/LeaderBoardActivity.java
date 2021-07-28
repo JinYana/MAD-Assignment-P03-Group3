@@ -65,6 +65,11 @@ public class LeaderBoardActivity extends AppCompatActivity {
 
                         break;
 
+                    case R.id.page_5:
+                        Intent d = new Intent(LeaderBoardActivity.this, LoginActivity.class);
+                        startActivity(d);
+                        break;
+
 
                 }
                 return false;
@@ -110,6 +115,11 @@ public class LeaderBoardActivity extends AppCompatActivity {
 
 
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Do Here what ever you want do on back press;
     }
 
 }

@@ -18,7 +18,6 @@
         <activity android:name=".ProgressActivity" />
         <activity android:name=".NewFriendsActivity" />
         <activity android:name=".AddFriendsActivity" />
-        <activity android:name=".TriviaRoomActivity" />
         <activity android:name=".ProfileActivity" />
         <activity
             android:name=".AptitudeTestHomeActivity"

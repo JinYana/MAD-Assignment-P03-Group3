@@ -107,6 +107,12 @@ public class CategoryActivity extends AppCompatActivity {
                         startActivity(c);
                         break;
 
+                    case R.id.page_5:
+                        Intent d = new Intent(CategoryActivity.this, LoginActivity.class);
+                        startActivity(d);
+                        break;
+
+
                 }
                 return false;
             }

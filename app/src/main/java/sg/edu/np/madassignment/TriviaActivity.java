@@ -121,7 +121,7 @@ public class TriviaActivity extends AppCompatActivity {
         questionprogress.setProgress(totalquestionsanswered + 1);
 
         TextView questionNo = findViewById(R.id.questionNo);
-        questionNo.setText("Q" +  String.valueOf(totalquestionsanswered + 1));
+        questionNo.setText("Q" +  totalquestionsanswered + 1);
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override

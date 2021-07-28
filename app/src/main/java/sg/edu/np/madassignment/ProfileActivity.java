@@ -87,6 +87,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                         break;
 
+                    case R.id.page_5:
+                        Intent d = new Intent(ProfileActivity.this, LoginActivity.class);
+                        startActivity(d);
+                        break;
+
                 }
                 return false;
             }
@@ -379,6 +384,11 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Do Here what ever you want do on back press;
     }
 }
 

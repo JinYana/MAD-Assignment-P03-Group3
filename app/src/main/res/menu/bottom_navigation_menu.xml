@@ -18,7 +18,7 @@
         android:checkable="false"
         android:enabled="true"
         android:icon="@drawable/podium"
-        android:title="Profile" />
+        android:title="Leaderboard" />
 
     <item
         android:id="@+id/page_4"
@@ -26,4 +26,11 @@
         android:enabled="true"
         android:icon="@drawable/user"
         android:title="Profile" />
+
+    <item
+        android:id="@+id/page_5"
+        android:checkable="false"
+        android:enabled="true"
+        android:icon="@drawable/exit"
+        android:title="Logout" />
 </menu>
