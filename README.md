@@ -52,13 +52,6 @@
 
 
 # Appendices
-
-# Tools Used
-* REST API
-* FireBase (Store User Data,User Scores for Aptitude Quiz,Images)
-* Shared Preferences
-* Recycler Views
-* Multi Media(Images,Animations)
 ![ss1](https://user-images.githubusercontent.com/73157602/127769301-5197c70d-1319-4871-af0e-501c4c952e98.PNG)
 ![ss3](https://user-images.githubusercontent.com/73157602/127769303-a92f233d-93a5-4842-8bfd-f4b56464a2ac.PNG)
 ![ss4](https://user-images.githubusercontent.com/73157602/127769305-d6a6343e-3516-4c74-a809-7b0880bf8810.PNG)
@@ -66,5 +59,17 @@
 ![ss6](https://user-images.githubusercontent.com/73157602/127769310-35e5add3-bc6b-4827-aa76-913b21950dee.PNG)
 ![ss7](https://user-images.githubusercontent.com/73157602/127769313-08e13988-cb6d-4a80-a9b2-af2809932816.PNG)
 ![ss9](https://user-images.githubusercontent.com/73157602/127769353-166de938-ecc0-4594-8623-e456fd12259b.PNG)
+# Tools Used
+* REST API
+* FireBase (Store User Data,User Scores for Aptitude Quiz,Images)
+* Shared Preferences
+* Recycler Views
+* Multi Media(Images,Animations)
+
+
+
+
+
+
 
 # Others 
