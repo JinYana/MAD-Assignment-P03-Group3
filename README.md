@@ -25,10 +25,11 @@
 
 # Roles And Contributions
 
-## S10206327 Contributions
+## S10206327(Herman) Contributions
 
 * Trivia Aptitude Quiz Home Page
-* Trivia Aptitude Quiz , Radar Chart to display results
+* Trivia Aptitude Quiz ,
+* Radar Chart to display results,Store Aptitude Quiz Result In Firebase
 * Achievements
 * Edit Description Dialog
 * Power Ups
@@ -39,7 +40,7 @@
 
 # Tools Used
 * REST API
-* FireBase
+* FireBase (Store User Data,User Scores for Aptitude Quiz,Images)
 * Shared Preferences
 * Recycler Views
 * Multi Media(Images,Animations)
