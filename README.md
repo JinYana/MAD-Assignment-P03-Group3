@@ -1,3 +1,11 @@
+![ss1](https://user-images.githubusercontent.com/73157602/127769301-5197c70d-1319-4871-af0e-501c4c952e98.PNG)
+![ss3](https://user-images.githubusercontent.com/73157602/127769303-a92f233d-93a5-4842-8bfd-f4b56464a2ac.PNG)
+![ss4](https://user-images.githubusercontent.com/73157602/127769305-d6a6343e-3516-4c74-a809-7b0880bf8810.PNG)
+![ss5](https://user-images.githubusercontent.com/73157602/127769307-330850a1-cbf1-4548-85a3-74ef26191a15.PNG)
+![ss6](https://user-images.githubusercontent.com/73157602/127769310-35e5add3-bc6b-4827-aa76-913b21950dee.PNG)
+![ss7](https://user-images.githubusercontent.com/73157602/127769313-08e13988-cb6d-4a80-a9b2-af2809932816.PNG)
+![ss9](https://user-images.githubusercontent.com/73157602/127769353-166de938-ecc0-4594-8623-e456fd12259b.PNG)
+
 # MAD-Assignment-P03-Group3
 
 
@@ -33,6 +41,19 @@
 * Achievements
 * Edit Description Dialog
 * Power Ups
+* Login
+
+## S10203386(Jin Yang) Contributions
+* Trivia Home Page
+* Trivia Quiz ,
+* Firebase Implementation
+* Add Friends feature
+* Recieve Friend request feature
+* Profile Picture Feature
+* Helped with statistics feature
+* LeaderBoard
+* Login and Signup Validation
+* Levels feature
 
 
 
