@@ -44,7 +44,6 @@
 * Add Friends feature
 * Recieve Friend request feature
 * Profile Picture Feature
-* Helped with statistics feature
 * LeaderBoard
 * Login and Signup Validation
 * Levels feature
