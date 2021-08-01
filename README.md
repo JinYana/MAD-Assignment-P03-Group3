@@ -2,7 +2,7 @@
 
 
 
-#Description Of App
+# Description Of App
 
 * Our App is a Trivia game created for entertaintment and learning . 
 
@@ -21,9 +21,9 @@
 
 
 
-#Roles And Contributions
+# Roles And Contributions
 
-##S10206327 Contributions
+## S10206327 Contributions
 
 * Trivia Aptitude Quiz Home Page
 * Trivia Aptitude Quiz , Radar Chart to display results
@@ -32,6 +32,6 @@
 
 
 
-#Appendices
+# Appendices
 
-#Others 
+# Others 
