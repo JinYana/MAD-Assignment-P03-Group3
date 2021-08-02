@@ -32,7 +32,7 @@
 * Trivia Aptitude Quiz Home Page
 * Trivia Aptitude Quiz ,
 * Radar Chart to display results,Store Aptitude Quiz Result In Firebase
-* Achievements
+* Redo Achievements
 * Edit Description Dialog
 * Power Ups
 * Login
