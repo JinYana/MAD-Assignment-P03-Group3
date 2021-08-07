@@ -56,7 +56,7 @@
 
 
 
-# Appendices
+# Documentation
 ### Splash Page, with random facts API while waiting for app
 ![ss1](https://user-images.githubusercontent.com/73157602/127769301-5197c70d-1319-4871-af0e-501c4c952e98.PNG)
 ### 8 App categories to choose from to play
