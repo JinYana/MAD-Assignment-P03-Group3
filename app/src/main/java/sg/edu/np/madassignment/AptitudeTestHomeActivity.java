@@ -135,7 +135,13 @@ public class AptitudeTestHomeActivity extends AppCompatActivity {
         xAxis.setTextSize(10);
         xAxis.setLabelCount(xAxisValue.size());
         xAxis.setCenterAxisLabels(true);//Set the label to center
+        radarChart.getYAxis().setAxisMaximum(4f);
+        radarChart.getYAxis().setAxisMinimum(0f);
+        radarChart.getYAxis().setLabelCount(5 , true);
+
+
         xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+
         xAxis.setTextColor(Color.WHITE);
 
         java.util.List<RadarEntry> radarEntries = new ArrayList<>();

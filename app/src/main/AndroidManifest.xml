@@ -13,12 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MADAssignment">
-        <activity android:name=".CategoryStatActivity"></activity>
-        <activity android:name=".AchievementActivity" />
-        <activity android:name=".ProgressActivity" />
-        <activity android:name=".NewFriendsActivity" />
-        <activity android:name=".AddFriendsActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".CategoryStatActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".AchievementActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ProgressActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".NewFriendsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".AddFriendsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ProfileActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AptitudeTestHomeActivity"
             android:screenOrientation="portrait" />
@@ -39,14 +45,16 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".CategoryActivity"
-            android:launchMode="singleInstance"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".SignupActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashScreenActivity">
+
+        <activity android:name=".SplashScreenActivity"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

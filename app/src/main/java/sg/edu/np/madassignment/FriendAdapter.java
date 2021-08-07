@@ -53,6 +53,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendsViewHolder> {
 
         holder.name.setText(u.getUsername());
         holder.level.setText("Level" + String.valueOf(u.getLevel()));
+        holder.desc.setText(u.description);
 
 
         SharedPreferences logprefs = context.getSharedPreferences("Loggedin", MODE_PRIVATE);
@@ -60,10 +61,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendsViewHolder> {
 
 
 
-        if(u.getProfilepicture().matches("")){
-            holder.profileppic.setImageResource(R.drawable.user);
-        }
-        else {
+        if(!u.getProfilepicture().matches("")){
             StorageReference storage = FirebaseStorage.getInstance("gs://mad-project-2-eeea1.appspot.com/").getReference();
             StorageReference pathReference = storage.child(u.getUsername() + ".jpg");
             pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -75,6 +73,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendsViewHolder> {
                 }
             });
         }
+
 
 
 

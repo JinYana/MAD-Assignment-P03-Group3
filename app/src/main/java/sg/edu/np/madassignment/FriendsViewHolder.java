@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class FriendsViewHolder extends RecyclerView.ViewHolder {
     TextView name;
     TextView level;
+    TextView desc;
 
 
     ImageView profileppic;
@@ -17,5 +18,6 @@ public class FriendsViewHolder extends RecyclerView.ViewHolder {
         name = itemView.findViewById(R.id.friendName);
         level =itemView.findViewById(R.id.friendLevel);
         profileppic = itemView.findViewById(R.id.friendPP);
+        desc = itemView.findViewById(R.id.frienddesc);
     }
 }

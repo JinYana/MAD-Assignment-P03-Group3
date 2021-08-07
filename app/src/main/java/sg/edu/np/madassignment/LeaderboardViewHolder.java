@@ -10,6 +10,7 @@ public class LeaderboardViewHolder extends RecyclerView.ViewHolder {
     TextView name;
     TextView level;
     TextView position;
+    TextView desc;
 
 
     ImageView profileppic;
@@ -19,5 +20,6 @@ public class LeaderboardViewHolder extends RecyclerView.ViewHolder {
         level =itemView.findViewById(R.id.leadlevel);
         profileppic = itemView.findViewById(R.id.leadpic);
         position =itemView.findViewById(R.id.leaderposition);
+        desc = itemView.findViewById(R.id.desc);
     }
 }
