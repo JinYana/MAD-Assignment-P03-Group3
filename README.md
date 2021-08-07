@@ -60,7 +60,7 @@
 ### Splash Page, with random facts API while waiting for app
 ![ss1](https://user-images.githubusercontent.com/73157602/127769301-5197c70d-1319-4871-af0e-501c4c952e98.PNG)
 ### 8 App categories to choose from to play
-### Nav Bar (left to right) : 
+### Nav Bar (left to right) : Trivia Game,Aptitude Quiz Trivia,LeaderBoard,Profile
 ![ss3](https://user-images.githubusercontent.com/73157602/127769303-a92f233d-93a5-4842-8bfd-f4b56464a2ac.PNG)
 ![ss4](https://user-images.githubusercontent.com/73157602/127769305-d6a6343e-3516-4c74-a809-7b0880bf8810.PNG)
 ![ss5](https://user-images.githubusercontent.com/73157602/127769307-330850a1-cbf1-4548-85a3-74ef26191a15.PNG)
