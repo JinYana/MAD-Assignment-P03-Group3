@@ -62,6 +62,7 @@
 ### 8 App categories to choose from to play
 ### Nav Bar (left to right) : Trivia Game,Aptitude Quiz Trivia,LeaderBoard,Profile
 ![ss3](https://user-images.githubusercontent.com/73157602/127769303-a92f233d-93a5-4842-8bfd-f4b56464a2ac.PNG)
+### Trivia Aptitude Quiz Home Page
 ![ss4](https://user-images.githubusercontent.com/73157602/127769305-d6a6343e-3516-4c74-a809-7b0880bf8810.PNG)
 ![ss5](https://user-images.githubusercontent.com/73157602/127769307-330850a1-cbf1-4548-85a3-74ef26191a15.PNG)
 ![ss6](https://user-images.githubusercontent.com/73157602/127769310-35e5add3-bc6b-4827-aa76-913b21950dee.PNG)
