@@ -18,6 +18,12 @@
 
 * Statistics for each categories such as accuracy are also tracked and displayed to users .
 
+### Design
+
+* Dark background for our app to match our app's theme and app name "Trivia Night"
+* Nav Bar at the bottom for easy navigation between Trivia Quiz,Trivia Aptitude Quiz,LeaderBoard and Profile
+
+
 
 
 
