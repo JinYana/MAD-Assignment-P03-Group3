@@ -45,7 +45,7 @@
 
 ## S10203386(Jin Yang) Contributions
 * Trivia Home Page
-* Trivia Quiz ,
+* Trivia Quiz
 * Firebase Implementation
 * Add Friends feature
 * Recieve Friend request feature
@@ -53,6 +53,7 @@
 * LeaderBoard
 * Login and Signup Validation
 * Levels feature
+* Signup
 
 
 
