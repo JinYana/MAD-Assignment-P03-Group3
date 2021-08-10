@@ -70,7 +70,7 @@
 ### Trivia Aptitude Quiz Home Page
 ![ss4](https://user-images.githubusercontent.com/73157602/127769305-d6a6343e-3516-4c74-a809-7b0880bf8810.PNG)
 ### View LeaderBoard
-![ss5](https://user-images.githubusercontent.com/73157602/127769307-330850a1-cbf1-4548-85a3-74ef26191a15.PNG)
+![ss3](https://user-images.githubusercontent.com/73157602/128851763-e321a6ae-ce4c-47e6-bebf-eee60ac3366f.PNG)
 ### View Profile
 ![ss4](https://user-images.githubusercontent.com/73157602/128851687-69cefed7-80ac-43d5-9369-7edd7f4bd025.PNG)
 ### View Achievments
