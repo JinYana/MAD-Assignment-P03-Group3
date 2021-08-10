@@ -72,7 +72,7 @@
 ### View LeaderBoard
 ![ss5](https://user-images.githubusercontent.com/73157602/127769307-330850a1-cbf1-4548-85a3-74ef26191a15.PNG)
 ### View Profile
-![ss6](https://user-images.githubusercontent.com/73157602/127769310-35e5add3-bc6b-4827-aa76-913b21950dee.PNG)
+![ss4](https://user-images.githubusercontent.com/73157602/128851687-69cefed7-80ac-43d5-9369-7edd7f4bd025.PNG)
 ### View Achievments
 ![ss7](https://user-images.githubusercontent.com/73157602/127769313-08e13988-cb6d-4a80-a9b2-af2809932816.PNG)
 
