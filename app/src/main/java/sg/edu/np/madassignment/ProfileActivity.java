@@ -189,7 +189,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if (picture.matches("")) {
                     ImageView pp = findViewById(R.id.profilepicture);
-                    pp.setImageResource(R.drawable.user);
+                    pp.setImageResource(R.mipmap.ic_launcher_round);
                 } else {
 
                     Intent i = new Intent();
