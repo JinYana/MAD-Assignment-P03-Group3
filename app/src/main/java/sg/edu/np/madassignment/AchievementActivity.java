@@ -55,7 +55,7 @@ public class AchievementActivity extends AppCompatActivity {
                     else if (quizTaken.equals(false)) {
                         achv.setText("APTITUDE!(LOCKED)");
                         //set image black if havent get achievements
-                       ImageView imageachv1 = findViewById(R.id.imageViewachv1);
+                       ImageView imageachv1 = findViewById(R.id.imageViewachv2);
                        imageachv1.setImageResource(R.drawable.lock);
 
                     }
@@ -70,7 +70,7 @@ public class AchievementActivity extends AppCompatActivity {
 
                     else if (level < 3){
                         achv1.setText("GETTING THERE!(LOCKED)");
-                        ImageView imageachv2 = findViewById(R.id.imageViewachv2);
+                        ImageView imageachv2 = findViewById(R.id.imageViewachv3);
                         imageachv2.setImageResource(R.drawable.lock);
                     }
 

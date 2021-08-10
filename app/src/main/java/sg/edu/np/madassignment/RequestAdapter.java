@@ -198,7 +198,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder> {
                         }
                     });
 
-                    newRef.child(username).child("friendslist").child(String.valueOf(position + 1)).removeValue();
+
                 }
             });
 
