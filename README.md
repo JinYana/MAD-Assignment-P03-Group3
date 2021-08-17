@@ -55,6 +55,13 @@
 * Levels feature
 * Signup
 
+## S10208124(Ahmad Syufi Mikail) Contributions
+* Splash Screen
+* Random Facts of the Day
+* Basic Achievements Achieved before Improvement
+* User Trivia Progress
+* App Logo
+* App Feature Graphics
 
 
 # Documentation
